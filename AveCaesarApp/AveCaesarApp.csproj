@@ -10,13 +10,13 @@
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Bold.ttf" />
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Regular.ttf" />
     <None Remove="Images\Background.png" />
-    <None Remove="Images\Decoration.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\LogoIcon.png" />
+    <None Remove="Images\MainWindowBackground.png" />
+    <None Remove="Images\MainWindowExit.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Decoration.png" />
     <Resource Include="Images\Logo.png" />
   </ItemGroup>
 
@@ -27,6 +27,10 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\LogoIcon.png" />
+    <Resource Include="Images\MainWindowBackground.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\MainWindowExit.png" />
   </ItemGroup>
 
 </Project>

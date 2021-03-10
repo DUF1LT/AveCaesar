@@ -27,6 +27,19 @@ namespace AveCaesarApp
             PasswordTextBox.FontWeight = FontWeights.Light;
         }
 
+        private void AuthorizationStackPanel_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Height > 300 && Height <= 600)
+            {
+                AuthorizationStackPanel.Margin = new Thickness(30, 0, 0, 0);
+            }
+            if (Height > 800 || this.WindowState == WindowState.Maximized)
+            {
+                AuthorizationStackPanel.Margin = new Thickness(60, 60, 0, 0);
+            }
+
+        }
+
         private void SubTextBox_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
 
@@ -57,7 +70,7 @@ namespace AveCaesarApp
             if (LoginTextBox.Text == "Логин")
             {
                 LoginTextBox.Text = "";
-                LoginTextBox.FontWeight = FontWeights.Bold;
+                LoginTextBox.FontWeight = FontWeights.Regular;
 
             }
         }
@@ -67,35 +80,10 @@ namespace AveCaesarApp
             if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
             {
                 LoginTextBox.Text = "Логин";
-                LoginTextBox.FontWeight = FontWeights.Light;
+                LoginTextBox.FontWeight = FontWeights.Regular;
 
             }
         }
-        #endregion
-
-        #region PasswordTextBox
-
-        private void PasswordTextBox_OnLostFocus(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(PasswordTextBox.Text))
-            {
-                PasswordTextBox.Text = "Пароль";
-                PasswordTextBox.FontWeight = FontWeights.Light;
-
-            }
-        }
-
-        private void PasswordTextBox_OnGotFocus(object sender, RoutedEventArgs e)
-        {
-            if (PasswordTextBox.Text == "Пароль")
-            {
-                PasswordTextBox.Text = "";
-                PasswordTextBox.FontWeight = FontWeights.Bold;
-
-            }
-        }
-        #endregion
-
         private void LogInButton_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Height > 300 && Height <= 600)
@@ -128,32 +116,6 @@ namespace AveCaesarApp
 
         }
 
-        private void PasswordTextBox_OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (Height > 300 && Height <= 600)
-            {
-                PasswordTextBox.FontSize = 18;
-                PasswordTextBox.MaxWidth = 350;
-                PasswordTextBoxBorder.Margin = new Thickness(60, 20, 60, 0);
-            }
-
-            if (Height > 600 && Height <= 800)
-            {
-                PasswordTextBox.MaxWidth = 450;
-                PasswordTextBox.FontSize = 20;
-                PasswordTextBoxBorder.Margin = new Thickness(70, 20, 70, 0);
-
-            }
-
-            if (Height > 800 || this.WindowState == WindowState.Maximized)
-            {
-                PasswordTextBox.FontSize = 23;
-                PasswordTextBox.MaxWidth = 600;
-                PasswordTextBoxBorder.Margin = new Thickness(160, 20, 160, 0);
-
-            }
-        }
-
         private void LoginTextBox_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Height > 300 && Height <= 600)
@@ -179,18 +141,63 @@ namespace AveCaesarApp
 
             }
         }
+        #endregion
 
-        private void AuthorizationStackPanel_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        #region PasswordTextBox
+
+        private void PasswordTextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(PasswordTextBox.Text))
+            {
+                PasswordTextBox.Text = "Пароль";
+                PasswordTextBox.FontWeight = FontWeights.Light;
+
+            }
+        }
+
+        private void PasswordTextBox_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (PasswordTextBox.Text == "Пароль")
+            {
+                PasswordTextBox.Text = "";
+                PasswordTextBox.FontWeight = FontWeights.Bold;
+
+            }
+        }
+
+        private void PasswordTextBox_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (Height > 300 && Height <= 600)
             {
-                AuthorizationStackPanel.Margin = new Thickness(30, 0, 0, 0);
+                PasswordTextBox.FontSize = 18;
+                PasswordTextBox.MaxWidth = 350;
+                PasswordTextBoxBorder.Margin = new Thickness(60, 20, 60, 0);
             }
+
+            if (Height > 600 && Height <= 800)
+            {
+                PasswordTextBox.MaxWidth = 450;
+                PasswordTextBox.FontSize = 20;
+                PasswordTextBoxBorder.Margin = new Thickness(70, 20, 70, 0);
+
+            }
+
             if (Height > 800 || this.WindowState == WindowState.Maximized)
             {
-                AuthorizationStackPanel.Margin = new Thickness(60, 60, 0, 0);
+                PasswordTextBox.FontSize = 23;
+                PasswordTextBox.MaxWidth = 600;
+                PasswordTextBoxBorder.Margin = new Thickness(160, 20, 160, 0);
+
             }
-            
+        }
+        #endregion
+
+
+        private void LogInButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow(this);
+            mw.Show();
+            this.Hide();
         }
     }
 }

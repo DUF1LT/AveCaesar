@@ -20,9 +20,17 @@ namespace AveCaesarApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private AuthorizationWindow authorizationWindow;
+        public MainWindow(AuthorizationWindow aw)
         {
             InitializeComponent();
+            authorizationWindow = aw;
+        }
+
+        private void MainWindowExitButton_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            authorizationWindow.Show();
+            Close();
         }
     }
 }
