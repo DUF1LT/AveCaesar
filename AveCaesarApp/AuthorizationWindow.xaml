@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AveCaesarApp"
         mc:Ignorable="d"
-        Title="Ave Caesar" Height="450" Width="800" MinWidth="800" MinHeight="450" Icon="/Images/LogoIcon.png">
+        Title="Ave Caesar" Height="450" Width="800" MinWidth="800" MinHeight="480" Icon="/Images/LogoIcon.png"  FontFamily="Source Serif Pro">
     <Window.Background>
         <ImageBrush ImageSource="Images/Background.png"></ImageBrush>
     </Window.Background>
@@ -30,5 +30,21 @@
             <Run FontWeight="Bold">правильного питания </Run>
             <Run>в Беларуси</Run>
         </TextBlock>
+        <StackPanel x:Name="AuthorizationStackPanel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="30,0,0,0" SizeChanged="AuthorizationStackPanel_OnSizeChanged">
+            <TextBlock x:Name="LogInLabel" FontSize="23" FontFamily="Source Serif Pro" TextAlignment="Center" Foreground="#FF024300" FontWeight="Bold">Вход в систему</TextBlock>
+            <Border x:Name="LoginTextBoxBorder"  BorderBrush="#FF024300" BorderThickness="0.9"  Margin="60,10,60,10" CornerRadius="10">
+                <TextBox x:Name="LoginTextBox"  ToolTip="Логин" BorderBrush="{x:Null}" Margin="5,2,5,2"
+                     BorderThickness="0" GotFocus="LoginTextBox_OnGotFocus" LostFocus="LoginTextBox_OnLostFocus"
+                      FontWeight="Regular" FontFamily="Source Serif Pro" FontSize="17" Padding="7" SizeChanged="LoginTextBox_OnSizeChanged"/>
+            </Border>
+            <Border x:Name="PasswordTextBoxBorder" BorderBrush="#FF024300" BorderThickness="0.9"  Margin="60,10,60,10" CornerRadius="10">
+                <TextBox x:Name="PasswordTextBox"  ToolTip="Логин" BorderBrush="{x:Null}" Margin="5,2,5,2"
+                         BorderThickness="0" GotFocus="PasswordTextBox_OnGotFocus" LostFocus="PasswordTextBox_OnLostFocus" 
+                         FontWeight="Regular" FontSize="17" Padding="7" SizeChanged="PasswordTextBox_OnSizeChanged"/>
+            </Border>
+            <Border x:Name="LogInButtonBorder" Background="#FF024300" Margin="110,10,110,0" Padding="0,5,0,5" CornerRadius="13" Cursor="Hand">
+                <Button x:Name="LogInButton" BorderBrush="{x:Null}" Foreground="#FFF7FFF3" Background="{x:Null}" FontSize="18" IsHitTestVisible="False" SizeChanged="LogInButton_OnSizeChanged">Войти</Button>
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>

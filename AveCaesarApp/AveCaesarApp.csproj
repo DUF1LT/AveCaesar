@@ -10,11 +10,13 @@
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Bold.ttf" />
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Regular.ttf" />
     <None Remove="Images\Background.png" />
+    <None Remove="Images\Decoration.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\LogoIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Decoration.png" />
     <Resource Include="Images\Logo.png" />
   </ItemGroup>
 
