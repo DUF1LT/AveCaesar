@@ -10,10 +10,23 @@
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Bold.ttf" />
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Regular.ttf" />
     <None Remove="Images\Background.png" />
+    <None Remove="Images\close.png" />
+    <None Remove="Images\DishesIconButton.png" />
+    <None Remove="Images\FullLogo.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\LogoIcon.png" />
     <None Remove="Images\MainWindowBackground.png" />
     <None Remove="Images\MainWindowExit.png" />
+    <None Remove="Images\OrdersIconButton.png" />
+    <None Remove="Images\ProductsIconButton.png" />
+    <None Remove="Images\redcross.png" />
+    <None Remove="Images\WhiteLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\DishesIconButton.png" />
+    <Resource Include="Images\FullLogo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +44,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\MainWindowExit.png" />
+    <Resource Include="Images\OrdersIconButton.png" />
+    <Resource Include="Images\ProductsIconButton.png" />
+    <Resource Include="Images\WhiteLogo.png" />
   </ItemGroup>
 
 </Project>

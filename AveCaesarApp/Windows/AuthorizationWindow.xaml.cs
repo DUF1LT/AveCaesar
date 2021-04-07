@@ -80,7 +80,7 @@ namespace AveCaesarApp
             if (string.IsNullOrWhiteSpace(LoginTextBox.Text))
             {
                 LoginTextBox.Text = "Логин";
-                LoginTextBox.FontWeight = FontWeights.Regular;
+                LoginTextBox.FontWeight = FontWeights.Light;
 
             }
         }
@@ -160,7 +160,7 @@ namespace AveCaesarApp
             if (PasswordTextBox.Text == "Пароль")
             {
                 PasswordTextBox.Text = "";
-                PasswordTextBox.FontWeight = FontWeights.Bold;
+                PasswordTextBox.FontWeight = FontWeights.Regular;
 
             }
         }
@@ -197,7 +197,17 @@ namespace AveCaesarApp
         {
             MainWindow mw = new MainWindow(this);
             mw.Show();
-            this.Hide();
+            Hide();
+        }
+
+        private void AuthorizationWindow_OnClosed(object? sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void CloseButton_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+           Application.Current.Shutdown();
         }
     }
 }

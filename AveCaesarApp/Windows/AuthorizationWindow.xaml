@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AveCaesarApp"
         mc:Ignorable="d"
-        Title="Ave Caesar" Height="450" Width="800" MinWidth="800" MinHeight="480" Icon="/Images/LogoIcon.png"  FontFamily="Source Serif Pro">
+        Title="Ave Caesar" Height="450" Width="800" MinWidth="800" MinHeight="480" Icon="../Images/LogoIcon.png" 
+        FontFamily="Source Serif Pro" ResizeMode="NoResize" WindowState="Normal"  Closed="AuthorizationWindow_OnClosed" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Background>
-        <ImageBrush ImageSource="Images/Background.png"></ImageBrush>
+        <ImageBrush ImageSource="../Images/Background.png"></ImageBrush>
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +23,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="Images/Logo.png" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,20,10,20"></Image>
+        <Image Source="../Images/Logo.png" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,20,10,20"></Image>
+        <Image x:Name="CloseButton" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" Source="../Images/close.png" 
+               Margin="100,10,10,100" MouseDown="CloseButton_OnMouseDown" Cursor="Hand"></Image>
         <TextBlock x:Name="SubTextBox" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FFF7FFF3" Grid.ColumnSpan="2"
                    Grid.Column="0" Grid.Row="2" FontFamily="Source Serif Pro" MaxWidth="350" FontSize="20"
                    SizeChanged="SubTextBox_OnSizeChanged">
@@ -35,12 +38,12 @@
             <Border x:Name="LoginTextBoxBorder"  BorderBrush="#FF024300" BorderThickness="0.9"  Margin="60,10,60,10" CornerRadius="10">
                 <TextBox x:Name="LoginTextBox"  ToolTip="Логин" BorderBrush="{x:Null}" Margin="5,2,5,2"
                      BorderThickness="0" GotFocus="LoginTextBox_OnGotFocus" LostFocus="LoginTextBox_OnLostFocus"
-                      FontWeight="Regular" FontFamily="Source Serif Pro" FontSize="17" Padding="7" SizeChanged="LoginTextBox_OnSizeChanged"/>
+                      FontWeight="Regular" FontFamily="Source Serif Pro" FontSize="17" Padding="7" />
             </Border>
             <Border x:Name="PasswordTextBoxBorder" BorderBrush="#FF024300" BorderThickness="0.9"  Margin="60,10,60,10" CornerRadius="10">
                 <TextBox x:Name="PasswordTextBox"  ToolTip="Пароль" BorderBrush="{x:Null}" Margin="5,2,5,2"
                          BorderThickness="0" GotFocus="PasswordTextBox_OnGotFocus" LostFocus="PasswordTextBox_OnLostFocus" 
-                         FontWeight="Regular" FontSize="17" Padding="7" SizeChanged="PasswordTextBox_OnSizeChanged"/>
+                         FontWeight="Regular" FontSize="17" Padding="7" />
             </Border>
             <Border x:Name="LogInButtonBorder" Background="#FF024300" Margin="110,10,110,0" Padding="0,5,0,5" CornerRadius="13" Cursor="Hand">
                 <Button x:Name="LogInButton" BorderBrush="{x:Null}" Foreground="#FFF7FFF3" Background="{x:Null}"

@@ -1,0 +1,68 @@
+﻿<Window x:Class="AveCaesarApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AveCaesarApp"
+        mc:Ignorable="d"
+        Title="Ave Caesar" Height="450" Width="800" MinWidth="800" MinHeight="480" Icon="/Images/LogoIcon.png" FontFamily="Comfortaa" FontSize="25" 
+        FontWeight="Bold" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" WindowStyle="None" ResizeMode="NoResize" WindowState="Normal">
+    <Window.Background>
+        <ImageBrush ImageSource="../Images/MainWindowBackground.png"></ImageBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="MainWindowExitButton" Source="../Images/MainWindowExit.png" Grid.Row="0" Grid.Column="0"  
+               Margin="30,12,0,12" HorizontalAlignment="Left" MouseDown="MainWindowExitButton_OnMouseDown" Cursor="Hand"></Image>
+        <Image x:Name="CloseButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Source="../Images/close.png" 
+               Margin="10,10,20,10" MouseDown="CloseButton_OnMouseDown" Cursor="Hand"></Image>
+        <Image Source="../Images/FullLogo.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform Y="-20"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Border x:Name="ProductsButtonBorder"  Grid.Column="0" Grid.Row="2" BorderThickness="2" 
+                CornerRadius="40" Margin="35,0,30,30" BorderBrush="#FF024300" MouseDown="ProductsButtonBorder_OnMouseDown" 
+                Cursor="Hand">
+            <Border.Background>
+                <SolidColorBrush Color="White" Opacity="0.44"/>
+            </Border.Background>
+            <StackPanel>
+                <Image Source="../Images/ProductsIconButton.png" Margin="50,35,50,20"></Image>
+                <TextBlock HorizontalAlignment="Center">Продукты</TextBlock>
+            </StackPanel>
+        </Border>
+        <Border x:Name="DishesButtonBorder"  Grid.Column="1" Grid.Row="2" BorderThickness="2" CornerRadius="40" 
+                Margin="35,0,30,30" BorderBrush="#FF024300">
+            <Border.Background>
+                <SolidColorBrush Color="White" Opacity="0.44"/>
+            </Border.Background>
+            <StackPanel>
+                <Image Source="../Images/DishesIconButton.png"  Margin="50,35,50,20"></Image>
+                <TextBlock  HorizontalAlignment="Center" >Блюда</TextBlock>
+            </StackPanel>
+        </Border>
+        <Border x:Name="OrdersButtonBorder" Grid.Column="2" Grid.Row="2" BorderThickness="2" CornerRadius="40"
+                Margin="35,0,30,30" BorderBrush="#FF024300">
+            <Border.Background>
+                <SolidColorBrush Color="White" Opacity="0.44"/>
+            </Border.Background>
+            <StackPanel HorizontalAlignment="Center">
+                <Image Source="../Images/OrdersIconButton.png" Margin="50,35,50,20" Stretch="Uniform"></Image>
+                <TextBlock  HorizontalAlignment="Center" >Заказы</TextBlock>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
