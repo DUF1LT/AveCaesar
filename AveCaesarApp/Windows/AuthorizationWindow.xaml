@@ -45,10 +45,21 @@
                          BorderThickness="0" GotFocus="PasswordTextBox_OnGotFocus" LostFocus="PasswordTextBox_OnLostFocus" 
                          FontWeight="Regular" FontSize="17" Padding="7" />
             </Border>
-            <Border x:Name="LogInButtonBorder" Background="#FF024300" Margin="110,10,110,0" Padding="0,5,0,5" CornerRadius="13" Cursor="Hand">
                 <Button x:Name="LogInButton" BorderBrush="{x:Null}" Foreground="#FFF7FFF3" Background="{x:Null}"
-                        FontSize="18"  SizeChanged="LogInButton_OnSizeChanged" Click="LogInButton_OnClick">Войти</Button>
-            </Border>
+                        FontSize="18" Click="LogInButton_OnClick" Content="Войти">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border x:Name="LogInButtonBorder" Background="#FF024300" 
+                                    Margin="110,10,110,0" Padding="0,5,0,5" CornerRadius="13" 
+                                    Cursor="Hand">
+                            <ContentPresenter Content="Войти" 
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" Margin="3">
+                            </ContentPresenter>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -5,45 +5,61 @@ using System.Windows.Navigation;
 
 namespace AveCaesarApp.Classes
 {
-    class Product
+    public enum WeightType
     {
-        private string name;
-        private int calories;
-        private int price;
-        private int amount;
+        Kilograms, Liters
+    }
+    public class Product
+    {
+        private int _id;
+        private string _name;
+        private int _calories;
+        private int _price;
+        private int _amount;
+        private WeightType _weightType;
 
+        public Product(int id, string name, int calories, int price, int amount)
+        {
+            this._id = id;
+            this._name = name;
+            this._calories = calories;
+            this._price = price;
+            this._amount = amount;
+        }
+        public int ID
+        {
+            get => _id;
+            set => _id = value;
+        }
         public string Name
         {
-            get => name;
-            set => name = value;
+            get => _name;
+            set => _name = value;
         }
         public int Calories
         {
-            get => calories;
-            set => calories = value;
+            get => _calories;
+            set => _calories = value;
         }
+
+        public string CaloriesToString => Calories + " ккал";
+
         public int Price
         {
-            get => price;
-            set => price = value;
+            get => _price;
+            set => _price = value;
         }
         public int Amount
         {
-            get => amount;
-            set => amount = value;
+            get => _amount;
+            set => _amount = value;
         }
 
-        public Product(string name, int calories, int price, int amount)
-        {
-            this.name = name;
-            this.calories = calories;
-            this.price = price;
-            this.amount = amount;
-        }
+        
 
-        public override string ToString()
-        {
-            return Name + " " + Calories + " " + Price + " " + Amount;
-        }
+        //public override string ToString()
+        //{
+        //    return ID + " " + Name + " " + Calories + " " + Price + " " + Amount;
+        //}
     }
 }

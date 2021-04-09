@@ -19,26 +19,47 @@ namespace AveCaesarApp
     /// </summary>
     public partial class ProductsWindow : Window
     {
-        private MainWindow mainWindow;
-        private BindingList<Product> productsList = new BindingList<Product>();
+        private MainWindow _mainWindow;
+        private List<Product> _productsList;
         public ProductsWindow(MainWindow mainWindow)
         {
             InitializeComponent();
-            this.mainWindow = mainWindow;
-            productsList.Add(new Product("Помидор",25,10,10));
-            ProductsDataGrid.ItemsSource = productsList;
+
+
+            this._mainWindow = mainWindow;
+
+            _productsList = new List<Product>();
+
+            _productsList.Add(new Product(1,"Помидор",25,10,10));
+            _productsList.Add(new Product(2,"Помидор", 25, 10, 10));
+            _productsList.Add(new Product(1, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(2, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(1, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(2, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(1, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(2, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(1, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(2, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(1, "Помидор", 25, 10, 10));
+            _productsList.Add(new Product(2, "Помидор", 25, 10, 10));
+
+        }
+
+        public List<Product> ProductsList
+        {
+            get => _productsList;
         }
 
         private void Logo_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            mainWindow.Show();
+            _mainWindow.Show();
             Close();
         }
 
 
         private void ProductsWindow_OnClosed(object? sender, EventArgs e)
         {
-            mainWindow.Show();
+            _mainWindow.Show();
         }
     }
 }

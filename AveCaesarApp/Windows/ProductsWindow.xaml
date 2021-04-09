@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AveCaesarApp"
+        xmlns:classes="clr-namespace:AveCaesarApp.Classes"
+        d:DataContext="{d:DesignInstance {x:Type local:ProductsWindow}}"
         mc:Ignorable="d"
         Title="ProductsWindow" Height="450" Width="800" FontFamily="Source Serif Pro" Background="#FF024300" WindowStartupLocation="CenterScreen"
-        Closed="ProductsWindow_OnClosed" WindowStyle="None">
+        Closed="ProductsWindow_OnClosed" WindowStyle="None" ResizeMode="NoResize" >
     <Window.Resources>
         <DataTemplate x:Key="UnselectedTabItemForeground">
             <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
@@ -28,8 +30,12 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl FlowDirection="RightToLeft" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="6">
+        <TabControl FlowDirection="RightToLeft" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="6">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
@@ -47,7 +53,6 @@
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="Border" Property="Background" Value="White"/>
                                         <Setter TargetName="ContentSite" Property="ContentTemplate" Value="{StaticResource SelectedTabItemForeground}"/>
-
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="False">
                                         <Setter TargetName="Border" Property="Background" Value="#FF024300"/>
@@ -60,41 +65,100 @@
                 </Style>
             </TabControl.Resources>
             <TabItem Height="50" Header="Для закупки">
-               
+
             </TabItem>
-            <TabItem Height="50" Header="На складе" IsSelected="True">
-                <DataGrid x:Name="ProductsDataGrid" Margin="0,25,0,0" FlowDirection="LeftToRight"
-                          VerticalScrollBarVisibility="Auto"
-                          CanUserResizeColumns="False" 
-                          AutoGenerateColumns="False" >
-                    <DataGrid.Resources>
-                        <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type DataGridRow}">
-                                        <Border Name="Border" CornerRadius="10" BorderThickness="2" BorderBrush="#FF024300" Padding="10">
-                                            <ContentPresenter x:Name="ContentDataGrid"
+            <TabItem Height="50" Header="На складе" IsSelected="True" >
+                <Grid FlowDirection="LeftToRight">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!--<DataGrid x:Name="ProductsDataGrid" Margin="80,25,80,0"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="5"  FlowDirection="LeftToRight"
+                              VerticalScrollBarVisibility="Auto"
+                              CanUserResizeColumns="False" 
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Background="White" BorderThickness="0">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                            <Border Name="Border" CornerRadius="10" BorderThickness="2" BorderBrush="#FF024300" Padding="10" Margin="0,0,0,15">
+                                                <ContentPresenter x:Name="ContentDataGrid"
                                                               VerticalAlignment="Center"
                                                               HorizontalAlignment="Center"
-                                                              ContentSource="Item"/>
+                                                              Content="{Binding }"
+                                                              Margin="20,0,20,0" 
+                                                              TextBlock.FontSize="15" >
+                                                    <ContentPresenter.ContentTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding}" ></TextBlock>
+                                                        </DataTemplate>
+                                                    </ContentPresenter.ContentTemplate>
+                                                </ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <Style TargetType="ScrollBar">
+                                <Setter Property="Margin" Value="5"></Setter>
+                            </Style>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                            <Border Name="BorderColumnHeader" BorderThickness="0" >
+                                                <ContentPresenter x:Name="ContentDataGridColumn"
+                                                              VerticalAlignment="Center"
+                                                              ContentSource="Content"
+                                                              Margin="10,0,10,10"
+                                                              TextBlock.FontSize="15"
+                                                              TextBlock.FontWeight="SemiBold" />
 
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.Resources>
-                   
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path = Name}" Header="Name" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Path = Calories}" Header="Calories"  Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Path = Price}" Header="Price"  Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Path = Amount}" Header="Amount"  Width="*"/>
-                        <DataGridTextColumn Header="Edit"  Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path = ID}" Header="#" Width="0.25*"/>
+                            <DataGridTextColumn Binding="{Binding Path = Name}"  Header="Название" Width="0.5*"/>
+                            <DataGridTextColumn Binding="{Binding Path = CaloriesToString}" Header="Калорийность"  Width="0.6*"/>
+                            <DataGridTextColumn Binding="{Binding Path = Price}" Header="Цена"  Width="0.4*"/>
+                            <DataGridTextColumn Binding="{Binding Path = Amount}" Header="Кол-во"  Width="0.3*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>-->
+                    
+                    <DataGrid x:Name="ItemsControl"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                                  ItemsSource="{Binding  ProductsList}" AutoGenerateColumns="True">
+                        <!--<ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Price}">
+                                </TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>-->
+                    </DataGrid>
+                    <Image Source="../Images/AddElementIcon.png" Grid.Row="1" Grid.Column="5" Margin="20" HorizontalAlignment="Right"/>
+                    <Image Source="../Images/DeleteElementIcon.png" Grid.Row="2" Grid.Column="5" Margin="20" HorizontalAlignment="Right"/>
+                    <Image Source="../Images/EditIcon.png" Grid.Row="3" Grid.Column="5" Margin="20" HorizontalAlignment="Right"/>
+
+                </Grid>
             </TabItem>
         </TabControl>
-        <Image Grid.Row="0" Grid.Column="0" x:Name="Logo" Source="../Images/WhiteLogo.png" MouseDown="Logo_OnMouseDown" Cursor="Hand"></Image>
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,0,-30,0" x:Name="Logo" Source="../Images/WhiteLogo.png" MouseDown="Logo_OnMouseDown" Cursor="Hand"></Image>
     </Grid>
 </Window>
