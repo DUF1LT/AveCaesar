@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AveCaesarApp.Windows;
 
 namespace AveCaesarApp
 {
@@ -21,6 +22,7 @@ namespace AveCaesarApp
     public partial class MainWindow : Window
     {
         private AuthorizationWindow authorizationWindow;
+        private ProductsWindow productsWindow;
         public MainWindow(AuthorizationWindow aw)
         {
             InitializeComponent();
@@ -31,6 +33,19 @@ namespace AveCaesarApp
         {
             authorizationWindow.Show();
             Close();
+        }
+
+        private void ProductsButtonBorder_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            productsWindow = new ProductsWindow(this);
+            productsWindow.Show();
+            Hide();
+            
+        }
+
+        private void CloseButton_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
