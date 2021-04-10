@@ -7,7 +7,7 @@ namespace AveCaesarApp.Classes
 {
     public enum WeightType
     {
-        Kilograms, Liters
+        кг, л
     }
     public class Product
     {
@@ -18,19 +18,25 @@ namespace AveCaesarApp.Classes
         private int _amount;
         private WeightType _weightType;
 
-        public Product(int id, string name, int calories, int price, int amount)
+        public Product(int id, string name, int calories, int price, int amount, string weightType)
         {
-            this._id = id;
-            this._name = name;
-            this._calories = calories;
-            this._price = price;
-            this._amount = amount;
+           _id = id;
+           _name = name;
+           _calories = calories;
+           _price = price;
+           _amount = amount;
+           if (weightType == "кг")
+               _weightType = WeightType.кг;
+           else if (weightType == "л")
+               _weightType = WeightType.л;
         }
         public int ID
         {
             get => _id;
             set => _id = value;
         }
+
+        public string IDToString => "#" + ID;
         public string Name
         {
             get => _name;
@@ -49,13 +55,17 @@ namespace AveCaesarApp.Classes
             get => _price;
             set => _price = value;
         }
+
+        public string PriceToString => Price + " руб/" + _weightType;
         public int Amount
         {
             get => _amount;
             set => _amount = value;
         }
 
-        
+        public string AmountToString => Amount + " " + _weightType;
+
+
 
         //public override string ToString()
         //{

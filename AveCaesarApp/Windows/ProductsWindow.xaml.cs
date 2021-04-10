@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using AveCaesarApp.Classes;
 
@@ -19,20 +21,18 @@ namespace AveCaesarApp.Windows
 
             this._mainWindow = mainWindow;
 
-            ProductsList = new List<Product>
+            ProductsList = new BindingList<Product>()
             {
-                new Product(1, "Помидор", 25, 10, 10),
-                new Product(2, "Помидор", 25, 10, 10),
-                new Product(1, "Помидор", 25, 10, 10),
-                new Product(2, "Помидор", 25, 10, 10),
-                new Product(1, "Помидор", 25, 10, 10),
-                new Product(2, "Помидор", 25, 10, 10),
-                new Product(1, "Помидор", 25, 10, 10),
-                new Product(2, "Помидор", 25, 10, 10),
-                new Product(1, "Помидор", 25, 10, 10),
-                new Product(2, "Помидор", 25, 10, 10),
-                new Product(1, "Помидор", 25, 10, 10),
-                new Product(2, "Помидор", 25, 10, 10)
+                new Product(1, "Помидор", 25, 10, 10, "кг"),
+                new Product(2, "Помидор", 25, 10, 10, "кг"),
+                new Product(3, "Масло", 25, 10, 10, "л" ),
+                new Product(2, "Помидор", 25, 10, 10, "кг"),
+                new Product(1, "Помидор", 25, 10, 10, "кг"),
+                new Product(2, "Помидор", 25, 10, 10, "кг"),
+                new Product(2, "Помидор", 25, 10, 10, "кг"),
+                new Product(2, "Помидор", 25, 10, 10, "кг"),
+
+
             };
 
             DataContext = this;

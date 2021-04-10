@@ -17,6 +17,15 @@
         <DataTemplate x:Key="SelectedTabItemForeground">
             <TextBlock Foreground="Black" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
         </DataTemplate>
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ProductsItemTextBlock">
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -77,8 +86,13 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -143,22 +157,47 @@
                             <DataGridTextColumn Binding="{Binding Path = Amount}" Header="Кол-во"  Width="0.3*"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    
-                    <ItemsControl x:Name="ItemsControl"  Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" 
-                                  ItemsSource="{Binding Path=ProductsList}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontStyle="Italic" Text="{Binding Name}"/>
-                                    <TextBlock Text="{Binding Price}"/>
-                                    <TextBlock Text="{Binding Amount}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <Image Source="../Images/AddElementIcon.png" Grid.Row="1" Grid.Column="5" Margin="20" HorizontalAlignment="Right"/>
-                    <Image Source="../Images/DeleteElementIcon.png" Grid.Row="2" Grid.Column="5" Margin="20" HorizontalAlignment="Right"/>
-                    <Image Source="../Images/EditIcon.png" Grid.Row="3" Grid.Column="5" Margin="20" HorizontalAlignment="Right"/>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="#" Margin="0,0,30,0"  Style="{StaticResource LabelStyle}"/>
+                        <Label Content="Название" Margin="20,0,20,0" Style="{StaticResource LabelStyle}"/>
+                        <Label Content="Калорийность" Margin="30,0,10,0" Style="{StaticResource LabelStyle}"/>
+                        <Label Content="Цена" Margin="50,0,30,0" Style="{StaticResource LabelStyle}"/>
+                        <Label Content="Кол-во" Margin="20,0,10,0" Style="{StaticResource LabelStyle}"/>
+                    </StackPanel>
+                    <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="ItemsList"  ItemsSource="{Binding Path=ProductsList}" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" Margin="0,0,0,10" Padding="10">
+                                        <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                            <TextBlock Text="{Binding ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Text="{Binding CaloriesToString}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Text="{Binding Price}" Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Text="{Binding Amount}" Style="{StaticResource ProductsItemTextBlock}"/>
+                                        </StackPanel>-->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.4*"/>
+                                                <ColumnDefinition Width="1.4*"/>
+                                                <ColumnDefinition Width="1.6*"/>
+                                                <ColumnDefinition Width="0.9*"/>
+                                                <ColumnDefinition Width="0.9*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding IDToString}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding CaloriesToString}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Text="{Binding PriceToString}" Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding AmountToString}" Style="{StaticResource ProductsItemTextBlock}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Image Source="../Images/AddElementIcon.png" Grid.Row="2" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
+                    <Image Source="../Images/DeleteElementIcon.png" Grid.Row="3" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
+                    <Image Source="../Images/EditIcon.png" Grid.Row="4" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
 
                 </Grid>
             </TabItem>
