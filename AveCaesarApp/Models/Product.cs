@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Navigation;
-
-namespace AveCaesarApp.Classes
+﻿namespace AveCaesarApp.Models
 {
     public enum WeightType
     {

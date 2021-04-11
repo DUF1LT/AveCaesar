@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using AveCaesarApp.Classes;
+using AveCaesarApp.Models;
 
-namespace AveCaesarApp.Windows
+namespace AveCaesarApp.Views
 {
     /// <summary>
     /// Interaction logic for ProductsWindow.xaml
