@@ -14,6 +14,13 @@ namespace AveCaesarApp
     /// </summary>
     public partial class App : Application
     {
-        
+        public App()
+        {
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                if (MessageBox.Show((args.ExceptionObject as Exception).Message) == MessageBoxResult.OK)
+                    App.Current.Shutdown();
+            };
+        }
     }
 }

@@ -31,7 +31,6 @@
             set => _id = value;
         }
 
-        public string IDToString => "#" + ID;
         public string Name
         {
             get => _name;
@@ -43,24 +42,24 @@
             set => _calories = value;
         }
 
-        public string CaloriesToString => Calories + " ккал";
-
         public int Price
         {
             get => _price;
             set => _price = value;
         }
 
-        public string PriceToString => Price + " руб/" + _weightType;
         public int Amount
         {
             get => _amount;
             set => _amount = value;
         }
 
-        public string AmountToString => Amount + " " + _weightType;
 
-
+        public WeightType WeightType
+        {
+            get => _weightType;
+            set => _weightType = value;
+        }
 
         //public override string ToString()
         //{

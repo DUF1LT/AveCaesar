@@ -25,6 +25,17 @@
         <Style TargetType="TextBlock" x:Key="ProductsItemTextBlock">
             <Setter Property="FontSize" Value="16"></Setter>
         </Style>
+        <Style x:Key="SelectedItem" TargetType="ListViewItem" >
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="BorderBrush" Value="Red"></Setter>
+                    <Setter Property="BorderThickness" Value="20"></Setter>
+                    <Setter Property="Margin" Value="50"></Setter>
+                    <Setter Property="Background" Value="Red"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -156,25 +167,17 @@
                             <DataGridTextColumn Binding="{Binding Path = Amount}" Header="Кол-во"  Width="0.3*"/>
                         </DataGrid.Columns>
                     </DataGrid>-->
-                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="#" Margin="0,0,30,0"  Style="{StaticResource LabelStyle}"/>
-                        <Label Content="Название" Margin="20,0,20,0" Style="{StaticResource LabelStyle}"/>
-                        <Label Content="Калорийность" Margin="30,0,10,0" Style="{StaticResource LabelStyle}"/>
-                        <Label Content="Цена" Margin="50,0,30,0" Style="{StaticResource LabelStyle}"/>
-                        <Label Content="Кол-во" Margin="20,0,10,0" Style="{StaticResource LabelStyle}"/>
-                    </StackPanel>
+                    <Label Content="#" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="25,0" Style="{StaticResource LabelStyle}"/>
+                    <Label Grid.Column="2" Grid.Row="0"   Content="Название"  Style="{StaticResource LabelStyle}"/>
+                    <Label Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Content="Калорийность" Style="{StaticResource LabelStyle}"/>
+                    <Label Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" Content="Цена"  Style="{StaticResource LabelStyle}"/>
+                    <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во" Margin="45,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
                     <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl x:Name="ItemsList"  ItemsSource="{Binding Path=ProductsList}" >
-                            <ItemsControl.ItemTemplate>
+                        <!--<ItemsControl x:Name="Items"  ItemsSource="{Binding Path=ProductsList}" >
+                            <ItemsControl.ItemTemplate >
                                 <DataTemplate>
-                                    <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" Margin="0,0,0,10" Padding="10">
-                                        <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                            <TextBlock Text="{Binding ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Text="{Binding CaloriesToString}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Text="{Binding Price}" Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Text="{Binding Amount}" Style="{StaticResource ProductsItemTextBlock}"/>
-                                        </StackPanel>-->
+                                    <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
+                                             Padding="10" Margin="0,0,0,10" >
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0.4*"/>
@@ -183,16 +186,114 @@
                                                 <ColumnDefinition Width="0.9*"/>
                                                 <ColumnDefinition Width="0.9*"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding IDToString}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
                                             <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding CaloriesToString}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Text="{Binding PriceToString}" Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding AmountToString}" Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource ProductsItemTextBlock}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} руб/{1}">
+                                                        <Binding Path="Price" />
+                                                        <Binding Path="WeightType" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1}">
+                                                        <Binding Path="Amount" />
+                                                        <Binding Path="WeightType" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                         </Grid>
                                     </Border>
+                                    
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        </ItemsControl>-->
+                        <ListView x:Name="ItemsList" ItemsSource="{Binding Path=ProductsList}" BorderThickness="0" HorizontalContentAlignment="Stretch">
+                            <!--<ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="BorderThickness" Value="2"/>
+                                    <Setter Property="BorderBrush" Value="#FF024300"/>
+                                    <Setter Property="Padding" Value="10"/>
+                                    <Setter Property="Margin" Value="0,5"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem"></ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="BorderThickness" Value="3"></Setter>
+                                            <Setter Property="BorderBrush" Value="DarkGreen"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                                </ListView.ItemContainerStyle>-->
+                                <!--<ListView.Resources>
+                                <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem">
+                                    <Border SnapsToDevicePixels="true" 
+                                            BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="2" 
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="10" x:Name="border">
+                                        <ContentControl 
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                            Margin="2,2,2,2" 
+                                            VerticalAlignment="Stretch"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                    </Border>
+                                </ControlTemplate>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template" Value="{Binding}"></Setter>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="true" />
+                                                <Condition Property="Selector.IsSelectionActive" Value="true" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" Value="DarkGreen" />
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.Resources>-->
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
+                                            Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch">
+                                        <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.4*"/>
+                                            <ColumnDefinition Width="1.4*"/>
+                                            <ColumnDefinition Width="1.6*"/>
+                                            <ColumnDefinition Width="0.9*"/>
+                                            <ColumnDefinition Width="0.9*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                        <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource ProductsItemTextBlock}">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} руб/{1}">
+                                                    <Binding Path="Price" />
+                                                    <Binding Path="WeightType" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="Amount" />
+                                                    <Binding Path="WeightType" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </ScrollViewer>
                     <Image Source="../Images/AddElementIcon.png" Grid.Row="2" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
                     <Image Source="../Images/DeleteElementIcon.png" Grid.Row="3" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
