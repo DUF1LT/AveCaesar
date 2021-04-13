@@ -5,6 +5,6 @@
              StartupUri="Views/AuthorizationWindow.xaml"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Resources/ProductsViewResources.xaml"/>
     </Application.Resources>
 </Application>
