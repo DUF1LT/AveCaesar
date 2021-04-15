@@ -3,44 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
 namespace AveCaesarApp.ViewModels
 {
     class ApplicationViewModel : ViewModel
     {
-        private ICommand _changeViewCommand;
-        private ViewModel _currentViewModel;
-        private List<ViewModel> _viewModels;
+        private readonly NavigationStore _navigationStore;
+        private string _title = "Ave Caesar";
+        private ImageSource _windowIcon = new BitmapImage(new Uri(@"pack://application:,,,/Images/LogoIcon.png"));
 
-        public ApplicationViewModel()
+        public ApplicationViewModel(NavigationStore navigationStore)
         {
-            
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
-        public List<ViewModel> ViewModels
+
+        public ViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
+
+        public string Title
         {
-            get
-            {
-                if (_viewModels == null)
-                    _viewModels = new List<ViewModel>();
-                return _viewModels; 
-            }
+            get => _title;
+            set => Set(ref _title, value);
         }
 
-        public ViewModel CurrentViewModel 
+        public ImageSource WindowIcon
         {
-            get
-            {
-                return _currentViewModel;
-            }
-            set
-            {
-                if (_currentViewModel != value)
-                    _currentViewModel = value;
-                OnPropertyChanged();
-            }
+            get => _windowIcon;
+            set => Set(ref _windowIcon, value);
         }
-    }   
+       
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+
+
+    }
 }

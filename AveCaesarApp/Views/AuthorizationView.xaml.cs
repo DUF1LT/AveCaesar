@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AveCaesarApp.ViewModels;
 
 namespace AveCaesarApp.Views
 {
     /// <summary>
-    /// Interaction logic for ApplicationView.xaml
+    /// Interaction logic for AuthorizationView.xaml
     /// </summary>
-    public partial class ApplicationView : Window
+    public partial class AuthorizationView : UserControl
     {
-        public ApplicationView()
+        public AuthorizationView()
         {
             InitializeComponent();
         }

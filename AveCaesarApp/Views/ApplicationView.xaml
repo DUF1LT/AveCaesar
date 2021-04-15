@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AveCaesarApp.Views"
+        xmlns:vm="clr-namespace:AveCaesarApp.ViewModels"
+        xmlns:views="clr-namespace:AveCaesarApp.Views"
         mc:Ignorable="d"
-        Title="ApplicationView" Height="450" Width="800">
+        Title="{Binding Title}" Icon="../Images/LogoIcon.png" Height="500" Width="810" ResizeMode="NoResize" WindowStyle="SingleBorderWindow" >
     <Grid>
-        
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

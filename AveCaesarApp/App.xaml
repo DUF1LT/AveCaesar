@@ -1,10 +1,26 @@
 ﻿<Application x:Class="AveCaesarApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:AveCaesarApp"
-             StartupUri="Views/AuthorizationWindow.xaml"
+             xmlns:vm="clr-namespace:AveCaesarApp.ViewModels"
+             xmlns:views="clr-namespace:AveCaesarApp.Views"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
-        <ResourceDictionary Source="Resources/ProductsViewResources.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary  Source="Resources/ProductsViewResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type vm:AuthorizationViewModel}">
+                <views:AuthorizationView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ProductsViewModel}">
+                <views:ProductsView/>
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
+
+
 </Application>

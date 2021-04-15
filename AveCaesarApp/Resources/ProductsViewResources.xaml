@@ -3,9 +3,11 @@
     <DataTemplate x:Key="UnselectedTabItemForeground">
         <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
     </DataTemplate>
+
     <DataTemplate x:Key="SelectedTabItemForeground">
         <TextBlock Foreground="Black" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
     </DataTemplate>
+
     <Style TargetType="Label" x:Key="LabelStyle">
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
@@ -15,17 +17,6 @@
     <Style TargetType="TextBlock" x:Key="ProductsItemTextBlock">
         <Setter Property="FontSize" Value="16"></Setter>
     </Style>
-    <Style x:Key="SelectedItem" TargetType="ListViewItem" >
-        <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="BorderBrush" Value="Red"></Setter>
-                <Setter Property="BorderThickness" Value="20"></Setter>
-                <Setter Property="Margin" Value="50"></Setter>
-                <Setter Property="Background" Value="Red"></Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
 
     <ControlTemplate x:Key="DefaultTemplate" TargetType="ListViewItem" >
         <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
