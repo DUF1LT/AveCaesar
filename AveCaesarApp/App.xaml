@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary  Source="Resources/ProductsViewResources.xaml"/>
+                <ResourceDictionary Source="Resources/DishViewResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vm:AuthorizationViewModel}">
@@ -21,6 +22,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:ProductViewModel}">
                 <views:ProductView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DishesViewModel}">
+                <views:DishesView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

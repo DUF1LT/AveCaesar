@@ -12,10 +12,7 @@ namespace AveCaesarApp.ViewModels
 {
     class HomeViewModel : ViewModel
     {
-        public ICommand NavigateToProductCommand { get; }
-        public ICommand NavigateToAuthorizationCommand { get; }
-
-
+        
         public HomeViewModel(NavigationStore navigationStore)
         {
             NavigateToProductCommand =
@@ -23,6 +20,14 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToAuthorizationCommand = new NavigateCommand<AuthorizationViewModel>(navigationStore,
                 () => new AuthorizationViewModel(navigationStore));
+
+            NavigateToDishesCommand = new NavigateCommand<DishesViewModel>(navigationStore,
+                () => new DishesViewModel(navigationStore));
         }
+
+        public ICommand NavigateToAuthorizationCommand { get; }
+        public ICommand NavigateToProductCommand { get; }
+        public ICommand NavigateToDishesCommand { get; }
+
     }
 }

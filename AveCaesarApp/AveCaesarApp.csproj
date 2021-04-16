@@ -10,9 +10,11 @@
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Bold.ttf" />
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Regular.ttf" />
     <None Remove="Images\AddElementIcon.png" />
+    <None Remove="Images\AddElementIconWhite.png" />
     <None Remove="Images\Background.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\DeleteElementIcon.png" />
+    <None Remove="Images\DeleteElementIconWhite.png" />
     <None Remove="Images\DishesIconButton.png" />
     <None Remove="Images\EditIcon.png" />
     <None Remove="Images\FullLogo.png" />
@@ -28,8 +30,10 @@
 
   <ItemGroup>
     <Resource Include="Images\AddElementIcon.png" />
+    <Resource Include="Images\AddElementIconWhite.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\DeleteElementIcon.png" />
+    <Resource Include="Images\DeleteElementIconWhite.png" />
     <Resource Include="Images\DishesIconButton.png" />
     <Resource Include="Images\EditIcon.png" />
     <Resource Include="Images\FullLogo.png" />

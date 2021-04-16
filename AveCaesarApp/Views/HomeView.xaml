@@ -50,6 +50,9 @@
         </Border>
         <Border x:Name="DishesButtonBorder"  Grid.Column="1" Grid.Row="2" BorderThickness="2" CornerRadius="40" 
                 Margin="35,0,30,30" BorderBrush="#FF024300">
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToDishesCommand}"/>
+            </Border.InputBindings>
             <Border.Background>
                 <SolidColorBrush Color="White" Opacity="0.44"/>
             </Border.Background>
