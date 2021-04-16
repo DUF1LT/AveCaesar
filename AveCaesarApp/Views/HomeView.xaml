@@ -22,7 +22,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Image x:Name="MainWindowExitButton" Source="../Images/MainWindowExit.png" Grid.Row="0" Grid.Column="0"  
-               Margin="30,12,0,12" HorizontalAlignment="Left" Cursor="Hand"/>
+               Margin="30,12,0,12" HorizontalAlignment="Left" Cursor="Hand">
+            <Image.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAuthorizationCommand}"/>
+            </Image.InputBindings>
+        </Image>
         <Image Source="../Images/FullLogo.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
@@ -36,6 +40,9 @@
             <Border.Background>
                 <SolidColorBrush Color="White" Opacity="0.44"/>
             </Border.Background>
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToProductCommand}"></MouseBinding>
+            </Border.InputBindings>
             <StackPanel>
                 <Image Source="../Images/ProductsIconButton.png" Margin="50,35,50,20"></Image>
                 <TextBlock HorizontalAlignment="Center">Продукты</TextBlock>

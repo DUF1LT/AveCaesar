@@ -13,11 +13,16 @@ namespace AveCaesarApp.ViewModels
     class HomeViewModel : ViewModel
     {
         public ICommand NavigateToProductCommand { get; }
+        public ICommand NavigateToAuthorizationCommand { get; }
+
 
         public HomeViewModel(NavigationStore navigationStore)
         {
             NavigateToProductCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+                new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore));
+
+            NavigateToAuthorizationCommand = new NavigateCommand<AuthorizationViewModel>(navigationStore,
+                () => new AuthorizationViewModel(navigationStore));
         }
     }
 }

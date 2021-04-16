@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
 using AveCaesarApp.ViewModels.Base;
@@ -15,7 +16,6 @@ namespace AveCaesarApp.ViewModels
     class ProductsViewModel : ViewModel
     {
 
-        private ViewModel _mainWindowView;
         private IList<Product> _productsList = new BindingList<Product>()
         {
             new(1, "Помидор", 25, 10, 10, "кг"),
@@ -31,9 +31,18 @@ namespace AveCaesarApp.ViewModels
 
         private Product _selectedItems;
 
-        public ProductsViewModel()
+        public ProductsViewModel(NavigationStore navigationStore)
         {
             DeleteCommand = new DeleteSelectedProductCommand(_productsList);
+
+            NavigateToHomeCommand =
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+
+            NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
+                () => new ProductViewModel(navigationStore, _productsList, ProductType.Add));
+
+            NavigateToEditProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
+                () => new ProductViewModel(navigationStore, _productsList, ProductType.Edit));
 
         }
 
@@ -43,17 +52,17 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _selectedItems, value);
         }
 
-        public ViewModel MainWindowView
-        {
-            get => _mainWindowView;
-            set => Set(ref _mainWindowView, value);
-        }
 
         public IList<Product> ProductsList
         {
             get => _productsList;
             set => Set(ref _productsList, value);
         }
+
+
+        public ICommand NavigateToHomeCommand { get; }
+        public ICommand NavigateToAddProductCommand { get;  }
+        public ICommand NavigateToEditProductCommand { get; }
 
         public DeleteSelectedProductCommand DeleteCommand { get; }
 

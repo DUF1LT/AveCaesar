@@ -43,7 +43,7 @@
                          FontWeight="Regular" FontSize="17" Padding="7" />
             </Border>
             <Button x:Name="LogInButton" BorderBrush="{x:Null}" Foreground="#FFF7FFF3" Background="{x:Null}"
-                        FontSize="18" Content="Войти">
+                        FontSize="18" Content="Войти" Command="{Binding NavigateToHomeCommand}">
                 <Button.Template>
                     <ControlTemplate>
                         <Border x:Name="LogInButtonBorder" Background="#FF024300" 

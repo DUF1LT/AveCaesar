@@ -140,21 +140,29 @@
                         </ListView>
                     </ScrollViewer>
 
-                    <Image Source="../Images/AddElementIcon.png" Grid.Row="2" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
+                    <Image Source="../Images/AddElementIcon.png" Grid.Row="2" Grid.Column="8" Margin="10" HorizontalAlignment="Right">
+                        <Image.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"></MouseBinding>
+                        </Image.InputBindings>
+                    </Image>
                     <Image Source="../Images/DeleteElementIcon.png" Grid.Row="3" Grid.Column="8" Margin="10" HorizontalAlignment="Right" Cursor="Hand">
                         <Image.InputBindings>
                             <MouseBinding CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteCommand }"  MouseAction="LeftClick"/>
                         </Image.InputBindings>
                     </Image>
-                    <Image Source="../Images/EditIcon.png" Grid.Row="4" Grid.Column="8" Margin="10" HorizontalAlignment="Right"/>
+                    <Image Source="../Images/EditIcon.png" Grid.Row="4" Grid.Column="8" Margin="10" HorizontalAlignment="Right">
+                        <Image.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}"></MouseBinding>
+                        </Image.InputBindings>
+                    </Image>
 
                 </Grid>
             </TabItem>
         </TabControl>
         <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,0,-30,0" x:Name="Logo" Source="../Images/WhiteLogo.png" Cursor="Hand">
-            <!--<Image.InputBindings>
-                <MouseBinding Command="{Binding BackToMainWindowCommand}"></MouseBinding>
-            </Image.InputBindings>-->
+            <Image.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToHomeCommand}"></MouseBinding>
+            </Image.InputBindings>
         </Image>
     </Grid>
 </UserControl>

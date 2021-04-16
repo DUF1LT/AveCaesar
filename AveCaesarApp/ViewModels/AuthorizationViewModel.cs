@@ -12,11 +12,11 @@ namespace AveCaesarApp.ViewModels
 {
     class AuthorizationViewModel : ViewModel
     {
-        public ICommand NavigateCommand { get; }
+        public ICommand NavigateToHomeCommand { get; }
 
         public AuthorizationViewModel(NavigationStore navigationStore)
         {
-            NavigateCommand =
+            NavigateToHomeCommand=
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
         }
     

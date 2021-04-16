@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AveCaesarApp.Views"
         xmlns:vm="clr-namespace:AveCaesarApp.ViewModels"
         mc:Ignorable="d"
-         Height="220" Width="400" FontFamily="Source Serif Pro" Background="#FF024300" >
+        Height="450" Width="800" FontFamily="Source Serif Pro" FontSize="24" Background="#FF024300" >
     <Grid>
         <TabControl FlowDirection="LeftToRight" BorderThickness="0" Grid.Row="0" Grid.Column="0" >
             <TabControl.Resources>
@@ -32,7 +32,7 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Height="30" Header="Добавление" IsSelected="True">
+            <TabItem Height="50" Header="{Binding AddOrEditTabText}" IsSelected="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -52,22 +52,31 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="3" Margin="30,2">
+                    <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Margin="50,5" Command="{Binding AddOrEditProductCommand}" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate>
                                 <Border Background="#FF024300" CornerRadius="10">
-                                    <TextBlock Text="Добавить" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="White" FontSize="12"/>
+                                    <TextBlock Text="{Binding AddOrEditButtonText}" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="White" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Button Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="3" Margin="50,5" Command="{Binding NavigateToProductsCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Background="#FF024300" CornerRadius="10">
+                                    <TextBlock Text="Назад" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="White" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
                         <Label Content="Название" HorizontalAlignment="Center"></Label>
-                        <TextBox >
+                        <TextBox Text="{Binding ProductName, Mode=TwoWay}"  >
                             <TextBox.Template>
                                 <ControlTemplate TargetType="TextBox">
                                     <Border BorderBrush="#FF024300" BorderThickness="1" CornerRadius="3">
-                                        <TextBlock></TextBlock>
+                                        <TextBox/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
@@ -75,35 +84,35 @@
                     </StackPanel>
                     <StackPanel Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Label Content="Количество" HorizontalAlignment="Center"></Label>
-                        <TextBox >
+                        <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" >
                             <TextBox.Template>
                                 <ControlTemplate>
                                     <Border BorderBrush="#FF024300" BorderThickness="1" CornerRadius="3">
-                                        <TextBlock></TextBlock>
+                                        <TextBox/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
                         <Label Content="Калорийность" HorizontalAlignment="Center"></Label>
-                        <TextBox >
+                        <TextBox Text="{Binding ProductCalories, Mode=TwoWay}"  >
                             <TextBox.Template>
                                 <ControlTemplate>
                                     <Border BorderBrush="#FF024300" BorderThickness="1" CornerRadius="3">
-                                        <TextBlock></TextBlock>
+                                        <TextBox/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <StackPanel Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                         <Label Content="Цена" HorizontalAlignment="Center"></Label>
-                        <TextBox >
+                        <TextBox Text="{Binding ProductPrice, Mode=TwoWay}"  >
                             <TextBox.Template>
                                 <ControlTemplate>
                                     <Border BorderBrush="#FF024300" BorderThickness="1" CornerRadius="3">
-                                        <TextBlock></TextBlock>
+                                        <TextBox/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
