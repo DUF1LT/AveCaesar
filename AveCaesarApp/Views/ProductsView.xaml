@@ -75,11 +75,13 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
                     <Label Content="#" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="25,0" Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="2" Grid.Row="0"   Content="Название"  Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Content="Калорийность" Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" Content="Цена"  Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во" Margin="45,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
+                    
                     <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
                         <ListView x:Name="ItemsList" ItemsSource="{Binding Path=ProductsList}" 
                                   BorderThickness="0" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}">
@@ -87,56 +89,15 @@
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template" Value="{StaticResource DefaultTemplate}"></Setter>
                                     <Style.Triggers>
-                                        <MultiTrigger>
-                                            <MultiTrigger.Conditions>
-                                                <Condition Property="IsSelected" Value="true" />
-                                            </MultiTrigger.Conditions>
-                                            <Setter Property="Template" Value="{StaticResource SelectedTemplate}"></Setter>
-                                        </MultiTrigger>
-                                        <MultiTrigger>
-                                            <MultiTrigger.Conditions>
-                                                <Condition Property="IsSelected" Value="false" />
-                                            </MultiTrigger.Conditions>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Template" Value="{StaticResource SelectedTemplate}"></Setter>
+                                            </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
                                             <Setter Property="Template" Value="{StaticResource DefaultTemplate}"></Setter>
-                                        </MultiTrigger>
+                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </ListView.Resources>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
-                                            Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.4*"/>
-                                                <ColumnDefinition Width="1.4*"/>
-                                                <ColumnDefinition Width="1.6*"/>
-                                                <ColumnDefinition Width="0.9*"/>
-                                                <ColumnDefinition Width="0.9*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                                            <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0} руб/{1}">
-                                                        <Binding Path="Price" />
-                                                        <Binding Path="WeightType" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                            <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0} {1}">
-                                                        <Binding Path="Amount" />
-                                                        <Binding Path="WeightType" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
                         </ListView>
                     </ScrollViewer>
 

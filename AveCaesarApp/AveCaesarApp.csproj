@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\DishFilterViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Bold.ttf" />
     <None Remove="Fonts\SourceSerifPro\SourceSerifPro-Regular.ttf" />
     <None Remove="Images\AddElementIcon.png" />

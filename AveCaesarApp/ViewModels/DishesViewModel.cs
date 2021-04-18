@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -10,31 +13,43 @@ namespace AveCaesarApp.ViewModels
 {
     class DishesViewModel : ViewModel
     {
-        private IList<Dish> _dishesList = new BindingList<Dish>()
+        private IList<Dish> _defaultList = new BindingList<Dish>()
         {
-            new (1,"Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300,200,150, WeightType.кг, DishType.Salad),
-            new (1,"Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300,200,150, WeightType.кг, DishType.Salad)
-
-        };
-        private Dish _selectedItems;
-
-        private BindingList<string> _menuItems = new BindingList<string>()
-        {
-            "Все",
-            "Роллы",
-            "Сендвичи",
-            "Супы",
-            "Боулы",
-            "Салаты",
-            "Десерты",
-            "Напитки",
-            "Смузи"
+            new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+                DishType.Salad),
+            new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+                DishType.Salad),
+            new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+            DishType.Smoothie),
+            new(4, "Сендвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+            DishType.Sandwich)
         };
 
+        private IList<Dish> _dishesList;
+        private Dish _selectedItem;
+
+        //TODO: Unsubscribe event listener
         public DishesViewModel(NavigationStore navigationStore)
         {
+            FilterViewModel = new DishesFilterViewModel();
+
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+            FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
+            DishesList = DefaultList;
+        }
+
+        private void FilterViewModelOnOnSelectionChanged()
+        {
+            SelectedItem = null;
+            if (FilterViewModel.SelectedItem == DishesFilterViewModel.DishTypeFilter.All)
+            {
+                DishesList = DefaultList;
+            }
+            else
+            {
+                DishesList = DefaultList.Where(el => el.DishType == (DishType) FilterViewModel.SelectedItem).ToList();
+            }
         }
 
         public ICommand NavigateToHomeCommand { get; }
@@ -45,16 +60,18 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _dishesList, value);
         }
 
-        public Dish SelectedItems
+        public Dish SelectedItem
         {
-            get => _selectedItems;
-            set => Set(ref _selectedItems, value);
+            get => _selectedItem;
+            set => Set(ref _selectedItem, value);
         }
 
-        public BindingList<string> MenuItems
+        public IList<Dish> DefaultList
         {
-            get => _menuItems;
-            set => Set(ref _menuItems, value);
+            get => _defaultList;
+            set => Set(ref _defaultList, value);
         }
+
+        public DishesFilterViewModel FilterViewModel { get; set; }
     }
 }

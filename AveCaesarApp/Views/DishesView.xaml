@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AveCaesarApp.Views"
+             xmlns:conv="clr-namespace:AveCaesarApp.Converters"
              mc:Ignorable="d" 
-             Height="450" Width="800" MinWidth="800" MinHeight="480" Background="White " FontFamily="Source Serif Pro">
+             Height="450" Width="800" 
+             MinWidth="800" MinHeight="480" 
+             Background="White" 
+             FontFamily="Source Serif Pro">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.7*"/>
@@ -66,51 +70,24 @@
             </StackPanel>--><!--
         </Border>-->
 
-        <ListView ItemsSource="{Binding MenuItems}" Grid.Column="0" Grid.Row="1" 
-                 Grid.RowSpan="5" SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
-                 ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 Padding="0,15" Style="{StaticResource ListViewTemplate}">
+        <ListView ItemsSource="{Binding FilterViewModel.Items}" SelectedItem="{Binding FilterViewModel.SelectedItem}" 
+                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="5" 
+                  SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
+                  ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  Padding="0,15" Style="{StaticResource ListViewTemplate}" HorizontalContentAlignment="Stretch" >
         </ListView>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="5" Margin="0,25,10,0" 
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="5" 
+                      Margin="0,25,10,15" 
                       VerticalScrollBarVisibility="Auto">
-            <ListView x:Name="ItemsList" ItemsSource="{Binding Path=DishesList}" 
-                                  BorderThickness="0" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItems}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
-                                            Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch" Height="100">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.4*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="0.9*"/>
-                                    <ColumnDefinition Width="0.9*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= ID}"  />
-                                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Image}" />
-                                <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name}"  />
-                                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" >
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}.">
-                                            <Binding Path="Weight" />
-                                            <Binding Path="WeightType" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" Text="{Binding StringFormat={}{0} руб, Path=Price}"/>
-                                <TextBlock Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Состав:" FontWeight="SemiBold" FontSize="13"/>
-
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView x:Name="ItemsList" ItemsSource="{Binding Path=DishesList}"
+                      BorderThickness="0" HorizontalContentAlignment="Stretch" 
+                      SelectedItem="{Binding SelectedItem}">
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template" Value="{StaticResource DishesListDefault}"></Setter>
+                    </Style>
+                </ListView.Resources>
             </ListView>
         </ScrollViewer>
 

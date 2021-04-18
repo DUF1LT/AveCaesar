@@ -8,7 +8,7 @@ using AveCaesarApp.ViewModels.Base;
 
 namespace AveCaesarApp.ViewModels
 {
-    public enum ProductType
+    public enum ProductOperationType
     {
         Add, Edit
     }
@@ -18,26 +18,26 @@ namespace AveCaesarApp.ViewModels
         private IList<Product> _productsList;
         private string _addOrEditButtonText;
         private string _addOrEditTabText;
-        private ProductType _productType;
+        private ProductOperationType _productOperationType;
         private string _productName = "";
         private string _productCalories = "";
         private string _productPrice = "";
         private string _productAmount = "";
 
 
-        public ProductViewModel(NavigationStore navigationStore, IList<Product> productsList, ProductType productType)
+        public ProductViewModel(NavigationStore navigationStore, IList<Product> productsList, ProductOperationType productOperationType)
         {
-            _productType = productType;
+            _productOperationType = productOperationType;
             _productsList = productsList;
 
             // TODO: Use converter
-            AddOrEditButtonText = _productType == ProductType.Add ? "Добавить" : "Отредактировать";
-            AddOrEditTabText = _productType == ProductType.Add ? "Добавление" : "Редактирование";
+            AddOrEditButtonText = _productOperationType == ProductOperationType.Add ? "Добавить" : "Отредактировать";
+            AddOrEditTabText = _productOperationType == ProductOperationType.Add ? "Добавление" : "Редактирование";
 
             NavigateToProductsCommand =
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore));
 
-            AddOrEditProductCommand = _productType == ProductType.Add ? new AddProductCommand(AddProductCommandExecute, AddProductCommandCanExecute) : null;
+            AddOrEditProductCommand = _productOperationType == ProductOperationType.Add ? new AddProductCommand(AddProductCommandExecute, AddProductCommandCanExecute) : null;
 
         }
 
@@ -86,7 +86,11 @@ namespace AveCaesarApp.ViewModels
         private bool AddProductCommandCanExecute(object arg)
         {
             // TODO: Use string.IsNullOrEmpty()
-            if (ProductAmount == "" || ProductCalories == "" || ProductName == "" || ProductPrice == "")
+            
+            if (string.IsNullOrEmpty(ProductAmount) || 
+                string.IsNullOrEmpty(ProductCalories) || 
+                string.IsNullOrEmpty(ProductName) || 
+                string.IsNullOrEmpty(ProductPrice))
                 return false;
             return true;
         }
@@ -95,11 +99,10 @@ namespace AveCaesarApp.ViewModels
             Product newProd = new Product(10, ProductName, Convert.ToInt32(ProductCalories),
                 Convert.ToInt32(ProductPrice), Convert.ToInt32(ProductAmount), WeightType.кг.ToString());
             ProductsList.Add(newProd);
-            // TODO: Use string.Empty
-            ProductName = "";
-            ProductAmount = "";
-            ProductCalories = "";
-            ProductPrice = "";
+            ProductName = string.Empty;
+            ProductAmount = string.Empty;
+            ProductCalories = string.Empty;
+            ProductPrice = string.Empty;
         }
 
         public ICommand NavigateToProductsCommand { get; }
