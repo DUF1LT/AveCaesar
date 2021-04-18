@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -52,20 +47,16 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _selectedItems, value);
         }
 
-
         public IList<Product> ProductsList
         {
             get => _productsList;
             set => Set(ref _productsList, value);
         }
 
-
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToAddProductCommand { get;  }
         public ICommand NavigateToEditProductCommand { get; }
 
         public DeleteSelectedProductCommand DeleteCommand { get; }
-
-
     }
 }

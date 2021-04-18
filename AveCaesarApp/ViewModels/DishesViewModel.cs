@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
 using AveCaesarApp.Stores;
@@ -19,8 +12,8 @@ namespace AveCaesarApp.ViewModels
     {
         private IList<Dish> _dishesList = new BindingList<Dish>()
         {
-            new (1,"Цезарь", @"D:\BSTU stuff\4 семестр 2 курс\ООП Курсовой\Курсовой\AveCaesarApp\AveCaesarApp\Images\Dishes\Caesar.jpg", 10, 20, 300,200,150, WeightType.кг, DishType.Salad),
-            new (1,"Цезарь", @"D:\BSTU stuff\4 семестр 2 курс\ООП Курсовой\Курсовой\AveCaesarApp\AveCaesarApp\Images\Dishes\Caesar.jpg", 10, 20, 300,200,150, WeightType.кг, DishType.Salad)
+            new (1,"Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300,200,150, WeightType.кг, DishType.Salad),
+            new (1,"Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300,200,150, WeightType.кг, DishType.Salad)
 
         };
         private Dish _selectedItems;
@@ -42,8 +35,6 @@ namespace AveCaesarApp.ViewModels
         {
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
-
-           
         }
 
         public ICommand NavigateToHomeCommand { get; }

@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels;
-using AveCaesarApp.Views;
 
 namespace AveCaesarApp
 {
@@ -35,17 +26,12 @@ namespace AveCaesarApp
 
             navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore);
 
-            ApplicationView applicationWindow = new ApplicationView()
+            ApplicationWindow applicationWindow = new ApplicationWindow()
             {
                 DataContext = new ApplicationViewModel(navigationStore)
             };
 
             applicationWindow.Show();
-
-            
-
-
-
             base.OnStartup(e);
         }
     }

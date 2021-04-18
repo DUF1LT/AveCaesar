@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -33,6 +30,7 @@ namespace AveCaesarApp.ViewModels
             _productType = productType;
             _productsList = productsList;
 
+            // TODO: Use converter
             AddOrEditButtonText = _productType == ProductType.Add ? "Добавить" : "Отредактировать";
             AddOrEditTabText = _productType == ProductType.Add ? "Добавление" : "Редактирование";
 
@@ -42,8 +40,6 @@ namespace AveCaesarApp.ViewModels
             AddOrEditProductCommand = _productType == ProductType.Add ? new AddProductCommand(AddProductCommandExecute, AddProductCommandCanExecute) : null;
 
         }
-
-       
 
         public IList<Product> ProductsList
         {
@@ -89,6 +85,7 @@ namespace AveCaesarApp.ViewModels
 
         private bool AddProductCommandCanExecute(object arg)
         {
+            // TODO: Use string.IsNullOrEmpty()
             if (ProductAmount == "" || ProductCalories == "" || ProductName == "" || ProductPrice == "")
                 return false;
             return true;
@@ -98,15 +95,13 @@ namespace AveCaesarApp.ViewModels
             Product newProd = new Product(10, ProductName, Convert.ToInt32(ProductCalories),
                 Convert.ToInt32(ProductPrice), Convert.ToInt32(ProductAmount), WeightType.кг.ToString());
             ProductsList.Add(newProd);
+            // TODO: Use string.Empty
             ProductName = "";
             ProductAmount = "";
             ProductCalories = "";
             ProductPrice = "";
         }
 
-
         public ICommand NavigateToProductsCommand { get; }
-
-        
     }
 }

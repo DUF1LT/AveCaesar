@@ -34,7 +34,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Border x:Name="ProductsButtonBorder"  Grid.Column="0" Grid.Row="2" BorderThickness="2" 
+        <Border x:Name="ProductsButtonBorder" Grid.Column="0" Grid.Row="2" BorderThickness="2" 
                 CornerRadius="40" Margin="35,0,30,30" BorderBrush="#FF024300"  
                 Cursor="Hand">
             <Border.Background>
@@ -48,8 +48,9 @@
                 <TextBlock HorizontalAlignment="Center">Продукты</TextBlock>
             </StackPanel>
         </Border>
-        <Border x:Name="DishesButtonBorder"  Grid.Column="1" Grid.Row="2" BorderThickness="2" CornerRadius="40" 
-                Margin="35,0,30,30" BorderBrush="#FF024300">
+        <Border x:Name="DishesButtonBorder" Grid.Column="1" Grid.Row="2" BorderThickness="2" 
+                CornerRadius="40" Margin="35,0,30,30" BorderBrush="#FF024300"
+                Cursor="Hand">
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToDishesCommand}"/>
             </Border.InputBindings>

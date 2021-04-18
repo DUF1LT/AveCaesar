@@ -67,7 +67,7 @@
         </Border>-->
 
         <ListView ItemsSource="{Binding MenuItems}" Grid.Column="0" Grid.Row="1" 
-                 Grid.RowSpan="5"  SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
+                 Grid.RowSpan="5" SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
                  ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  Padding="0,15" Style="{StaticResource ListViewTemplate}">
         </ListView>
