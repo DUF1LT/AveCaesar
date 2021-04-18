@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AveCaesarApp.Models;
 
 namespace AveCaesarApp.Views
 {
@@ -20,6 +22,7 @@ namespace AveCaesarApp.Views
     /// </summary>
     public partial class DishesView : UserControl
     {
+       
         public DishesView()
         {
             InitializeComponent();

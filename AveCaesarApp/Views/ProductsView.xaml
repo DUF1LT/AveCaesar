@@ -53,7 +53,7 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Height="50" Header="На складе" IsSelected="True" >
+            <TabItem Height="50" Header="На складе" IsSelected="True" BorderThickness="0">
                 <Grid FlowDirection="LeftToRight">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
