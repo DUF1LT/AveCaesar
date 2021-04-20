@@ -37,7 +37,10 @@
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
                                 <Setter TargetName="Border" Property="Background" Value="White"/>
-
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

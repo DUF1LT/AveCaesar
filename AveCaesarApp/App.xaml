@@ -10,6 +10,8 @@
                 <ResourceDictionary  Source="Resources/ProductsViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/DishViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/GeneralResources.xaml"/>
+                <ResourceDictionary Source="Resources/AuthorizationViewResources.xaml"/>
+                <ResourceDictionary Source="Resources/HomeViewResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vm:AuthorizationViewModel}">

@@ -1,4 +1,6 @@
-﻿namespace AveCaesarApp.Models
+﻿using System.ComponentModel;
+
+namespace AveCaesarApp.Models
 {
     public enum DishType
     {
@@ -22,7 +24,8 @@
             float price, 
             float proteins, 
             float fats, 
-            float carbons, 
+            float carbons,
+            BindingList<Product> products,
             WeightType weightType, 
             DishType dishType)
         {
@@ -34,6 +37,7 @@
             Proteins = proteins;
             Fats = fats;
             Carbons = carbons;
+            Products = products;
             WeightType = weightType;
             DishType = dishType;
         }
@@ -53,6 +57,8 @@
         public float Fats { get; set; }
 
         public float Carbons { get; set; }
+
+        public BindingList<Product> Products { get; set; }
 
         public WeightType WeightType { get; set; }
 

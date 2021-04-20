@@ -12,20 +12,20 @@ namespace AveCaesarApp.Commands
     class NavigateCommand<TViewModel> : Command
         where TViewModel : ViewModel
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<TViewModel> _createdViewModel;
+        protected readonly NavigationStore NavigationStore;
+        protected readonly Func<TViewModel> CreatedViewModel;
 
         public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createdViewModel)
         {
-            _navigationStore = navigationStore;
-            _createdViewModel = createdViewModel;
+            NavigationStore = navigationStore;
+            CreatedViewModel = createdViewModel;
         }
 
         public override bool CanExecute(object parameter) => true;
 
         public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = _createdViewModel();
+            NavigationStore.CurrentViewModel = CreatedViewModel();
         }
     }
 }

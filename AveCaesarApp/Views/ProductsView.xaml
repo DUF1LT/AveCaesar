@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:AveCaesarApp.ViewModels"
         mc:Ignorable="d"
-         Height="450" Width="800" FontFamily="Source Serif Pro" Background="#FF024300">
+         Height="450" Width="800" FontFamily="Source Serif Pro" Background="{StaticResource MainGreenColor}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -25,35 +25,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TabControl FlowDirection="RightToLeft" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="6">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" CornerRadius="10,10,0,0" BorderThickness="0" BorderBrush="White">
-                                    <ContentPresenter x:Name="ContentSite"
-                                                      VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"
-                                                      ContentSource="Header"
-                                                      Margin="50,0,50,0">
-                                    </ContentPresenter>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="White"/>
-                                        <Setter TargetName="ContentSite" Property="ContentTemplate" Value="{StaticResource SelectedTabItemForeground}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Border" Property="Background" Value="#FF024300"/>
-                                        <Setter TargetName="ContentSite" Property="ContentTemplate" Value="{StaticResource UnselectedTabItemForeground}"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-            <TabItem Height="50" Header="На складе" IsSelected="True" BorderThickness="0">
+            <TabItem Height="50" Header="На складе" IsSelected="True" BorderThickness="0" Template="{StaticResource TabItemTemplate}">
                 <Grid FlowDirection="LeftToRight">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -81,41 +53,40 @@
                     <Label Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Content="Калорийность" Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" Content="Цена"  Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во" Margin="45,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
-                    
+
                     <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
-                        <ListView x:Name="ItemsList" ItemsSource="{Binding Path=ProductsList}" 
-                                  BorderThickness="0" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem}">
+                        <ListView x:Name="ItemsList" 
+                                  ItemsSource="{Binding Path=ProductsList}"  SelectedItem="{Binding SelectedItem}"
+                                  BorderThickness="0" HorizontalContentAlignment="Stretch" >
                             <ListView.Resources>
                                 <Style TargetType="ListViewItem">
-                                    <Setter Property="Template" Value="{StaticResource DefaultTemplate}"></Setter>
-                                    <Style.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter Property="Template" Value="{StaticResource SelectedTemplate}"></Setter>
-                                            </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter Property="Template" Value="{StaticResource DefaultTemplate}"></Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
+                                    <Setter Property="Template" Value="{StaticResource DefaultTemplate}"/>
                                 </Style>
                             </ListView.Resources>
                         </ListView>
                     </ScrollViewer>
 
-                    <Image Source="../Images/AddElementIcon.png" Grid.Row="2" Grid.Column="8" Margin="10" HorizontalAlignment="Right">
-                        <Image.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"></MouseBinding>
-                        </Image.InputBindings>
-                    </Image>
-                    <Image Source="../Images/DeleteElementIcon.png" Grid.Row="3" Grid.Column="8" Margin="10" HorizontalAlignment="Right" Cursor="Hand">
-                        <Image.InputBindings>
-                            <MouseBinding CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteCommand }"  MouseAction="LeftClick"/>
-                        </Image.InputBindings>
-                    </Image>
-                    <Image Source="../Images/EditIcon.png" Grid.Row="4" Grid.Column="8" Margin="10" HorizontalAlignment="Right">
-                        <Image.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}"></MouseBinding>
-                        </Image.InputBindings>
-                    </Image>
+                    <Border Grid.Row="2" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
+                        <Image Source="../Images/AddElementIconBrdrlss.png" >
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"></MouseBinding>
+                            </Image.InputBindings>
+                        </Image>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
+                        <Image Source="../Images/DeleteElementIconBrdrlss.png">
+                            <Image.InputBindings>
+                                <MouseBinding CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteCommand }"  MouseAction="LeftClick"/>
+                            </Image.InputBindings>
+                        </Image>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
+                        <Image Source="../Images/EditIconBrdrlss.png">
+                            <Image.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}" CommandParameter="{Binding SelectedItem}"></MouseBinding>
+                            </Image.InputBindings>
+                        </Image>
+                    </Border>
 
                 </Grid>
             </TabItem>

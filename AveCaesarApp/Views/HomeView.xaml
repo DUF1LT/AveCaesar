@@ -34,42 +34,31 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Border x:Name="ProductsButtonBorder" Grid.Column="0" Grid.Row="2" BorderThickness="2" 
-                CornerRadius="40" Margin="35,0,30,30" BorderBrush="#FF024300"  
-                Cursor="Hand">
-            <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.44"/>
-            </Border.Background>
+        <Border x:Name="ProductsButtonBorder" Grid.Column="0" Grid.Row="2" 
+                 Style="{StaticResource HomeBorderStyle}">
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToProductCommand}"></MouseBinding>
             </Border.InputBindings>
             <StackPanel>
                 <Image Source="../Images/ProductsIconButton.png" Margin="50,35,50,20"></Image>
-                <TextBlock HorizontalAlignment="Center">Продукты</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Text="Продукты"/>
             </StackPanel>
         </Border>
-        <Border x:Name="DishesButtonBorder" Grid.Column="1" Grid.Row="2" BorderThickness="2" 
-                CornerRadius="40" Margin="35,0,30,30" BorderBrush="#FF024300"
-                Cursor="Hand">
+        <Border x:Name="DishesButtonBorder" Grid.Column="1" Grid.Row="2" 
+                Style="{StaticResource HomeBorderStyle}">
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToDishesCommand}"/>
             </Border.InputBindings>
-            <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.44"/>
-            </Border.Background>
             <StackPanel>
                 <Image Source="../Images/DishesIconButton.png"  Margin="50,35,50,20"></Image>
-                <TextBlock  HorizontalAlignment="Center" >Блюда</TextBlock>
+                <TextBlock  HorizontalAlignment="Center" Text="Блюда"/>
             </StackPanel>
         </Border>
-        <Border x:Name="OrdersButtonBorder" Grid.Column="2" Grid.Row="2" BorderThickness="2" CornerRadius="40"
-                Margin="35,0,30,30" BorderBrush="#FF024300">
-            <Border.Background>
-                <SolidColorBrush Color="White" Opacity="0.44"/>
-            </Border.Background>
+        <Border x:Name="OrdersButtonBorder" Grid.Column="2" Grid.Row="2" 
+                Style="{StaticResource HomeBorderStyle}">
             <StackPanel HorizontalAlignment="Center">
-                <Image Source="../Images/OrdersIconButton.png" Margin="50,35,50,20" Stretch="Uniform"></Image>
-                <TextBlock  HorizontalAlignment="Center" >Заказы</TextBlock>
+                <Image Source="../Images/OrdersIconButton.png" Margin="60,35,40,20" Stretch="Uniform"></Image>
+                <TextBlock  HorizontalAlignment="Center" Text="Заказы"/>
             </StackPanel>
         </Border>
 

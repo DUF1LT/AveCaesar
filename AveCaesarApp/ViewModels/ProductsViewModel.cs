@@ -24,7 +24,7 @@ namespace AveCaesarApp.ViewModels
 
         };
 
-        private Product _selectedItems;
+        private Product _selectedItem;
 
         public ProductsViewModel(NavigationStore navigationStore)
         {
@@ -34,17 +34,17 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
 
             NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, _productsList, ProductOperationType.Add));
+                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList));
 
-            NavigateToEditProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, _productsList, ProductOperationType.Edit));
+            NavigateToEditProductCommand = new NavigateToEditProductCommand<ProductViewModel>(navigationStore,
+                () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, _selectedItem ));
 
         }
 
         public Product SelectedItem
         {
-            get => _selectedItems;
-            set => Set(ref _selectedItems, value);
+            get => _selectedItem;
+            set => Set(ref _selectedItem, value);
         }
 
         public IList<Product> ProductsList

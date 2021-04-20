@@ -9,30 +9,8 @@
         Height="450" Width="800" FontFamily="Source Serif Pro" FontSize="24" Background="#FF024300" >
     <Grid>
         <TabControl FlowDirection="LeftToRight" BorderThickness="0" Grid.Row="0" Grid.Column="0">
-            <TabControl.Resources>
-                <Style TargetType="TabItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border" CornerRadius="10,10,0,0" BorderThickness="0" BorderBrush="White">
-                                    <ContentPresenter x:Name="ContentSite"
-                                                      VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"
-                                                      ContentSource="Header"
-                                                      Margin="20,0,20,0">
-                                    </ContentPresenter>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Border" Property="Background" Value="White"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-            <TabItem Height="50" Header="{Binding AddOrEditTabText}" IsSelected="True" BorderThickness="0">
+            <TabItem Height="50" Header="{Binding AddOrEditTabText}" IsSelected="True" BorderThickness="0"
+                     Template="{StaticResource TabItemTemplate}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -52,43 +30,56 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Margin="50,5" Command="{Binding AddOrEditProductCommand}" Cursor="Hand">
+                    <Button Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,5" Command="{Binding AddOrEditProductCommand}" Cursor="Hand">
                         <Button.Template>
-                            <ControlTemplate>
-                                <Border Background="#FF024300" CornerRadius="10">
-                                    <TextBlock Text="{Binding AddOrEditButtonText}" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="White" />
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="AddOrEditButtonBorder" Background="White" CornerRadius="10" 
+                                        BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
+                                    <TextBlock x:Name="AddOrEditButtonText" Text="{Binding AddOrEditButtonText}" 
+                                               HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="{StaticResource MainGreenColor}"  />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter TargetName="AddOrEditButtonBorder" Property="Background" Value="{StaticResource MainGreenColor}" />
+                                        <Setter TargetName="AddOrEditButtonBorder" Property="BorderThickness" Value="0" />
+                                        <Setter TargetName="AddOrEditButtonText" Property="Foreground" Value="White" />
+                                    </Trigger>  
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="ExitButton" Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,5" Command="{Binding NavigateToProductsCommand}" Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{StaticResource MainGreenColor}" CornerRadius="10" 
+                                        BorderThickness="0" BorderBrush="{StaticResource MainGreenColor}">
+                                    <TextBlock Text="Назад" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="White" />
                                 </Border>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <Button Grid.Column="4" Grid.Row="5" Grid.ColumnSpan="3" Margin="50,5" Command="{Binding NavigateToProductsCommand}" Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Border Background="White" CornerRadius="10" BorderThickness="3" BorderBrush="#FF024300">
-                                    <TextBlock Text="Назад" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="#FF024300" />
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+
                     <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
                         <Label Content="Название" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding ProductName, Mode=TwoWay}"  >
+                        <TextBox>
                             <TextBox.Template>
                                 <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="#FF024300" BorderThickness="2" CornerRadius="3">
-                                        <TextBox Text="{TemplateBinding Text}"/>
+                                    <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="3" Padding="2">
+                                        <TextBox Text="{Binding Path=ProductName, Mode=TwoWay}" BorderThickness="0"/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="4" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <StackPanel Grid.Column="4" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Label Content="Количество" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding ProductAmount, Mode=TwoWay}">
+                        <TextBox >
                             <TextBox.Template>
                                 <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="#FF024300" BorderThickness="2" CornerRadius="5">
-                                        <TextBox Text="{TemplateBinding Text}"/>
+                                    <Border BorderBrush="{StaticResource MainGreenColor}"
+                                            BorderThickness="2" CornerRadius="5"  Padding="2">
+                                        <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" BorderThickness="0"/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
@@ -96,23 +87,25 @@
                     </StackPanel>
                     <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
                         <Label Content="Калорийность" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding ProductCalories, Mode=TwoWay}"  >
+                        <TextBox  >
                             <TextBox.Template>
                                 <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="#FF024300" BorderThickness="2" CornerRadius="3">
-                                        <TextBox Text="{TemplateBinding Text}"/>
+                                    <Border BorderBrush="{StaticResource MainGreenColor}" 
+                                            BorderThickness="2" CornerRadius="3"  Padding="2">
+                                        <TextBox Text="{Binding ProductCalories, Mode=TwoWay}" BorderThickness="0" />
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                    <StackPanel Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                         <Label Content="Цена" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Text="{Binding ProductPrice, Mode=TwoWay}"  >
+                        <TextBox>
                             <TextBox.Template>
                                 <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="#FF024300" BorderThickness="2" CornerRadius="3">
-                                        <TextBox Text="{TemplateBinding Text}"/>
+                                    <Border BorderBrush="{StaticResource MainGreenColor}" 
+                                            BorderThickness="2" CornerRadius="3"  Padding="2">
+                                        <TextBox Text="{Binding ProductPrice, Mode=TwoWay}" BorderThickness="0"/>
                                     </Border>
                                 </ControlTemplate>
                             </TextBox.Template>

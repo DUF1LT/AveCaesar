@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <DataTemplate x:Key="UnselectedTabItemForeground">
         <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
     </DataTemplate>
@@ -8,81 +9,102 @@
         <TextBlock Foreground="Black" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
     </DataTemplate>
 
+    <ControlTemplate x:Key="TabItemTemplate" TargetType="TabItem">
+        <Border Name="Border" CornerRadius="10,10,0,0" 
+                BorderThickness="0" BorderBrush="White"
+                Margin="0,0,0,-1">
+            <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="50,0,50,0">
+            </ContentPresenter>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="White"/>
+                <Setter TargetName="ContentSite" Property="ContentTemplate" Value="{StaticResource SelectedTabItemForeground}"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource MainGreenColor}"/>
+                <Setter TargetName="ContentSite" Property="ContentTemplate" Value="{StaticResource UnselectedTabItemForeground}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <Style TargetType="TextBlock" x:Key="ProductsItemTextBlock">
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+
+    <ControlTemplate x:Key="DefaultTemplate" TargetType="ListViewItem" >
+        <Border x:Name="ListViewBorder" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
+                Padding="10" Margin="0,0,0,10" 
+                HorizontalAlignment="Stretch" Background="White" Cursor="Hand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="1.6*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} руб/{1}">
+                            <Binding Path="Price" />
+                            <Binding Path="WeightType" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Amount" />
+                            <Binding Path="WeightType" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="5"/>
+                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
     <Style TargetType="Label" x:Key="LabelStyle">
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Bottom"/>
     </Style>
-    <Style TargetType="TextBlock" x:Key="ProductsItemTextBlock">
-        <Setter Property="FontSize" Value="16"></Setter>
+
+    <Style x:Key="ButtonsBorder" TargetType="Border">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MainGreenColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="CornerRadius" Value="7"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="8"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="DefaultTemplate" TargetType="ListViewItem" >
-        <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
-                                            Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch" Background="White">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="1.4*"/>
-                    <ColumnDefinition Width="1.6*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource ProductsItemTextBlock}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} руб/{1}">
-                            <Binding Path="Price" />
-                            <Binding Path="WeightType" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="Amount" />
-                            <Binding Path="WeightType" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </Grid>
-        </Border>
-    </ControlTemplate>
 
-    <ControlTemplate x:Key="SelectedTemplate" TargetType="ListViewItem" >
-        <Border CornerRadius="10" BorderBrush="#FF024300" BorderThickness="7" 
-                                            Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch" Background="White">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="1.4*"/>
-                    <ColumnDefinition Width="1.6*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource ProductsItemTextBlock}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} руб/{1}">
-                            <Binding Path="Price" />
-                            <Binding Path="WeightType" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="Amount" />
-                            <Binding Path="WeightType" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </Grid>
-        </Border>
-    </ControlTemplate>
 </ResourceDictionary>
+    

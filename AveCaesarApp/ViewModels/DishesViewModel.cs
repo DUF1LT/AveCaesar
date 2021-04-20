@@ -15,13 +15,39 @@ namespace AveCaesarApp.ViewModels
     {
         private IList<Dish> _defaultList = new BindingList<Dish>()
         {
-            new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+            new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,
+                new BindingList<Product>()
+                {
+                    new(1, "Помидор", 25, 10, 10, "кг"), 
+                    new (2, "Помидор", 25, 10, 10, "кг"),
+                    new (3, "Масло", 25, 10, 10, "л" ),
+
+                },
+                WeightType.кг,
                 DishType.Salad),
-            new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+            new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,new BindingList<Product>()
+                {
+                    new(1, "Помидор", 25, 10, 10, "кг"),
+                    new (2, "Помидор", 25, 10, 10, "кг"),
+                    new (3, "Масло", 25, 10, 10, "л" ),
+
+                }, WeightType.кг,
                 DishType.Salad),
-            new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+            new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,new BindingList<Product>()
+                {
+                    new(1, "Помидор", 25, 10, 10, "кг"),
+                    new (2, "Помидор", 25, 10, 10, "кг"),
+                    new (3, "Масло", 25, 10, 10, "л" ),
+
+                }, WeightType.кг,
             DishType.Smoothie),
-            new(4, "Сендвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, WeightType.кг,
+            new(4, "Сендвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, new BindingList<Product>()
+                {
+                    new(1, "Помидор", 25, 10, 10, "кг"),
+                    new (2, "Помидор", 25, 10, 10, "кг"),
+                    new (3, "Масло", 25, 10, 10, "л" ),
+
+                },WeightType.кг,
             DishType.Sandwich)
         };
 
@@ -48,7 +74,7 @@ namespace AveCaesarApp.ViewModels
             }
             else
             {
-                DishesList = DefaultList.Where(el => el.DishType == (DishType) FilterViewModel.SelectedItem).ToList();
+                DishesList = DefaultList.Where(el => el.DishType == (DishType)FilterViewModel.SelectedItem).ToList();
             }
         }
 

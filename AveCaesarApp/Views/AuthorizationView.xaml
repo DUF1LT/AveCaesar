@@ -23,40 +23,47 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image Source="../Images/Logo.png" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,20,10,20"></Image>
-        <TextBlock x:Name="SubTextBox" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FFF7FFF3" Grid.ColumnSpan="2"
-                   Grid.Column="0" Grid.Row="2" FontFamily="Source Serif Pro" MaxWidth="350" FontSize="20">
+        <Image Source="../Images/Logo.png" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="30,20,10,20"/>
+        <TextBlock x:Name="SubTextBox" 
+                   TextWrapping="Wrap" TextAlignment="Center" 
+                   Foreground="#FFF7FFF3" 
+                   Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" 
+                   FontFamily="Source Serif Pro" 
+                   MaxWidth="350" FontSize="20">
             <Run >Самая крупная сеть ресторанов</Run>
             <Run FontWeight="Bold">правильного питания </Run>
             <Run>в Беларуси</Run>
         </TextBlock>
-        <StackPanel x:Name="AuthorizationStackPanel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="30,0,0,0" >
-            <TextBlock x:Name="LogInLabel" FontSize="23" FontFamily="Source Serif Pro" TextAlignment="Center" Foreground="#FF024300" FontWeight="Bold">Вход в систему</TextBlock>
-            <Border x:Name="LoginTextBoxBorder"  BorderBrush="#FF024300" BorderThickness="0.9"  Margin="60,10,60,10" CornerRadius="10">
-                <TextBox x:Name="LoginTextBox"  ToolTip="Логин" BorderBrush="{x:Null}" Margin="5,2,5,2"
-                     BorderThickness="0" 
-                      FontWeight="Regular" FontFamily="Source Serif Pro" FontSize="17" Padding="7" />
+        <StackPanel x:Name="AuthorizationStackPanel" 
+                    Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3" 
+                    Margin="30,0,0,0" >
+            <TextBlock x:Name="LogInLabel" 
+                       FontSize="23" FontFamily="Source Serif Pro" FontWeight="Bold"
+                       TextAlignment="Center" 
+                       Foreground="#FF024300" >Вход в систему</TextBlock>
+            <Border x:Name="LoginTextBoxBorder"  
+                    BorderBrush="#FF024300" BorderThickness="0.9"  
+                    Margin="60,10,60,10" 
+                    CornerRadius="10">
+                <TextBox x:Name="LoginTextBox"  
+                         ToolTip="Логин" BorderBrush="{x:Null}" 
+                         Margin="5,2,5,2"
+                         BorderThickness="0" 
+                         FontWeight="Regular" 
+                         FontFamily="Source Serif Pro" FontSize="17" 
+                         Padding="7" />
             </Border>
-            <Border x:Name="PasswordTextBoxBorder" BorderBrush="#FF024300" BorderThickness="0.9"  Margin="60,10,60,10" CornerRadius="10">
+            <Border x:Name="PasswordTextBoxBorder" 
+                    BorderBrush="#FF024300" BorderThickness="0.9"  
+                    Margin="60,10,60,10" CornerRadius="10">
                 <TextBox x:Name="PasswordTextBox"  ToolTip="Пароль" BorderBrush="{x:Null}" Margin="5,2,5,2"
                          BorderThickness="0" 
                          FontWeight="Regular" FontSize="17" Padding="7" />
             </Border>
-            <Button x:Name="LogInButton" BorderBrush="{x:Null}" Foreground="#FFF7FFF3" Background="{x:Null}"
-                        FontSize="18" Content="Войти" Command="{Binding NavigateToHomeCommand}">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border x:Name="LogInButtonBorder" Background="#FF024300" 
-                                    Margin="110,10,110,0" Padding="0,5,0,5" CornerRadius="13" 
-                                    Cursor="Hand">
-                            <ContentPresenter Content="Войти" 
-                                                  HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center" Margin="3">
-                            </ContentPresenter>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <Button x:Name="LogInButton" 
+                    FontSize="18" Foreground="White"
+                    Command="{Binding NavigateToHomeCommand}" 
+                    Template="{StaticResource LoginButtonTemplate}"/>
         </StackPanel>
     </Grid>
 </UserControl>
