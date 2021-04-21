@@ -4,6 +4,7 @@
                     xmlns:local="clr-namespace:AveCaesarApp">
 
     <conv:EnumDisplayNameConverter x:Key="EnumConverter"/>
+    <conv:ProductsListToStringConverter x:Key="ProductsListConverter"/>
 
     <Style TargetType="{x:Type ListView}" x:Key="ListViewTemplate">
         <Style.Setters>
@@ -94,8 +95,16 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" Text="{Binding StringFormat={}{0} руб, Path=Price}"/>
-                <TextBlock Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Состав:" FontWeight="SemiBold" FontSize="13"/>
+                <TextBlock Grid.Row="2" Grid.Column="2" 
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           FontSize="16" FontWeight="SemiBold" Text="{Binding StringFormat={}{0} руб, Path=Price}"/>
+                <TextBlock Grid.Row="0" Grid.Column="3"  
+                           VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           Text="Состав:" FontWeight="SemiBold" FontSize="15"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center" 
+                           Text="{Binding Products, Converter={StaticResource ProductsListConverter}}" FontSize="13"/>
+
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
