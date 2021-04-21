@@ -14,7 +14,7 @@ namespace AveCaesarApp.Models
         Smoothie 
     }
 
-    public class Dish
+    public class Dish : Item
     {
         public Dish(
             int id, 
@@ -27,9 +27,8 @@ namespace AveCaesarApp.Models
             float carbons,
             BindingList<Product> products,
             WeightType weightType, 
-            DishType dishType)
+            DishType dishType) : base(id)
         {
-            ID = id;
             Name = name;
             Image = image;
             Weight = weight;
@@ -42,7 +41,6 @@ namespace AveCaesarApp.Models
             DishType = dishType;
         }
 
-        public int ID { get; set; }
 
         public string Name { get; set; }
 

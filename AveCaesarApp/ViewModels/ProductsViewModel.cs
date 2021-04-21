@@ -28,7 +28,7 @@ namespace AveCaesarApp.ViewModels
 
         public ProductsViewModel(NavigationStore navigationStore)
         {
-            DeleteCommand = new DeleteSelectedProductCommand(_productsList);
+            DeleteItemCommand = new DeleteSelectedItemCommand<Product>(_productsList);
 
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
@@ -57,6 +57,6 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToAddProductCommand { get;  }
         public ICommand NavigateToEditProductCommand { get; }
 
-        public DeleteSelectedProductCommand DeleteCommand { get; }
+        public DeleteSelectedItemCommand<Product> DeleteItemCommand { get; }
     }
 }

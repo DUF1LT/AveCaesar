@@ -1,65 +1,41 @@
-﻿namespace AveCaesarApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AveCaesarApp.Models
 {
     public enum WeightType
     {
-        кг, л
+        [Display(Name = "кг")]
+        Kg,
+        [Display(Name = "л")]
+        L
     }
-    public class Product
+    public class Product : Item
     {
-        private int _id;
-        private string _name;
-        private int _calories;
-        private int _price;
-        private int _amount;
-        private WeightType _weightType;
+        
 
-        public Product(int id, string name, int calories, int price, int amount, string weightType)
-        {
-           _id = id;
-           _name = name;
-           _calories = calories;
-           _price = price;
-           _amount = amount;
+        public Product(
+            int id, 
+            string name, 
+            int calories, 
+            int price, 
+            int amount, 
+            string weightType) : base(id)
+        { 
+           Name = name;
+           Calories = calories;
+           Price = price;
+           Amount = amount;
            if (weightType == "кг")
-               _weightType = WeightType.кг;
+               WeightType = WeightType.Kg;
            else if (weightType == "л")
-               _weightType = WeightType.л;
-        }
-        public int ID
-        {
-            get => _id;
-            set => _id = value;
+               WeightType = WeightType.L;
         }
 
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
-        public int Calories
-        {
-            get => _calories;
-            set => _calories = value;
-        }
-
-        public int Price
-        {
-            get => _price;
-            set => _price = value;
-        }
-
-        public int Amount
-        {
-            get => _amount;
-            set => _amount = value;
-        }
-
-
-        public WeightType WeightType
-        {
-            get => _weightType;
-            set => _weightType = value;
-        }
+        public string Name { get; set; }
+        public int Calories { get; set; }
+        public int Price { get; set; }
+        public int Amount { get; set; }
+        public WeightType WeightType { get; set; }
 
         //public override string ToString()
         //{

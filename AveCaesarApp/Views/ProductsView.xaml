@@ -76,7 +76,7 @@
                     <Border Grid.Row="3" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
                         <Image Source="../Images/DeleteElementIconBrdrlss.png">
                             <Image.InputBindings>
-                                <MouseBinding CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteCommand }"  MouseAction="LeftClick"/>
+                                <MouseBinding CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteItemCommand }"  MouseAction="LeftClick"/>
                             </Image.InputBindings>
                         </Image>
                     </Border>

@@ -41,7 +41,7 @@ namespace AveCaesarApp.ViewModels
             All = 0,
             [Display(Name = "Роллы")]
             Rolls = 1,
-            [Display(Name = "Сендвич")]
+            [Display(Name = "Сэндвич")]
             Sandwich,
             [Display(Name = "Супы")]
             Soup,

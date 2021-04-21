@@ -1,5 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:AveCaesarApp.Converters">
+
+    <converters:EnumDisplayNameConverter x:Key="EnumConverter"/>
 
     <DataTemplate x:Key="UnselectedTabItemForeground">
         <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
@@ -56,7 +59,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} руб/{1}">
                             <Binding Path="Price" />
-                            <Binding Path="WeightType" />
+                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -64,7 +67,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
                             <Binding Path="Amount" />
-                            <Binding Path="WeightType" />
+                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>

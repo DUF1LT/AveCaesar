@@ -110,7 +110,7 @@ namespace AveCaesarApp.ViewModels
         private void AddProductCommandExecute(object obj)
         {
             Product newProd = new Product(10, ProductName, Convert.ToInt32(ProductCalories),
-                Convert.ToInt32(ProductPrice), Convert.ToInt32(ProductAmount), WeightType.кг.ToString());
+                Convert.ToInt32(ProductPrice), Convert.ToInt32(ProductAmount), WeightType.Kg.ToString());
             ProductsList.Add(newProd);
             ProductName = string.Empty;
             ProductAmount = string.Empty;

@@ -27,7 +27,8 @@
                         <Border Background="Transparent" Width="175" BorderThickness="0"
                                 Name="Border"
                                 VerticalAlignment="Stretch" 
-                                HorizontalAlignment="Center">
+                                HorizontalAlignment="Center"
+                                Cursor="Hand">
                             <TextBlock Text="{TemplateBinding Property=Content, Converter={StaticResource EnumConverter}}"
                                        Name="TextBlock" VerticalAlignment="Stretch" HorizontalAlignment="Center"
                                        Width="{TemplateBinding Property=Width}" FontFamily="{TemplateBinding Property=FontFamily}" 
@@ -51,10 +52,24 @@
         </Style.Setters>
     </Style>
 
+        
+    <Style x:Key="DishesButtons" TargetType="Border">
+        <Setter Property="Margin" Value="15, 7"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="14,6"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <ControlTemplate x:Key="DishesListDefault" TargetType="ListViewItem">
         <Border  Name="Border" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
                  Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch" 
-                 Height="100" Background="White">
+                 Height="100" Background="White" Cursor="Hand">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -75,7 +90,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} {1}.">
                             <Binding Path="Weight" />
-                            <Binding Path="WeightType" />
+                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -85,43 +100,15 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="Border" Property="BorderThickness" Value="6"/>
+                <Setter TargetName="Border" Property="BorderThickness" Value="3"/>
+                <Setter TargetName="Border" Property="Background" Value="#dbf7d2"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Border" Property="Background" Value="#dbf7d2"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate  x:Key="DishesListSelected" TargetType="ListViewItem">
-        <Border  CornerRadius="10" BorderBrush="#FF024300" BorderThickness="6" 
-                Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch" 
-                Height="100" Background="White">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= ID}"  />
-                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Image}" />
-                <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name}"  />
-                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" >
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} {1}.">
-                            <Binding Path="Weight" />
-                            <Binding Path="WeightType" />
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold" Text="{Binding StringFormat={}{0} руб, Path=Price}"/>
-                <TextBlock Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Состав:" FontWeight="SemiBold" FontSize="13"/>
-            </Grid>
-        </Border>
-    </ControlTemplate>
+    
 
 </ResourceDictionary>

@@ -23,7 +23,7 @@ namespace AveCaesarApp.ViewModels
                     new (3, "Масло", 25, 10, 10, "л" ),
 
                 },
-                WeightType.кг,
+                WeightType.Kg,
                 DishType.Salad),
             new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,new BindingList<Product>()
                 {
@@ -31,7 +31,7 @@ namespace AveCaesarApp.ViewModels
                     new (2, "Помидор", 25, 10, 10, "кг"),
                     new (3, "Масло", 25, 10, 10, "л" ),
 
-                }, WeightType.кг,
+                }, WeightType.Kg,
                 DishType.Salad),
             new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,new BindingList<Product>()
                 {
@@ -39,15 +39,15 @@ namespace AveCaesarApp.ViewModels
                     new (2, "Помидор", 25, 10, 10, "кг"),
                     new (3, "Масло", 25, 10, 10, "л" ),
 
-                }, WeightType.кг,
+                }, WeightType.Kg,
             DishType.Smoothie),
-            new(4, "Сендвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, new BindingList<Product>()
+            new(4, "Сэндвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, new BindingList<Product>()
                 {
                     new(1, "Помидор", 25, 10, 10, "кг"),
                     new (2, "Помидор", 25, 10, 10, "кг"),
                     new (3, "Масло", 25, 10, 10, "л" ),
 
-                },WeightType.кг,
+                },WeightType.Kg,
             DishType.Sandwich)
         };
 
@@ -57,12 +57,17 @@ namespace AveCaesarApp.ViewModels
         //TODO: Unsubscribe event listener
         public DishesViewModel(NavigationStore navigationStore)
         {
+
             FilterViewModel = new DishesFilterViewModel();
 
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
+
             DishesList = DefaultList;
+            DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(DefaultList);
+
         }
 
         private void FilterViewModelOnOnSelectionChanged()
@@ -77,8 +82,6 @@ namespace AveCaesarApp.ViewModels
                 DishesList = DefaultList.Where(el => el.DishType == (DishType)FilterViewModel.SelectedItem).ToList();
             }
         }
-
-        public ICommand NavigateToHomeCommand { get; }
 
         public IList<Dish> DishesList
         {
@@ -99,5 +102,8 @@ namespace AveCaesarApp.ViewModels
         }
 
         public DishesFilterViewModel FilterViewModel { get; set; }
+
+        public ICommand NavigateToHomeCommand { get; }
+        public DeleteSelectedItemCommand<Dish> DeleteSelectedItem { get; }
     }
 }
