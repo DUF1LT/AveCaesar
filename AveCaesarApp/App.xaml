@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Resources/GeneralResources.xaml"/>
                 <ResourceDictionary Source="Resources/AuthorizationViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/HomeViewResources.xaml"/>
+                <ResourceDictionary Source="Resources/OrdersViewResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vm:AuthorizationViewModel}">
@@ -28,6 +29,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:DishesViewModel}">
                 <views:DishesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
+                <views:OrdersView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

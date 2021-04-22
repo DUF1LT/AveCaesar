@@ -15,7 +15,7 @@ namespace AveCaesarApp.ViewModels
     {
         private IList<Dish> _defaultList = new BindingList<Dish>()
         {
-            new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,
+            new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,  
                 new BindingList<Product>()
                 {
                     new(1, "Помидор", 25, 10, 10, "кг"), 
@@ -25,7 +25,8 @@ namespace AveCaesarApp.ViewModels
                 },
                 WeightType.Kg,
                 DishType.Salad),
-            new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,new BindingList<Product>()
+            new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
+                new BindingList<Product>()
                 {
                     new(1, "Помидор", 25, 10, 10, "кг"),
                     new (2, "Помидор", 25, 10, 10, "кг"),
@@ -33,7 +34,8 @@ namespace AveCaesarApp.ViewModels
 
                 }, WeightType.Kg,
                 DishType.Salad),
-            new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150,new BindingList<Product>()
+            new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
+                new BindingList<Product>()
                 {
                     new(1, "Помидор", 25, 10, 10, "кг"),
                     new (2, "Помидор", 25, 10, 10, "кг"),
@@ -41,7 +43,8 @@ namespace AveCaesarApp.ViewModels
 
                 }, WeightType.Kg,
             DishType.Smoothie),
-            new(4, "Сэндвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20, 300, 200, 150, new BindingList<Product>()
+            new(4, "Сэндвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
+                new BindingList<Product>()
                 {
                     new(1, "Помидор", 25, 10, 10, "кг"),
                     new (2, "Помидор", 25, 10, 10, "кг"),

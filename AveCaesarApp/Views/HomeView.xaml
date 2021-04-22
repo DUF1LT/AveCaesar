@@ -56,6 +56,9 @@
         </Border>
         <Border x:Name="OrdersButtonBorder" Grid.Column="2" Grid.Row="2" 
                 Style="{StaticResource HomeBorderStyle}">
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToOrdersCommand}"></MouseBinding>
+            </Border.InputBindings>
             <StackPanel HorizontalAlignment="Center">
                 <Image Source="../Images/OrdersIconButton.png" Margin="60,35,40,20" Stretch="Uniform"></Image>
                 <TextBlock  HorizontalAlignment="Center" Text="Заказы"/>

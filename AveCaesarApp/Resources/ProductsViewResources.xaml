@@ -40,7 +40,7 @@
         <Setter Property="FontSize" Value="16"></Setter>
     </Style>
 
-    <ControlTemplate x:Key="DefaultTemplate" TargetType="ListViewItem" >
+    <ControlTemplate x:Key="ProductsListViewTemplate" TargetType="ListViewItem" >
         <Border x:Name="ListViewBorder" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
                 Padding="10" Margin="0,0,0,10" 
                 HorizontalAlignment="Stretch" Background="White" Cursor="Hand">

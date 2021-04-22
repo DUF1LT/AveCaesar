@@ -22,9 +22,6 @@ namespace AveCaesarApp.Models
             string image, 
             int weight, 
             float price, 
-            float proteins, 
-            float fats, 
-            float carbons,
             BindingList<Product> products,
             WeightType weightType, 
             DishType dishType) : base(id)
@@ -33,9 +30,6 @@ namespace AveCaesarApp.Models
             Image = image;
             Weight = weight;
             Price = price;
-            Proteins = proteins;
-            Fats = fats;
-            Carbons = carbons;
             Products = products;
             WeightType = weightType;
             DishType = dishType;
@@ -49,12 +43,6 @@ namespace AveCaesarApp.Models
         public int Weight { get; set; }
 
         public float Price { get; set; }
-
-        public float Proteins { get; set; }
-
-        public float Fats { get; set; }
-
-        public float Carbons { get; set; }
 
         public BindingList<Product> Products { get; set; }
 

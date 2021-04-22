@@ -60,7 +60,7 @@
                                   BorderThickness="0" HorizontalContentAlignment="Stretch" >
                             <ListView.Resources>
                                 <Style TargetType="ListViewItem">
-                                    <Setter Property="Template" Value="{StaticResource DefaultTemplate}"/>
+                                    <Setter Property="Template" Value="{StaticResource ProductsListViewTemplate}"/>
                                 </Style>
                             </ListView.Resources>
                         </ListView>
