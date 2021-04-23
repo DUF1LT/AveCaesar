@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AveCaesarApp.Models
 {
@@ -40,7 +41,6 @@ namespace AveCaesarApp.Models
         public OrderStatus Status { get; set; }
         public float TotalPrice { get; }
         public string Note { get; set; }
-
 
     }
 }

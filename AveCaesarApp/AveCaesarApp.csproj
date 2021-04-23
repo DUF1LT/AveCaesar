@@ -16,6 +16,8 @@
     <None Remove="Images\AddElementIcon.png" />
     <None Remove="Images\AddElementIconBrdrlss.png" />
     <None Remove="Images\AddElementIconWhite.png" />
+    <None Remove="Images\ArrowBackwardBrdlss.png" />
+    <None Remove="Images\arrowDown.png" />
     <None Remove="Images\Background.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\DeleteElementIcon.png" />
@@ -37,9 +39,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\AddElementIcon.png" />
     <Resource Include="Images\AddElementIconBrdrlss.png" />
     <Resource Include="Images\AddElementIconWhite.png" />
+    <Resource Include="Images\ArrowBackwardBrdlss.png" />
+    <Resource Include="Images\arrowDown.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\DeleteElementIcon.png" />
     <Resource Include="Images\DeleteElementIconBrdrlss.png" />

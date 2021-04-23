@@ -47,15 +47,15 @@
             </Image>
             <Border Grid.Column="3" 
                     Style="{StaticResource WhiteButtons}">
-                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="7" />
+                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="8" />
             </Border>
             <Border Grid.Column="4" 
                     Style="{StaticResource WhiteButtons}">
                 <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7">
                     <Image.InputBindings>
                         <MouseBinding MouseAction="LeftClick" 
-                                  Command="{Binding DeleteSelectedItem}" 
-                                  CommandParameter="{Binding SelectedItem}"/>
+                                      Command="{Binding DeleteSelectedItem}" 
+                                      CommandParameter="{Binding SelectedItem}"/>
                     </Image.InputBindings>
                 </Image>
             </Border>
@@ -72,7 +72,7 @@
                       Margin="70,0">
             <ListView x:Name="ItemsList" 
                       ItemsSource="{Binding Path=OrdersList}"  SelectedItem="{Binding SelectedItem}"
-                      BorderThickness="0" HorizontalContentAlignment="Stretch" >
+                      BorderThickness="0" HorizontalContentAlignment="Stretch">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource OrdersListViewTemplate}"/>

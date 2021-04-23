@@ -41,8 +41,8 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore));
 
             AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
-                ? new AddProductCommand(AddProductCommandExecute, AddProductCommandCanExecute)
-                : new EditProductCommand(EditProductCommandExecute, EditProductCommandCanExecute);
+                ? new RelayCommand(AddProductCommandExecute, AddProductCommandCanExecute)
+                : new RelayCommand(EditProductCommandExecute, EditProductCommandCanExecute);
 
             if(_productOperationType == ProductOperationType.Edit)
             {
@@ -95,7 +95,7 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _addOrEditTabText, value);
         }
 
-        public Command AddOrEditProductCommand { get; }
+        public ICommand AddOrEditProductCommand { get; }
 
         private bool AddProductCommandCanExecute(object arg)
         {

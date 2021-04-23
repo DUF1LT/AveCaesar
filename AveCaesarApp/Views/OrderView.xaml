@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="AveCaesarApp.Views.OrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:AveCaesarApp.Converters"
+             xmlns:local="clr-namespace:AveCaesarApp.Views"
+             mc:Ignorable="d" 
+              Height="450" Width="800" 
+             MinWidth="800" MinHeight="480" 
+             Background="White" 
+             FontFamily="Source Serif Pro">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="8" Background="{StaticResource MainGreenColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.9*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.4*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="1" Grid.Row="0"  
+                   Source="../Images/WhiteLogo.png" Margin="0,0,0,-20" Cursor="Hand">
+                <Image.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToHomeCommand}"/>
+                </Image.InputBindings>
+            </Image>
+            <TextBlock Grid.Column="2" Text="{Binding StringFormat={}Заказ №{0}, Path= CurrentOrder.ID}" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontSize="35"
+                       Foreground="White"/>
+            <Border Grid.Column="3" 
+                    Style="{StaticResource WhiteButtons}">
+                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="7" />
+            </Border>
+            <Border Grid.Column="4" 
+                    Style="{StaticResource WhiteButtons}">
+                <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7">
+                    <Image.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" 
+                                  Command="{Binding DeleteSelectedItem}" 
+                                  CommandParameter="{Binding SelectedItem}"/>
+                    </Image.InputBindings>
+                </Image>
+            </Border>
+            <Border Grid.Column="5" 
+                    Style="{StaticResource WhiteButtons}">
+                <Image   Source="../Images/ArrowBackwardBrdlss.png" Margin="7">
+                    <Image.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" 
+                                      Command="{Binding NavigateToOrdersCommand}"/>
+                    </Image.InputBindings>
+                </Image>
+            </Border>
+        </Grid>
+
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+            <Label  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Margin="0,10,0,0" 
+                    Style="{StaticResource LabelStyle}" 
+                    Content="Заказ принят:"/>
+            <TextBlock Text="{Binding CurrentOrder.AcceptedTime, StringFormat=dd.MM.yyyy hh:mm}" 
+                       Margin="5,15,0,0" 
+                       FontSize="18"  
+                       HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" 
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                    Orientation="Horizontal">
+            <Label  HorizontalAlignment="Left" VerticalAlignment="Top"  
+                    Margin="0,10,0,0" 
+                    Style="{StaticResource LabelStyle}" 
+                    Content="Заказ приготовлен:"/>
+            <TextBlock Text="22.02.2021 01:23" Margin="5,15,0,0" FontSize="18"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <ComboBox Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2"
+                  Margin="0,10"
+                  Style="{StaticResource ComboBoxTemplate}"
+                  ItemsSource="{Binding StatusViewModel.Items, Converter={conv:OrderStatusToColorConverter}}"
+                  SelectedItem="{Binding StatusViewModel.SelectedItem, Converter={conv:SelectedOrderStatusToColorConverter}}">
+        </ComboBox>
+
+        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="4" 
+                      VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="ItemsList" ItemsSource="{Binding Path=CurrentOrder.Dishes}"
+                      BorderThickness="0" HorizontalContentAlignment="Stretch" 
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template" Value="{StaticResource DishesListDefault}"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Orientation="Horizontal">
+            <Label  HorizontalAlignment="Left" VerticalAlignment="Top"  
+                    Margin="0,10,0,0" 
+                    Style="{StaticResource LabelStyle}" 
+                    Content="Итого:"
+                    FontSize="22"/>
+            <TextBlock Text="{Binding CurrentOrder.TotalPrice, StringFormat={}{0} руб.}" 
+                       Margin="5,18,0,0" 
+                       FontSize="19"  
+                       HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

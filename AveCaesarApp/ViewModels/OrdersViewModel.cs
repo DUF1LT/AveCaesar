@@ -67,9 +67,13 @@ namespace AveCaesarApp.ViewModels
 
         public OrdersViewModel(NavigationStore navigationStore)
         {
+            Store = navigationStore;
 
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+
+            NavigateToSelectedOrderCommand =
+                new RelayCommand(NavigateToSelectedOrderExecute, NavigateToSelectedOrderCanExecute);
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
         }
@@ -87,8 +91,19 @@ namespace AveCaesarApp.ViewModels
             get => _selectedItem;
             set => Set(ref _selectedItem, value);
         }
+        public NavigationStore Store { get; }
 
         public ICommand NavigateToHomeCommand { get; }
+        public ICommand NavigateToSelectedOrderCommand { get; }
+        private bool NavigateToSelectedOrderCanExecute(object arg) => SelectedItem != null;
+        private void NavigateToSelectedOrderExecute(object obj)
+        {
+            if(obj is Order order)
+                new NavigateCommand<OrderViewModel>(Store, () => new OrderViewModel(Store, order)).Execute(null);
+        }
+
         public DeleteSelectedItemCommand<Order> DeleteSelectedItem { get; }
+
+      
     }
 }

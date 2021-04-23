@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AveCaesarApp.Commands
 {
-    class EditProductCommand : Command
+    class RelayCommand : Command
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;
 
-        public EditProductCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;
