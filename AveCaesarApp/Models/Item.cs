@@ -11,13 +11,13 @@ namespace AveCaesarApp.Models
 
         public Item(int id)
         {
-            ID = id;
+            Id = id;
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
          
 
-        public int GetId() => ID;
+        public int GetId() => Id;
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels;
 
@@ -23,8 +24,9 @@ namespace AveCaesarApp
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
+            AuthenticationStore authenticationStore = new AuthenticationStore(new AuthenticationService());
 
-            navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore, authenticationStore);
 
             ApplicationWindow applicationWindow = new ApplicationWindow()
             {

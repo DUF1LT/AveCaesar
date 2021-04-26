@@ -22,8 +22,8 @@ namespace AveCaesarApp.Commands
         public override void Execute(object parameter)
         {
             var productParameter = parameter as T;
-            int id = productParameter.ID;
-            var productToDelete = _itemsList.FirstOrDefault(e => e.ID == id);
+            int id = productParameter.Id;
+            var productToDelete = _itemsList.FirstOrDefault(e => e.Id == id);
             if (productToDelete != null)
                 _itemsList.Remove(productToDelete);
         }

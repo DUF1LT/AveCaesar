@@ -16,7 +16,7 @@
                     <ColumnDefinition Width="1.3*"/>
                     <ColumnDefinition Width="0.7*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  FontSize="16"/>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Id}"  FontSize="16"/>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat={}№{0} , Path=TableNumber}" FontSize="16" />
                 <Border x:Name="StatusBorder" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="6">
                     <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" 

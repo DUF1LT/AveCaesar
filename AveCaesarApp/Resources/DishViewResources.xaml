@@ -84,7 +84,7 @@
                     <ColumnDefinition Width="0.9*"/>
                     <ColumnDefinition Width="0.9*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= ID}"  />
+                <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= Id}"  />
                 <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Image}" />
                 <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name}"  />
                 <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" >

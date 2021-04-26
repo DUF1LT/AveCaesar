@@ -13,6 +13,8 @@ namespace AveCaesarApp.ViewModels
 {
     class DishesViewModel : ViewModel
     {
+        private readonly AuthenticationStore _authenticationStore;
+
         private IList<Dish> _defaultList = new BindingList<Dish>()
         {
             new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,  
@@ -58,13 +60,14 @@ namespace AveCaesarApp.ViewModels
         private Dish _selectedItem;
 
         //TODO: Unsubscribe event listener
-        public DishesViewModel(NavigationStore navigationStore)
+        public DishesViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
         {
+            _authenticationStore = authenticationStore;
 
             FilterViewModel = new DishesFilterViewModel();
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 
@@ -107,6 +110,6 @@ namespace AveCaesarApp.ViewModels
         public DishesFilterViewModel FilterViewModel { get; set; }
 
         public ICommand NavigateToHomeCommand { get; }
-        public DeleteSelectedItemCommand<Dish> DeleteSelectedItem { get; }
+        public ICommand DeleteSelectedItem { get; }
     }
 }

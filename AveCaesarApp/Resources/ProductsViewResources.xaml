@@ -52,7 +52,7 @@
                     <ColumnDefinition Width="0.9*"/>
                     <ColumnDefinition Width="0.9*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= ID}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Id}"  Style="{StaticResource ProductsItemTextBlock}"/>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
                 <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
                 <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">

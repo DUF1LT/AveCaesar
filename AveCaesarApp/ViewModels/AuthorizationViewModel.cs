@@ -7,13 +7,18 @@ namespace AveCaesarApp.ViewModels
 {
     class AuthorizationViewModel : ViewModel
     {
+        private readonly AuthenticationStore _authenticationStore;
+
+        public AuthorizationViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
+        {
+            _authenticationStore = authenticationStore;
+
+            NavigateToHomeCommand=
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+        }
+
         public ICommand NavigateToHomeCommand { get; }
 
-        public AuthorizationViewModel(NavigationStore navigationStore)
-        {
-            NavigateToHomeCommand=
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
-        }
-    
+
     }
 }

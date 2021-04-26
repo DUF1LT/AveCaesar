@@ -41,10 +41,10 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore));
 
             AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
-                ? new RelayCommand(AddProductCommandExecute, AddProductCommandCanExecute)
-                : new RelayCommand(EditProductCommandExecute, EditProductCommandCanExecute);
+                ? new AddProductCommand(this)
+                : new EditProductCommand(this);
 
-            if(_productOperationType == ProductOperationType.Edit)
+            if(_productOperationType == ProductOperationType.Edit && _selectedItem != null )
             {
                 ProductName = _selectedItem.Name;
                 ProductAmount = _selectedItem.Amount.ToString();
@@ -96,36 +96,6 @@ namespace AveCaesarApp.ViewModels
         }
 
         public ICommand AddOrEditProductCommand { get; }
-
-        private bool AddProductCommandCanExecute(object arg)
-        {
-
-            if (string.IsNullOrEmpty(ProductAmount) ||
-                string.IsNullOrEmpty(ProductCalories) ||
-                string.IsNullOrEmpty(ProductName) ||
-                string.IsNullOrEmpty(ProductPrice))
-                return false;
-            return true;
-        }
-        private void AddProductCommandExecute(object obj)
-        {
-            Product newProd = new Product(10, ProductName, Convert.ToInt32(ProductCalories),
-                Convert.ToInt32(ProductPrice), Convert.ToInt32(ProductAmount), WeightType.Kg.ToString());
-            ProductsList.Add(newProd);
-            ProductName = string.Empty;
-            ProductAmount = string.Empty;
-            ProductCalories = string.Empty;
-            ProductPrice = string.Empty;
-        }
-
-        private bool EditProductCommandCanExecute(object arg) => true;
-
-        private void EditProductCommandExecute(object obj)
-        {
-            //TODO: EditProduct when DB will be connected
-        }
-
-
         public ICommand NavigateToProductsCommand { get; }
     }
 }

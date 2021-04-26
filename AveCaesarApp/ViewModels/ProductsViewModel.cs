@@ -10,6 +10,7 @@ namespace AveCaesarApp.ViewModels
 {
     class ProductsViewModel : ViewModel
     {
+        private readonly AuthenticationStore _authenticationStore;
 
         private IList<Product> _productsList = new BindingList<Product>()
         {
@@ -26,12 +27,13 @@ namespace AveCaesarApp.ViewModels
 
         private Product _selectedItem;
 
-        public ProductsViewModel(NavigationStore navigationStore)
+        public ProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
         {
+            _authenticationStore = authenticationStore;
             DeleteItemCommand = new DeleteSelectedItemCommand<Product>(_productsList);
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
 
             NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
                 () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList));

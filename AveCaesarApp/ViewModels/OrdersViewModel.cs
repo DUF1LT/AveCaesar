@@ -15,11 +15,13 @@ namespace AveCaesarApp.ViewModels
 {
     class OrdersViewModel : ViewModel
     {
+        private readonly AuthenticationStore _authenticationStore;
+
         private IList<Order> _ordersList = new BindingList<Order>()
         {
-            new Order(1, 
-                "Петров", 
-                2, 
+            new Order(1,
+                "Петров",
+                2,
                 new BindingList<Dish>()
             {
                 new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
@@ -28,13 +30,12 @@ namespace AveCaesarApp.ViewModels
                         new(1, "Помидор", 25, 10, 10, "кг"),
                         new (2, "Помидор", 25, 10, 10, "кг"),
                         new (3, "Масло", 25, 10, 10, "л" ),
-
-                    },
+                    },  
                     WeightType.Kg,
                     DishType.Salad)
-            }, 
+            },
                 DateTime.Now,
-                DateTime.Now, 
+                DateTime.Now,
                 OrderStatus.Accepted,
                 "Погорячее"
             ),
@@ -50,7 +51,6 @@ namespace AveCaesarApp.ViewModels
                             new(1, "Помидор", 25, 10, 10, "кг"),
                             new (2, "Помидор", 25, 10, 10, "кг"),
                             new (3, "Масло", 25, 10, 10, "л" ),
-
                         },
                         WeightType.Kg,
                         DishType.Salad)
@@ -59,26 +59,22 @@ namespace AveCaesarApp.ViewModels
                 DateTime.Now,
                 OrderStatus.Accepted,
                 "Погорячее"
-
             )
         };
 
         private Order _selectedItem;
 
-        public OrdersViewModel(NavigationStore navigationStore)
+        public OrdersViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
         {
-            Store = navigationStore;
+            _authenticationStore = authenticationStore;
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
 
-            NavigateToSelectedOrderCommand =
-                new RelayCommand(NavigateToSelectedOrderExecute, NavigateToSelectedOrderCanExecute);
+            NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore, this);
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
         }
-
-        
 
         public IList<Order> OrdersList
         {
@@ -91,19 +87,10 @@ namespace AveCaesarApp.ViewModels
             get => _selectedItem;
             set => Set(ref _selectedItem, value);
         }
-        public NavigationStore Store { get; }
-
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToSelectedOrderCommand { get; }
-        private bool NavigateToSelectedOrderCanExecute(object arg) => SelectedItem != null;
-        private void NavigateToSelectedOrderExecute(object obj)
-        {
-            if(obj is Order order)
-                new NavigateCommand<OrderViewModel>(Store, () => new OrderViewModel(Store, order)).Execute(null);
-        }
-
         public DeleteSelectedItemCommand<Order> DeleteSelectedItem { get; }
 
-      
+
     }
 }
