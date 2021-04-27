@@ -15,6 +15,8 @@ namespace AveCaesarApp.ViewModels
 
     public class ProductViewModel : ViewModel
     {
+        private readonly AuthenticationStore _authenticationStore;
+
         private IList<Product> _productsList;
         private Product _selectedItem;
         private string _addOrEditButtonText;
@@ -27,8 +29,9 @@ namespace AveCaesarApp.ViewModels
 
 
         public ProductViewModel(NavigationStore navigationStore, ProductOperationType productOperationType,
-            IList<Product> productsList, Product selectedItem = null)
+            IList<Product> productsList, AuthenticationStore authenticationStore , Product selectedItem = null)
         {
+            _authenticationStore = authenticationStore;
             _productOperationType = productOperationType;
             _productsList = productsList;
             _selectedItem = selectedItem;
@@ -38,7 +41,7 @@ namespace AveCaesarApp.ViewModels
             AddOrEditTabText = _productOperationType == ProductOperationType.Add ? "Добавление" : "Редактирование";
 
             NavigateToProductsCommand =
-                new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore));
+                new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore));
 
             AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
                 ? new AddProductCommand(this)

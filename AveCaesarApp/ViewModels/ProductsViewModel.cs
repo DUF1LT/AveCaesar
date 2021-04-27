@@ -36,10 +36,10 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
 
             NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList));
+                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList, authenticationStore));
 
             NavigateToEditProductCommand = new NavigateToEditProductCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, _selectedItem ));
+                () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, authenticationStore , _selectedItem ));
 
         }
 
