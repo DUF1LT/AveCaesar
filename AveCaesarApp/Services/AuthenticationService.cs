@@ -6,26 +6,56 @@ using System.Text;
 using System.Threading.Tasks;
 using AveCaesarApp.Hashier;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 
 namespace AveCaesarApp.Services
 {
+    public enum RegistrationResult
+    {
+        Success,
+        PasswordDoNotMatch,
+        LoginAlreadyExists
+    }
+
     public class AuthenticationService
     {
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
-        public void Login(string login, string password)
+        public AuthenticationService(UnitOfWorkFactory unitOfWorkFactory)
+        {
+            _unitOfWorkFactory = unitOfWorkFactory;
+        }
+
+        public async Task<User> Login(string login, string password)
         {
             //TODO: Login when DB will be connected
         }
 
-        public void Register(string login, string password, string confirmPassword, string fullName, ProfileType profileType)
+        public async Task<RegistrationResult> Register(string login, string password, string confirmPassword, string fullName, ProfileType profileType)
         {
+            RegistrationResult result = RegistrationResult.Success;
+
             if (string.Equals(password, confirmPassword))
             {
+                using (UnitOfWork unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+                { 
+                    result = RegistrationResult.LoginAlreadyExists;
 
-                var passwordHasier = new SaltedHashier(password);
+                    var passwordHashier = new SaltedHashier(password);
 
-                User user = new User(1, login, passwordHasier.Hash, fullName, profileType);
+                    User user = new User(1, login, passwordHashier.Hash, fullName, profileType);
+
+
+                    unitOfWork.UserRepository.Create(user);
+                    unitOfWork.Save();
+                }
             }
+            else
+            {
+                result = RegistrationResult.PasswordDoNotMatch;
+            }
+
+            return result;
 
         }
     }

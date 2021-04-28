@@ -13,10 +13,12 @@ namespace AveCaesarApp.Commands
     {
         private NavigationStore _navigationStore;
         private OrdersViewModel _ordersViewModel;
-        public NavigateToSelectedOrderCommand(NavigationStore navigationStore, OrdersViewModel ordersViewModel)
+        private AuthenticationStore _authenticationStore;
+        public NavigateToSelectedOrderCommand(NavigationStore navigationStore, AuthenticationStore authenticationStore ,OrdersViewModel ordersViewModel)
         {
             _navigationStore = navigationStore;
             _ordersViewModel = ordersViewModel;
+            _authenticationStore = authenticationStore;
         }
         public override bool CanExecute(object parameter)
         {
@@ -26,7 +28,7 @@ namespace AveCaesarApp.Commands
         public override void Execute(object parameter)
         {
             if (parameter is Order order)
-                new NavigateCommand<OrderViewModel>(_navigationStore, () => new OrderViewModel(_navigationStore, order)).Execute(null);
+                new NavigateCommand<OrderViewModel>(_navigationStore, () => new OrderViewModel(_navigationStore, _authenticationStore, order)).Execute(null);
         }
     }
 }

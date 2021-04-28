@@ -31,7 +31,9 @@ namespace AveCaesarApp.Commands
         {
             Product newProd = new Product(10, _productViewModel.ProductName, Convert.ToInt32(_productViewModel.ProductCalories),
                 Convert.ToInt32(_productViewModel.ProductPrice), Convert.ToInt32(_productViewModel.ProductAmount), WeightType.Kg.ToString());
+
             _productViewModel.ProductsList.Add(newProd);
+
             _productViewModel.ProductName = string.Empty;
             _productViewModel.ProductAmount = string.Empty;
             _productViewModel.ProductCalories = string.Empty;

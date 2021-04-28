@@ -45,6 +45,7 @@ namespace AveCaesarApp.Models
         public float Price { get; set; }
 
         public BindingList<Product> Products { get; set; }
+        public BindingList<Order> Orders { get; set; }
 
         public WeightType WeightType { get; set; }
 

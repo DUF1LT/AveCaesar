@@ -1,14 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AveCaesarApp.Models
 {
     public enum WeightType
     {
         [Display(Name = "кг")]
-        Kg,
+        Kg = 1,
         [Display(Name = "л")]
-        L
+        L = 2,
+        [Display(Name = "шт")]
+        Unit = 3,
+        [Display(Name = "гр")]
+        G = 4
     }
+
     public class Product : Item
     {
         
@@ -36,6 +42,8 @@ namespace AveCaesarApp.Models
         public int Price { get; set; }
         public int Amount { get; set; }
         public WeightType WeightType { get; set; }
+
+        public ICollection<Dish> Dishes { get; set; }
 
         //public override string ToString()
         //{

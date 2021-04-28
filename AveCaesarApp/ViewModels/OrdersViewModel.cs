@@ -71,7 +71,7 @@ namespace AveCaesarApp.ViewModels
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
 
-            NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore, this);
+            NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore,_authenticationStore , this);
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
         }

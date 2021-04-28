@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.ViewModels.Base;
 using AveCaesarApp.Stores;
 
@@ -25,12 +26,15 @@ namespace AveCaesarApp.ViewModels
 
         };
 
+        private readonly UnitOfWork _unitOfWork;
+
         private Product _selectedItem;
 
         public ProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
         {
             _authenticationStore = authenticationStore;
             DeleteItemCommand = new DeleteSelectedItemCommand<Product>(_productsList);
+
 
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));

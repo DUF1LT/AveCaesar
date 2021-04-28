@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AveCaesarApp.Models
 {
     public enum ProfileType
     {
         [Display(Name = "Менеджер")]
-        Manager = 0,
+        Manager = 1,
         [Display(Name = "Повар")]
         Chef,
         [Display(Name = "Официант")]

@@ -21,15 +21,15 @@ namespace AveCaesarApp.Stores
 
         public User CurrentUser { get; set; }
 
-        public void Login(string login, string password)
+        public Task<User> Login(string login, string password)
         {
 
         }
 
-        public void Register(string login, string password, string confirmPassword, string fullName,
+        public async Task<RegistrationResult> Register(string login, string password, string confirmPassword, string fullName,
             ProfileType profileType)
         {
-            _authenticationService.Register(login, password, confirmPassword, fullName, profileType);
+           return await _authenticationService.Register(login, password, confirmPassword, fullName, profileType);
         }
 
         public void Logout()

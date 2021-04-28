@@ -9,11 +9,16 @@ namespace AveCaesarApp.Repository
 {
     public class UnitOfWork : IDisposable
     {
-        private AveCaesarContext db = new AveCaesarContext();
+        private AveCaesarContext db;
         private ProductRepository _productRepository;
         private DishRepository _dishRepository;
         private OrderRepository _orderRepository;
         private UserRepository _userRepository;
+
+        public UnitOfWork(AveCaesarContextFactory contextFactory)
+        {
+            db = contextFactory.CreateDbContext();
+        }
 
         public ProductRepository ProductRepository
         {

@@ -17,8 +17,8 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<ProductsViewModel>(navigationStore, 
                     () => new ProductsViewModel(navigationStore, authenticationStore));
 
-            NavigateToAuthorizationCommand = new NavigateCommand<AuthorizationViewModel>(navigationStore,
-                () => new AuthorizationViewModel(navigationStore, authenticationStore));
+            //NavigateToAuthorizationCommand = new NavigateCommand<AuthorizationViewModel>(navigationStore,
+            //    () => new AuthorizationViewModel(navigationStore, authenticationStore));
 
             NavigateToDishesCommand = new NavigateCommand<DishesViewModel>(navigationStore,
                 () => new DishesViewModel(navigationStore, authenticationStore));

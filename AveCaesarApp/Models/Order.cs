@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace AveCaesarApp.Models
 {
     public enum OrderStatus
     {
         [Display(Name = "Принят")]
-        Accepted,
+        Accepted = 1,
         [Display(Name = "Готовится")]
-        InProgress,
+        InProgress = 2,
         [Display(Name = "Готов")]
-        Ready
+        Ready = 3
     }
     public class Order : Item
     {
@@ -33,6 +29,8 @@ namespace AveCaesarApp.Models
             Note = note;
         }
 
+
+        //TODO: Add Relation to User
         public string WaiterName { get; set; }
         public int TableNumber { get; set; }
         public BindingList<Dish> Dishes { get; set; }

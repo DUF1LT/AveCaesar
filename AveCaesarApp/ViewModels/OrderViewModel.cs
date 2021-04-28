@@ -13,15 +13,15 @@ namespace AveCaesarApp.ViewModels
         private Order _currentOrder;
         private Dish _selectedItem;
 
-        public OrderViewModel(NavigationStore navigationStore, Order currentOrder)
+        public OrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,Order currentOrder)
         {
             _currentOrder = currentOrder;
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
 
             NavigateToOrdersCommand =
-                new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore));
+                new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore, authenticationStore));
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
 

@@ -10,7 +10,7 @@ namespace AveCaesarApp.Context
 {
     public class AveCaesarContext : DbContext
     {
-        public AveCaesarContext() : base("DbConnection")
+        public AveCaesarContext() : base("DefaultConnection")
         {
         }
 
