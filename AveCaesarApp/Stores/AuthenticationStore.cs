@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,9 @@ namespace AveCaesarApp.Stores
 
         public User CurrentUser { get; set; }
 
-        public Task<User> Login(string login, string password)
+        public async Task<User> Login(string login, string password)
         {
-
+            return await _authenticationService.Login(login, password);
         }
 
         public async Task<RegistrationResult> Register(string login, string password, string confirmPassword, string fullName,

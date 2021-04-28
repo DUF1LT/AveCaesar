@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:AveCaesarApp.UserControls"
         xmlns:local="clr-namespace:AveCaesarApp"
         mc:Ignorable="d"
          Height="450" Width="800" MinWidth="800" MinHeight="480" 
         FontFamily="Source Serif Pro">
     <UserControl.Background>
-        <ImageBrush ImageSource="../Images/Background.png"></ImageBrush>
+        <ImageBrush ImageSource="../Images/Background.png"/>
     </UserControl.Background>
     <Grid>
         <Grid.RowDefinitions>
@@ -51,14 +52,12 @@
                          BorderThickness="0" 
                          FontWeight="Regular" 
                          FontFamily="Source Serif Pro" FontSize="17" 
-                         Padding="7" />
+                         Padding="7" 
+                         Text="{Binding Login}"/>
             </Border>
             <Border x:Name="PasswordTextBoxBorder" 
                     BorderBrush="#FF024300" BorderThickness="0.9"  
                     Margin="60,10,60,10" CornerRadius="10">
-                <TextBox x:Name="PasswordTextBox"  ToolTip="Пароль" BorderBrush="{x:Null}" Margin="5,2,5,2"
-                         BorderThickness="0" 
-                         FontWeight="Regular" FontSize="17" Padding="7" />
             </Border>
             <Button x:Name="LogInButton" 
                     FontSize="18" Foreground="White"

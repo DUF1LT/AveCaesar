@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
 
@@ -21,6 +23,11 @@ namespace AveCaesarApp.Repository
         public User Get(int id)
         {
             return db.Users.Find(id);
+        }
+
+        public Task<User> GetByLogin(string login)
+        {
+            return db.Users.FirstOrDefaultAsync(p => p.Login == login);
         }
 
         public void Create(User item)

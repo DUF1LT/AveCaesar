@@ -9,20 +9,38 @@ namespace AveCaesarApp.ViewModels
     class AuthorizationViewModel : ViewModel
     {
         private readonly AuthenticationStore _authenticationStore;
-        private readonly UnitOfWork _unitOfWork;
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
+        private string _login;
+        private string _password;
 
-        public AuthorizationViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWork unitOfWork)
+
+        //TODO:Add watermarktextbox and passwordbox to view and bind login command
+        public AuthorizationViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
         {
             _authenticationStore = authenticationStore;
-            _unitOfWork = unitOfWork;
-            _unitOfWork.UserRepository.
+            _unitOfWorkFactory = unitOfWorkFactory;
 
-            NavigateToHomeCommand=
+            NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+
+            LoginCommand = new LoginCommand(_authenticationStore, this);
         }
 
+
+
         public ICommand NavigateToHomeCommand { get; }
+        public ICommand LoginCommand { get; }
 
+        public string Login
+        {
+            get => _login;
+            set => Set(ref _login, value);
+        }
 
+        public string Password
+        {
+            get => _password;
+            set => Set(ref _password, value);
+        }
     }
 }

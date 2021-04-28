@@ -9,23 +9,23 @@ namespace AveCaesarApp.Repository
 {
     public class UnitOfWork : IDisposable
     {
-        private AveCaesarContext db;
+        private readonly AveCaesarContext _dbContext;
         private ProductRepository _productRepository;
         private DishRepository _dishRepository;
         private OrderRepository _orderRepository;
         private UserRepository _userRepository;
 
-        public UnitOfWork(AveCaesarContextFactory contextFactory)
-        {
-            db = contextFactory.CreateDbContext();
-        }
 
+        public UnitOfWork()
+        {
+            _dbContext = new AveCaesarContext();
+        }
         public ProductRepository ProductRepository
         {
             get
             {
                 if (_productRepository== null)
-                    _productRepository = new ProductRepository(db);
+                    _productRepository = new ProductRepository(_dbContext);
                 return _productRepository;
             }
         }
@@ -35,7 +35,7 @@ namespace AveCaesarApp.Repository
             get
             {
                 if (_dishRepository == null)
-                    _dishRepository = new DishRepository(db);
+                    _dishRepository = new DishRepository(_dbContext);
                 return _dishRepository;
             }
         }
@@ -45,7 +45,7 @@ namespace AveCaesarApp.Repository
             get
             {
                 if (_orderRepository == null)
-                    _orderRepository = new OrderRepository(db);
+                    _orderRepository = new OrderRepository(_dbContext);
                 return _orderRepository;
             }
         }
@@ -55,19 +55,18 @@ namespace AveCaesarApp.Repository
             get
             {
                 if (_userRepository == null)
-                    _userRepository = new UserRepository(db);
+                    _userRepository = new UserRepository(_dbContext);
                 return _userRepository;
             }
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            db.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
         }
 
 
         public void Dispose()
-        {
-        }
+        { }
     }
 }

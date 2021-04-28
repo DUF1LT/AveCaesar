@@ -26,11 +26,11 @@ namespace AveCaesarApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            UnitOfWorkFactory unitOfWorkFactory = new UnitOfWorkFactory(new AveCaesarContextFactory());
+            UnitOfWorkFactory unitOfWorkFactory = new UnitOfWorkFactory();
             NavigationStore navigationStore = new NavigationStore();
-            AuthenticationStore authenticationStore = new AuthenticationStore(new AuthenticationService(unitOfWork));
+            AuthenticationStore authenticationStore = new AuthenticationStore(new AuthenticationService(unitOfWorkFactory));
 
-            navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore, authenticationStore, unitOfWork);
+            navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore, authenticationStore, unitOfWorkFactory);
 
             ApplicationWindow applicationWindow = new ApplicationWindow()
             {

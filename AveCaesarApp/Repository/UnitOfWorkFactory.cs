@@ -9,14 +9,9 @@ namespace AveCaesarApp.Repository
 {
     public class UnitOfWorkFactory
     {
-        private AveCaesarContextFactory _contextFactory;
-        public UnitOfWorkFactory(AveCaesarContextFactory contextFactory)
-        {
-            _contextFactory = contextFactory;
-        }
         public UnitOfWork CreateUnitOfWork()
         {
-            return new UnitOfWork(_contextFactory);
+            return new UnitOfWork();
         }
     }
 }
