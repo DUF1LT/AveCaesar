@@ -14,6 +14,9 @@ namespace AveCaesarApp.Models
 
     public class User : Item
     {
+        public User()
+        {
+        }
         public User(int id, string login, string hashedPassword, string fullName, ProfileType profileType) : base(id)
         {
             Login = login;
@@ -24,6 +27,7 @@ namespace AveCaesarApp.Models
 
         public string Login { get; set; }
         public string HashedPassword { get; set; }
+        public string Salt { get; set; }
         public string FullName { get; set; }
         public ProfileType ProfileType { get; set; }
         

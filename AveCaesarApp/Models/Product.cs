@@ -17,24 +17,24 @@ namespace AveCaesarApp.Models
 
     public class Product : Item
     {
-        
+
 
         public Product(
-            int id, 
-            string name, 
-            int calories, 
-            int price, 
-            int amount, 
+            int id,
+            string name,
+            int calories,
+            int price,
+            int amount,
             string weightType) : base(id)
-        { 
-           Name = name;
-           Calories = calories;
-           Price = price;
-           Amount = amount;
-           if (weightType == "кг")
-               WeightType = WeightType.Kg;
-           else if (weightType == "л")
-               WeightType = WeightType.L;
+        {
+            Name = name;
+            Calories = calories;
+            Price = price;
+            Amount = amount;
+            if (weightType == "кг")
+                WeightType = WeightType.Kg;
+            else if (weightType == "л")
+                WeightType = WeightType.L;
         }
 
         public string Name { get; set; }

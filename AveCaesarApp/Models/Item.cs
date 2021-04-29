@@ -1,7 +1,11 @@
 ﻿namespace AveCaesarApp.Models
 {
     public class Item
-    { 
+    {
+        public Item()
+        {
+            
+        }
 
         public Item(int id)
         {

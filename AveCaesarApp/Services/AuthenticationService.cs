@@ -33,9 +33,8 @@ namespace AveCaesarApp.Services
             {
                 User loginUser = await unitOfWork.UserRepository.GetByLogin(login);
                 var passwordHashier = new SaltedHashier(password);
-                if (!SaltedHashier.Verify(passwordHashier.Salt, passwordHashier.Hash, password))
+                if (!SaltedHashier.Verify(loginUser.Salt, loginUser.HashedPassword, password))
                 {
-                    MessageBox.Show("Неверный пароль!", "Ошибка");
                     return null;
                 }
 
@@ -56,7 +55,14 @@ namespace AveCaesarApp.Services
 
                     var passwordHashier = new SaltedHashier(password);
 
-                    User user = new User(1, login, passwordHashier.Hash, fullName, profileType);
+                    User user = new User()
+                    {
+                        Login = login,
+                        FullName = fullName,
+                        HashedPassword = passwordHashier.Hash,
+                        Salt = passwordHashier.Salt,
+                        ProfileType = ProfileType.Manager
+                    };
 
 
                     if (result == RegistrationResult.Success)

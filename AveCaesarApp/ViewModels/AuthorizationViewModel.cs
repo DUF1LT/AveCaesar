@@ -14,7 +14,6 @@ namespace AveCaesarApp.ViewModels
         private string _password;
 
 
-        //TODO:Add watermarktextbox and passwordbox to view and bind login command
         public AuthorizationViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
         {
             _authenticationStore = authenticationStore;
@@ -27,10 +26,6 @@ namespace AveCaesarApp.ViewModels
         }
 
 
-
-        public ICommand NavigateToHomeCommand { get; }
-        public ICommand LoginCommand { get; }
-
         public string Login
         {
             get => _login;
@@ -42,5 +37,10 @@ namespace AveCaesarApp.ViewModels
             get => _password;
             set => Set(ref _password, value);
         }
+
+        public ICommand NavigateToHomeCommand { get; }
+        public ICommand LoginCommand { get; }
+
+        
     }
 }

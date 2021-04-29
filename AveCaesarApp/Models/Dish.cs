@@ -17,13 +17,13 @@ namespace AveCaesarApp.Models
     public class Dish : Item
     {
         public Dish(
-            int id, 
+            int id,
             string name,
-            string image, 
-            int weight, 
-            float price, 
+            string image,
+            int weight,
+            float price,
             BindingList<Product> products,
-            WeightType weightType, 
+            WeightType weightType,
             DishType dishType) : base(id)
         {
             Name = name;

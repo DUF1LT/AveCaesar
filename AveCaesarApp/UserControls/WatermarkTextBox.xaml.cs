@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LAB9.User_Controls
+namespace AveCaesarApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for WatermarkTextBox.xaml
     /// </summary>
     public partial class WatermarkTextBox : UserControl
     {
@@ -33,7 +35,6 @@ namespace LAB9.User_Controls
             DependencyProperty.Register("TextBind", typeof(string), typeof(WatermarkTextBox), new PropertyMetadata(""));
 
 
-
         public string Watermark
         {
             get { return (string)GetValue(WatermarkProperty); }
@@ -45,18 +46,20 @@ namespace LAB9.User_Controls
             DependencyProperty.Register("Watermark", typeof(string), typeof(WatermarkTextBox), new PropertyMetadata("Enter watermark"));
 
 
-
         public WatermarkTextBox()
         {
             InitializeComponent();
+            WatermarkTextBlock.Text = "Логин";
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(WMTextBox.Text == "")
+            TextBind = WMTextBox.Text;
+            RaiseEvent(new RoutedEventArgs(TextChangedEvent, this));
+            if (WMTextBox.Text == "")
                 WatermarkTextBlock.Visibility = Visibility.Visible;
             else
-                WatermarkTextBlock.Visibility = Visibility.Hidden;
+                WatermarkTextBlock.Visibility = Visibility.Hidden; 
         }
 
         public event RoutedEventHandler TextChanged
