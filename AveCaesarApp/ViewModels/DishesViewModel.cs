@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -14,6 +15,7 @@ namespace AveCaesarApp.ViewModels
     class DishesViewModel : ViewModel
     {
         private readonly AuthenticationStore _authenticationStore;
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
         private IList<Dish> _defaultList = new BindingList<Dish>()
         {
@@ -60,14 +62,15 @@ namespace AveCaesarApp.ViewModels
         private Dish _selectedItem;
 
         //TODO: Unsubscribe event listener
-        public DishesViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
+        public DishesViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
         {
             _authenticationStore = authenticationStore;
+            _unitOfWorkFactory = unitOfWorkFactory;
 
             FilterViewModel = new DishesFilterViewModel();
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 

@@ -7,18 +7,23 @@ namespace AveCaesarApp.Models
     {
         [Display(Name = "кг")]
         Kg = 1,
-        [Display(Name = "л")]
-        L = 2,
-        [Display(Name = "шт")]
-        Unit = 3,
         [Display(Name = "гр")]
-        G = 4
+        G = 2,
+        [Display(Name = "л")]
+        L = 3,
+        [Display(Name = "мл")] 
+        Ml = 4,
+        [Display(Name = "шт")]
+        Unit = 5,
+        
     }
 
     public class Product : Item
     {
-
-
+        public Product()
+        {
+        }
+        
         public Product(
             int id,
             string name,
@@ -41,9 +46,8 @@ namespace AveCaesarApp.Models
         public int Calories { get; set; }
         public int Price { get; set; }
         public int Amount { get; set; }
+        public IList<Dish> Dishes { get; set; }
         public WeightType WeightType { get; set; }
-
-        public ICollection<Dish> Dishes { get; set; }
 
         //public override string ToString()
         //{

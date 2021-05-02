@@ -52,7 +52,7 @@
                     <Label Grid.Column="2" Grid.Row="0"   Content="Название"  Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Content="Калорийность" Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" Content="Цена"  Style="{StaticResource LabelStyle}"/>
-                    <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во" Margin="45,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
+                    <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во/Вес" Margin="15,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
 
                     <ScrollViewer Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
                         <ListView x:Name="ItemsList" 
@@ -69,21 +69,21 @@
                     <Border Grid.Row="2" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
                         <Image Source="../Images/AddElementIconBrdrlss.png" >
                             <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"></MouseBinding>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"/>
                             </Image.InputBindings>
                         </Image>
                     </Border>
                     <Border Grid.Row="3" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
                         <Image Source="../Images/DeleteElementIconBrdrlss.png">
                             <Image.InputBindings>
-                                <MouseBinding CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteItemCommand }"  MouseAction="LeftClick"/>
+                                <MouseBinding Command="{Binding DeleteSelectedProductCommand }"  MouseAction="LeftClick"/>
                             </Image.InputBindings>
                         </Image>
                     </Border>
                     <Border Grid.Row="4" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
                         <Image Source="../Images/EditIconBrdrlss.png">
                             <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}" CommandParameter="{Binding SelectedItem}"></MouseBinding>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}" CommandParameter="{Binding SelectedItem}"/>
                             </Image.InputBindings>
                         </Image>
                     </Border>

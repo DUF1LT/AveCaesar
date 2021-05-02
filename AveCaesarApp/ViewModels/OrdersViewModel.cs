@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -16,6 +17,7 @@ namespace AveCaesarApp.ViewModels
     class OrdersViewModel : ViewModel
     {
         private readonly AuthenticationStore _authenticationStore;
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
         private IList<Order> _ordersList = new BindingList<Order>()
         {
@@ -64,14 +66,16 @@ namespace AveCaesarApp.ViewModels
 
         private Order _selectedItem;
 
-        public OrdersViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
+        public OrdersViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
         {
             _authenticationStore = authenticationStore;
+            _unitOfWorkFactory = unitOfWorkFactory;
+            
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore,_authenticationStore , this);
+            NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore,_authenticationStore,  this, _unitOfWorkFactory);
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
         }

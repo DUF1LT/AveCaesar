@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -16,9 +17,11 @@ namespace AveCaesarApp.ViewModels
     public class ProductViewModel : ViewModel
     {
         private readonly AuthenticationStore _authenticationStore;
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
         private IList<Product> _productsList;
-        private Product _selectedItem;
+        private Product _itemToEdit;
+
         private string _addOrEditButtonText;
         private string _addOrEditTabText;
         private ProductOperationType _productOperationType;
@@ -26,37 +29,43 @@ namespace AveCaesarApp.ViewModels
         private string _productCalories;
         private string _productPrice;
         private string _productAmount;
+        private WeightType _productWeightType;
 
 
         public ProductViewModel(NavigationStore navigationStore, ProductOperationType productOperationType,
-            IList<Product> productsList, AuthenticationStore authenticationStore , Product selectedItem = null)
+            IList<Product> productsList, AuthenticationStore authenticationStore,UnitOfWorkFactory unitOfWorkFactory, Product itemToEdit = null)
         {
             _authenticationStore = authenticationStore;
+            _unitOfWorkFactory = unitOfWorkFactory;
             _productOperationType = productOperationType;
             _productsList = productsList;
-            _selectedItem = selectedItem;
+            _itemToEdit = itemToEdit;
 
             // TODO: Use converter
-            AddOrEditButtonText = _productOperationType == ProductOperationType.Add ? "Добавить" : "Отредактировать";
+            AddOrEditButtonText = _productOperationType == ProductOperationType.Add ? "Добавить" : "Подтвердить";
             AddOrEditTabText = _productOperationType == ProductOperationType.Add ? "Добавление" : "Редактирование";
+            AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
+                ? new AddProductCommand(this, _unitOfWorkFactory)
+                : new EditProductCommand(this, _unitOfWorkFactory);
 
             NavigateToProductsCommand =
-                new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
-                ? new AddProductCommand(this)
-                : new EditProductCommand(this);
+            WeightTypeViewModel = new ProductWeightTypeViewModel();
+            WeightTypeViewModel.OnSelectionChanged += ProductWeightTypeViewModelOnOnSelectionChanged;
 
-            if(_productOperationType == ProductOperationType.Edit && _selectedItem != null )
+            ProductWeightType = WeightType.Kg;
+            if (_productOperationType == ProductOperationType.Edit && _itemToEdit != null)
             {
-                ProductName = _selectedItem.Name;
-                ProductAmount = _selectedItem.Amount.ToString();
-                ProductCalories = _selectedItem.Calories.ToString();
-                ProductPrice = _selectedItem.Price.ToString();
+                ProductName = _itemToEdit.Name;
+                ProductAmount = _itemToEdit.Amount.ToString();
+                ProductCalories = _itemToEdit.Calories.ToString();
+                ProductPrice = _itemToEdit.Price.ToString();
+                WeightTypeViewModel.SelectedItem = _itemToEdit.WeightType;
             }
         }
 
-       
+      
 
         public IList<Product> ProductsList
         {
@@ -86,6 +95,12 @@ namespace AveCaesarApp.ViewModels
             get => _productAmount;
             set => Set(ref _productAmount, value);
         }
+
+        public WeightType ProductWeightType
+        {
+            get => _productWeightType;
+            set => Set(ref _productWeightType, value);
+        }
         public string AddOrEditButtonText
         {
             get => _addOrEditButtonText;
@@ -98,7 +113,19 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _addOrEditTabText, value);
         }
 
+        public ProductWeightTypeViewModel WeightTypeViewModel { get; }
+
         public ICommand AddOrEditProductCommand { get; }
         public ICommand NavigateToProductsCommand { get; }
+
+        public Product ItemToEdit
+        {
+            get => _itemToEdit;
+            set => Set(ref _itemToEdit, value);
+        }
+
+
+        private void ProductWeightTypeViewModelOnOnSelectionChanged() => ProductWeightType = WeightTypeViewModel.SelectedItem;
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AveCaesarApp.Models
 {
@@ -22,7 +23,7 @@ namespace AveCaesarApp.Models
             string image,
             int weight,
             float price,
-            BindingList<Product> products,
+            IList<Product> products,
             WeightType weightType,
             DishType dishType) : base(id)
         {
@@ -44,8 +45,8 @@ namespace AveCaesarApp.Models
 
         public float Price { get; set; }
 
-        public BindingList<Product> Products { get; set; }
-        public BindingList<Order> Orders { get; set; }
+        public IList<Product> Products { get; set; }
+        public IList<Order> Orders { get; set; }
 
         public WeightType WeightType { get; set; }
 

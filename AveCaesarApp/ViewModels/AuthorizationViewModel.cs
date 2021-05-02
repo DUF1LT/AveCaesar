@@ -20,7 +20,7 @@ namespace AveCaesarApp.ViewModels
             _unitOfWorkFactory = unitOfWorkFactory;
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             LoginCommand = new LoginCommand(_authenticationStore, this);
         }

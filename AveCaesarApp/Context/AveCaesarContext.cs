@@ -11,7 +11,7 @@ namespace AveCaesarApp.Context
     public class AveCaesarContext : DbContext
     {
         public AveCaesarContext() : base("DefaultConnection")
-        {
+        { 
         }
 
         public DbSet<Product> Products { get; set; }

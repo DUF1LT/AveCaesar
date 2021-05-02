@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,19 +16,13 @@ using System.Windows.Shapes;
 namespace AveCaesarApp.Views
 {
     /// <summary>
-    /// Interaction logic for ProductView.xaml
+    /// Interaction logic for DishView.xaml
     /// </summary>
-    public partial class ProductView : UserControl
+    public partial class DishView : UserControl
     {
-        public ProductView()
+        public DishView()
         {
             InitializeComponent();
-        }
-
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

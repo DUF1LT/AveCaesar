@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -9,19 +10,20 @@ namespace AveCaesarApp.ViewModels
 {
     class OrderViewModel : ViewModel
     {
-
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
         private Order _currentOrder;
         private Dish _selectedItem;
 
-        public OrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,Order currentOrder)
+        public OrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,Order currentOrder, UnitOfWorkFactory unitOfWorkFactory)
         {
             _currentOrder = currentOrder;
+            _unitOfWorkFactory = unitOfWorkFactory;
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToOrdersCommand =
-                new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
 

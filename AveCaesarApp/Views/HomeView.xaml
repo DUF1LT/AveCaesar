@@ -27,7 +27,17 @@
                 <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAuthorizationCommand}"/>
             </Image.InputBindings>
         </Image>
-        <Image Source="../Images/FullLogo.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
+        <Border x:Name="UsersButton" Grid.Column="2" Grid.Row="0"
+                Style="{StaticResource HomeBorderStyle}"
+                HorizontalAlignment="Right" Margin="0,8,25,8" Padding="5">
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToUsersCommand}"/>
+            </Border.InputBindings>
+            <Image Source="../Images/user.png"   
+               HorizontalAlignment="Left" Cursor="Hand">
+            </Image>
+        </Border>
+        <Image Source="../Images/FullLogo.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
             <Image.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform Y="-20"/>

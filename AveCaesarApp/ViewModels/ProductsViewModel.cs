@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -13,40 +14,34 @@ namespace AveCaesarApp.ViewModels
     {
         private readonly AuthenticationStore _authenticationStore;
 
-        private IList<Product> _productsList = new BindingList<Product>()
-        {
-            new(1, "Помидор", 25, 10, 10, "кг"),
-            new (2, "Помидор", 25, 10, 10, "кг"),
-            new (3, "Масло", 25, 10, 10, "л" ),
-            new (2, "Помидор", 25, 10, 10, "кг"),
-            new (1, "Помидор", 25, 10, 10, "кг"),     
-            new (2, "Помидор", 25, 10, 10, "кг"),
-            new (2, "Помидор", 25, 10, 10, "кг"),
-            new (2, "Помидор", 25, 10, 10, "кг"),
+        private IList<Product> _productsList;
 
-        };
-
-        private readonly UnitOfWork _unitOfWork;
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
         private Product _selectedItem;
 
-        public ProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore)
+        public ProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
         {
             _authenticationStore = authenticationStore;
-            DeleteItemCommand = new DeleteSelectedItemCommand<Product>(_productsList);
+            _unitOfWorkFactory = unitOfWorkFactory;
 
+            DeleteSelectedProductCommand = new RelayCommand(DeleteSelectedProductExecute, DeleteSelectedProductCanExecute);
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore));
+                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList, authenticationStore));
+                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList, authenticationStore, unitOfWorkFactory));
 
-            NavigateToEditProductCommand = new NavigateToEditProductCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, authenticationStore , _selectedItem ));
+            NavigateToEditProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
+                () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, authenticationStore, unitOfWorkFactory, _selectedItem),
+                (parameter) => parameter != null || _authenticationStore.CurrentUser.ProfileType != ProfileType.Manager);
+            
+            GetAllProducts();
 
         }
 
+        
         public Product SelectedItem
         {
             get => _selectedItem;
@@ -60,9 +55,29 @@ namespace AveCaesarApp.ViewModels
         }
 
         public ICommand NavigateToHomeCommand { get; }
-        public ICommand NavigateToAddProductCommand { get;  }
+        public ICommand NavigateToAddProductCommand { get; }
         public ICommand NavigateToEditProductCommand { get; }
+        public ICommand DeleteSelectedProductCommand { get; }
+        private bool DeleteSelectedProductCanExecute(object arg) => SelectedItem != null;
 
-        public DeleteSelectedItemCommand<Product> DeleteItemCommand { get; }
+        private async void DeleteSelectedProductExecute(object obj)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                unitOfWork.ProductRepository.Delete(SelectedItem.Id);
+                await unitOfWork.SaveAsync();
+            }
+        }
+
+
+        private void GetAllProducts()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                ProductsList = new BindingList<Product>(unitOfWork.ProductRepository.GetAll().ToList());
+            }
+        }
     }
+
+   
 }

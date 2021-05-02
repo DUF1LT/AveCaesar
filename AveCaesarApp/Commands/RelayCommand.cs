@@ -21,7 +21,7 @@ namespace AveCaesarApp.Commands
         {
             return this.canExecute == null || this.canExecute(parameter);
         }
-
+        
         public override void Execute(object parameter)
         {
             this.execute(parameter);

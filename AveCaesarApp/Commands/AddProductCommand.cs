@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.ViewModels;
 
 namespace AveCaesarApp.Commands
@@ -11,12 +12,14 @@ namespace AveCaesarApp.Commands
     class AddProductCommand : Command
     {
         private ProductViewModel _productViewModel;
+        private UnitOfWorkFactory _unitOfWorkFactory;
 
-        public AddProductCommand(ProductViewModel productViewModel)
+        public AddProductCommand(ProductViewModel productViewModel, UnitOfWorkFactory unitOfWorkFactory)
         {
             _productViewModel = productViewModel;
+            _unitOfWorkFactory = unitOfWorkFactory;
         }
-        
+
         public override bool CanExecute(object parameter)
         {
             if (string.IsNullOrEmpty(_productViewModel.ProductAmount) ||
@@ -27,17 +30,27 @@ namespace AveCaesarApp.Commands
             return true;
         }
 
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
-            Product newProd = new Product(10, _productViewModel.ProductName, Convert.ToInt32(_productViewModel.ProductCalories),
-                Convert.ToInt32(_productViewModel.ProductPrice), Convert.ToInt32(_productViewModel.ProductAmount), WeightType.Kg.ToString());
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                Product newProd = new Product()
+                {
+                    Name = _productViewModel.ProductName,
+                    Calories = Convert.ToInt32(_productViewModel.ProductCalories),
+                    Price = Convert.ToInt32(_productViewModel.ProductPrice),
+                    Amount = Convert.ToInt32(_productViewModel.ProductAmount),
+                    WeightType = _productViewModel.ProductWeightType
+                };
 
-            _productViewModel.ProductsList.Add(newProd);
+                unitOfWork.ProductRepository.Create(newProd);
+                await unitOfWork.SaveAsync();
+            }
 
             _productViewModel.ProductName = string.Empty;
-            _productViewModel.ProductAmount = string.Empty;
-            _productViewModel.ProductCalories = string.Empty;
-            _productViewModel.ProductPrice = string.Empty;
+            _productViewModel.ProductAmount = null;
+            _productViewModel.ProductCalories = null;
+            _productViewModel.ProductPrice = null;
         }
     }
 }

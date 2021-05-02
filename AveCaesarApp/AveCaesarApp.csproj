@@ -35,6 +35,7 @@
     <None Remove="Images\OrdersIconButton.png" />
     <None Remove="Images\ProductsIconButton.png" />
     <None Remove="Images\redcross.png" />
+    <None Remove="Images\user.png" />
     <None Remove="Images\WhiteLogo.png" />
   </ItemGroup>
 
@@ -86,6 +87,7 @@
     <Resource Include="Images\MainWindowExit.png" />
     <Resource Include="Images\OrdersIconButton.png" />
     <Resource Include="Images\ProductsIconButton.png" />
+    <Resource Include="Images\user.png" />
     <Resource Include="Images\WhiteLogo.png" />
   </ItemGroup>
 
