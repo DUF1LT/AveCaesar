@@ -17,9 +17,8 @@ namespace AveCaesarApp.Models
     public class Order : Item
     {
 
-        public Order(int id, string waiterName, int tableNumber, BindingList<Dish> dishes, DateTime acceptedTime, DateTime preparedTime, OrderStatus status, string note) : base(id)
+        public Order(int id, int tableNumber, BindingList<Dish> dishes, DateTime acceptedTime, DateTime preparedTime, OrderStatus status, string note) : base(id)
         {
-            WaiterName = waiterName;
             TableNumber = tableNumber;
             Dishes = dishes;
             AcceptedTime = acceptedTime;
@@ -30,7 +29,7 @@ namespace AveCaesarApp.Models
         }
 
 
-        public string WaiterName { get; set; }
+        public User Waiter { get; set; }
         public int TableNumber { get; set; }
         public BindingList<Dish> Dishes { get; set; }
         public DateTime AcceptedTime { get; set; }

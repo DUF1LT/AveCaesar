@@ -8,33 +8,65 @@
       Height="450" Width="800" MinWidth="800" MinHeight="480" FontFamily="Comfortaa" FontSize="25" 
         FontWeight="Bold" >
     <UserControl.Background>
-        <ImageBrush ImageSource="../Images/MainWindowBackground.png"></ImageBrush>
+        <ImageBrush ImageSource="../Images/MainWindowBackground.png"/>
     </UserControl.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.1*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="177.778"/>
+            <RowDefinition Height="237*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="MainWindowExitButton" Source="../Images/MainWindowExit.png" Grid.Row="0" Grid.Column="0"  
-               Margin="30,12,0,12" HorizontalAlignment="Left" Cursor="Hand">
-            <Image.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAuthorizationCommand}"/>
-            </Image.InputBindings>
-        </Image>
-        <Border x:Name="UsersButton" Grid.Column="2" Grid.Row="0"
+        <Grid Grid.Row="0" Grid.Column="0" Margin="35,0,-35,0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Source="../Images/user.png" Margin="6"/>
+            <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1.3*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="1" Text="{Binding AuthenticationStore.CurrentUser.FullName}" FontSize="12"/>
+                <TextBlock Grid.Row="2" Text="{Binding AuthenticationStore.CurrentUser.ProfileType, Converter={StaticResource EnumConverter}}" FontSize="11" FontWeight="Light"/>
+            </Grid>
+
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                 Style="{StaticResource HomeBorderStyle}"
-                HorizontalAlignment="Right" Margin="0,8,25,8" Padding="5">
+                HorizontalAlignment="Left"
+                CornerRadius="8" BorderThickness="1" Margin="0" >
+                
+                <Border.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAuthorizationCommand}"></MouseBinding>
+                </Border.InputBindings>
+                <TextBlock Text="Выход" FontSize="12" 
+                           VerticalAlignment="Center"
+                           Padding="6"/>
+            </Border>
+        </Grid>
+        <Border x:Name="UsersButton" Grid.Column="2" Grid.Row="0"
+                Style="{StaticResource UserEditBorderStyle}"
+                HorizontalAlignment="Right" 
+                Margin="0,6,30,6" Padding="7"
+                CornerRadius="10" BorderThickness="2.5">
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToUsersCommand}"/>
             </Border.InputBindings>
-            <Image Source="../Images/user.png"   
-               HorizontalAlignment="Left" Cursor="Hand">
+            <Image Source="../Images/useredit.png"   
+               HorizontalAlignment="Left" Cursor="Hand"
+               Margin="2,0,0,0">
             </Image>
         </Border>
         <Image Source="../Images/FullLogo.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
@@ -47,7 +79,7 @@
         <Border x:Name="ProductsButtonBorder" Grid.Column="0" Grid.Row="2" 
                  Style="{StaticResource HomeBorderStyle}">
             <Border.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToProductCommand}"></MouseBinding>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToProductCommand}"/>
             </Border.InputBindings>
             <StackPanel>
                 <Image Source="../Images/ProductsIconButton.png" Margin="50,35,50,20"></Image>

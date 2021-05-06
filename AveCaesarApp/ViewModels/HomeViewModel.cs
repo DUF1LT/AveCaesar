@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using AveCaesarApp.Commands;
+using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
@@ -29,13 +30,19 @@ namespace AveCaesarApp.ViewModels
             NavigateToOrdersCommand =
                 new NavigateCommand<OrdersViewModel>(navigationStore, 
                     () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+
+            NavigateToUsersCommand = new NavigateCommand<UsersViewModel>(navigationStore,
+                () => new UsersViewModel(navigationStore, _authenticationStore, _unitOfWorkFactory), 
+                (param) => _authenticationStore.CurrentUser.ProfileType == ProfileType.Manager);
         }
 
         public ICommand NavigateToAuthorizationCommand { get; }
         public ICommand NavigateToProductCommand { get; }
         public ICommand NavigateToDishesCommand { get; }
         public ICommand NavigateToOrdersCommand { get; }
+        public ICommand NavigateToUsersCommand { get; }
 
 
+        public AuthenticationStore AuthenticationStore => _authenticationStore;
     }
 }

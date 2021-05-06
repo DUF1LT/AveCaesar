@@ -23,4 +23,26 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="Border" x:Key="UserEditBorderStyle">
+        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="BorderBrush" Value="#FF024300"/>
+        <Setter Property="CornerRadius" Value="40" />
+        <Setter Property="Margin" Value="35,0,30,30" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="White" Opacity="0.7"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="PaleGreen" Opacity="0.6"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

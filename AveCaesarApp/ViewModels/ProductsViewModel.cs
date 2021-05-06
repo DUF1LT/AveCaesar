@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -58,13 +59,14 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToAddProductCommand { get; }
         public ICommand NavigateToEditProductCommand { get; }
         public ICommand DeleteSelectedProductCommand { get; }
-        private bool DeleteSelectedProductCanExecute(object arg) => SelectedItem != null;
-
+        private bool DeleteSelectedProductCanExecute(object arg) => 
+            SelectedItem != null && MessageBox.Show("Вы точно хотите удалить данные?","Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         private async void DeleteSelectedProductExecute(object obj)
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 unitOfWork.ProductRepository.Delete(SelectedItem.Id);
+                ProductsList.Remove(SelectedItem);
                 await unitOfWork.SaveAsync();
             }
         }

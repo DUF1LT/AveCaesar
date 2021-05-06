@@ -7,7 +7,7 @@ using AveCaesarApp.Models;
 
 namespace AveCaesarApp.Repository
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepositoryAsync<User>
     {
         private readonly AveCaesarContext db;
 
@@ -17,12 +17,12 @@ namespace AveCaesarApp.Repository
         }
         public IEnumerable<User> GetAll()
         {
-            return db.Users;
+            return db.Users.Where(p => p.Login != "admin");
         }
 
-        public User Get(int id)
+        public async Task<User> Get(int id)
         {
-            return db.Users.Find(id);
+            return await db.Users.FindAsync(id);
         }
 
         public Task<User> GetByLogin(string login)
@@ -40,9 +40,9 @@ namespace AveCaesarApp.Repository
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            User user = db.Users.Find(id);
+            User user =await db.Users.FindAsync(id);
             if (user != null)
                 db.Users.Remove(user);
         }

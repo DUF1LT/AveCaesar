@@ -22,10 +22,9 @@ namespace AveCaesarApp.Commands
 
         public override async void Execute(object parameter)
         {
-            //TODO: EditProduct when DB will be connected
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                var itemToEdit = unitOfWork.ProductRepository.Get(_productViewModel.ItemToEdit.Id);
+                var itemToEdit = await unitOfWork.ProductRepository.Get(_productViewModel.ItemToEdit.Id);
                 itemToEdit.Name = _productViewModel.ProductName;
                 itemToEdit.Price = Convert.ToInt32(_productViewModel.ProductPrice);
                 itemToEdit.Amount= Convert.ToInt32(_productViewModel.ProductAmount);

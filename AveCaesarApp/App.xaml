@@ -7,12 +7,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary  Source="Resources/ProductsViewResources.xaml"/>
+                <ResourceDictionary Source="Resources/ProductsViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/DishViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/GeneralResources.xaml"/>
                 <ResourceDictionary Source="Resources/AuthorizationViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/HomeViewResources.xaml"/>
                 <ResourceDictionary Source="Resources/OrdersViewResources.xaml"/>
+                <ResourceDictionary Source="Resources/UsersViewResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vm:AuthorizationViewModel}">
@@ -35,6 +36,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:OrderViewModel}">
                 <views:OrderView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:UsersViewModel}">
+                <views:UsersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:UserViewModel}">
+                <views:UserView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

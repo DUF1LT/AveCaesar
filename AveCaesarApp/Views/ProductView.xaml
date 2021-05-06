@@ -66,67 +66,56 @@
                         </Button.Template>
                     </Button>
 
-                    <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5"
-                                Orientation="Horizontal"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                >
-                        <Label Content="Название" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="28,0,10,0"/>
-                        <TextBox Width="250" Margin="10,5,0,5">
-                            <TextBox.Template>
-                                <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
-                                        <TextBox Text="{Binding Path=ProductName, Mode=TwoWay}" BorderThickness="0"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </TextBox.Template>
-                        </TextBox>
+                    <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="7" HorizontalAlignment="Right">
+                        <Label Content="Название" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,5,0,15"/>
+                        <Label Content="Кол-во/Вес" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,5,0,15"/>
+                        <Label Content="Калорийность" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,5,0,15"/>
+                        <Label Content="Цена" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,5,0,15"/>
                     </StackPanel>
-                    <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="5"
-                                Orientation="Horizontal" 
-                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                    >
-                        <Label Content="Кол-во/Вес" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="11,0,6,0"/>
-                        <TextBox Width="250" Margin="15,5,0,5" PreviewTextInput="NumberValidationTextBox">
-                            <TextBox.Template>
-                                <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="{StaticResource MainGreenColor}"
+
+
+                    <TextBox Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
+                                    <TextBox Text="{Binding Path=ProductName, Mode=TwoWay}" BorderThickness="0"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+
+                    <TextBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5" >
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border BorderBrush="{StaticResource MainGreenColor}"
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                        <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" BorderThickness="0"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </TextBox.Template>
-                        </TextBox>
-                    </StackPanel>
-                    <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="5"
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Калорийность" HorizontalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Width="250" Margin="20,5,30,5" PreviewTextInput="NumberValidationTextBox">
-                            <TextBox.Template>
-                                <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="{StaticResource MainGreenColor}" 
+                                    <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" BorderThickness="0"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+
+                    <TextBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5" >
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border BorderBrush="{StaticResource MainGreenColor}" 
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                        <TextBox Text="{Binding ProductCalories, Mode=TwoWay}" BorderThickness="0" />
-                                    </Border>
-                                </ControlTemplate>
-                            </TextBox.Template>
-                        </TextBox>
-                    </StackPanel>
-                    <StackPanel Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="5" 
-                                Orientation="Horizontal" 
-                                HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="Цена" HorizontalAlignment="Center" FontWeight="SemiBold" Margin="130,0,20,0"/>
-                        <TextBox Width="250" Margin="0,5,50,5" PreviewTextInput="NumberValidationTextBox">
-                            <TextBox.Template>
-                                <ControlTemplate TargetType="TextBox">
-                                    <Border BorderBrush="{StaticResource MainGreenColor}" 
+                                    <TextBox Text="{Binding ProductCalories, Mode=TwoWay}" BorderThickness="0" />
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+
+                    <TextBox Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5" >
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border BorderBrush="{StaticResource MainGreenColor}" 
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                        <TextBox Text="{Binding ProductPrice, Mode=TwoWay}" BorderThickness="0"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </TextBox.Template>
-                        </TextBox>
-                    </StackPanel>
+                                    <TextBox Text="{Binding ProductPrice, Mode=TwoWay}" BorderThickness="0"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
 
                     <Label Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" 
                            Style="{StaticResource LabelStyle}" 

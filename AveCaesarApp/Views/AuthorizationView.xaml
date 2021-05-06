@@ -71,6 +71,7 @@
                              Margin="5,2,5,2"
                              BorderThickness="0" 
                              FontWeight="Regular" 
+                             Watermark="Пароль"
                              StoredPassword="{Binding Password, Mode=TwoWay}"
                              FontFamily="Source Serif Pro" FontSize="17" 
                              Padding="7"/>

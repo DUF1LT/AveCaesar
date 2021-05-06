@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AveCaesarApp.UserControls
 {
@@ -29,17 +17,25 @@ namespace AveCaesarApp.UserControls
             set { SetValue(StoredPasswordProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for TextBind.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StoredPasswordProperty =
             DependencyProperty.Register("StoredPassword", typeof(string), typeof(PasswordTextBox), new PropertyMetadata(""));
 
+        public static readonly RoutedEvent WatermarkChangedEvent =
+            EventManager.RegisterRoutedEvent("WatermarkChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(WatermarkTextBox));
 
-        // Using a DependencyProperty as the backing store for Watermark.  This enables animation, styling, binding, etc...
+        public string Watermark
+        {
+            get { return (string)GetValue(WatermarkProperty); }
+            set { SetValue(WatermarkProperty, value); }
+        }
+
+        public static readonly DependencyProperty WatermarkProperty =
+            DependencyProperty.Register("WatermarkProperty", typeof(string), typeof(PasswordTextBox), new PropertyMetadata(""));
+
 
         public PasswordTextBox()
         {
             InitializeComponent();
-            WatermarkTextBlock.Text = "Пароль";
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -47,7 +43,7 @@ namespace AveCaesarApp.UserControls
             StoredPassword = WMTextBox.Text;
             RaiseEvent(new RoutedEventArgs(PasswordChangedEvent, this));
             if (WMTextBox.Text == "")
-                WatermarkTextBlock.Text = "Пароль";
+                WatermarkTextBlock.Text = Watermark;
             else
                 WatermarkTextBlock.Text = new string('●', WMTextBox.Text.Length);
         }
@@ -56,6 +52,12 @@ namespace AveCaesarApp.UserControls
         {
             add { AddHandler(PasswordChangedEvent, value); }
             remove { RemoveHandler(PasswordChangedEvent, value); }
+        }
+
+        private void PasswordTextBox_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            WatermarkTextBlock.Text = Watermark;
+            RaiseEvent(new RoutedEventArgs(WatermarkChangedEvent, this));
         }
     }
 }

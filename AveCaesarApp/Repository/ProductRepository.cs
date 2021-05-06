@@ -10,7 +10,7 @@ using EntityState = System.Data.Entity.EntityState;
 
 namespace AveCaesarApp.Repository
 {
-    public class ProductRepository : IRepository<Product>
+    public class ProductRepository : IRepositoryAsync<Product>
     {
         private readonly AveCaesarContext db;
 
@@ -23,9 +23,9 @@ namespace AveCaesarApp.Repository
             return db.Products;
         }
 
-        public Product Get(int id)
+        public async Task<Product> Get(int id)
         {
-            return db.Products.Find(id);
+            return await db.Products.FindAsync(id);
         }
 
         public void Create(Product item)
@@ -38,9 +38,9 @@ namespace AveCaesarApp.Repository
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public async void Delete(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = await db.Products.FindAsync(id);
             if (product != null)
                 db.Products.Remove(product);
         }

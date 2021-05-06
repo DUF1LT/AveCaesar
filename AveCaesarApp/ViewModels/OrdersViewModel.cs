@@ -22,7 +22,6 @@ namespace AveCaesarApp.ViewModels
         private IList<Order> _ordersList = new BindingList<Order>()
         {
             new Order(1,
-                "Петров",
                 2,
                 new BindingList<Dish>()
             {
@@ -43,7 +42,6 @@ namespace AveCaesarApp.ViewModels
             ),
 
             new Order(1,
-                "Петров",
                 2,
                 new BindingList<Dish>()
                 {
