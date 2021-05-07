@@ -61,7 +61,7 @@ namespace AveCaesarApp.Services
                         FullName = fullName,
                         HashedPassword = passwordHashier.Hash,
                         Salt = passwordHashier.Salt,
-                        ProfileType = ProfileType.Manager
+                        ProfileType = profileType
                     };
 
 

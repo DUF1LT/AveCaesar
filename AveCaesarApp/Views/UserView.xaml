@@ -12,7 +12,7 @@
              FontFamily="Source Serif Pro" FontSize="24">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height="1.2*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.3*"/>
@@ -37,9 +37,8 @@
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Background="{StaticResource MainGreenColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2.5*"/>
-
             </Grid.ColumnDefinitions>
             <Image Grid.Column="1" Grid.Row="0"  
                    Source="../Images/WhiteLogo.png" Margin="0,0,0,-20" Cursor="Hand">
@@ -48,13 +47,15 @@
                 </Image.InputBindings>
             </Image>
         </Grid>
-        <Button Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Command="{Binding AddOrEditProductCommand}" Cursor="Hand">
+        <Button Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Command="{Binding RegisterUserCommand}" Cursor="Hand">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="AddOrEditButtonBorder" Background="White" CornerRadius="10" 
                                         BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
-                        <TextBlock x:Name="AddOrEditButtonText" Text="Добавить" 
-                                               HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="{StaticResource MainGreenColor}"  />
+                        <TextBlock x:Name="AddOrEditButtonText"  
+                                   HorizontalAlignment="Center"  VerticalAlignment="Center"  
+                                   Foreground="{StaticResource MainGreenColor}" Text="Зарегистрировать" 
+                                   Padding="2"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
@@ -67,7 +68,7 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="ExitButton" Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="2" Command="{Binding NavigateToProductsCommand}" Cursor="Hand">
+        <Button x:Name="ExitButton" Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="2" Command="{Binding NavigateToUsersCommand}" Cursor="Hand">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="White" CornerRadius="10" 
@@ -90,7 +91,7 @@
             <TextBox.Template>
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
-                        <TextBox Text="{Binding Path=ProductName, Mode=TwoWay}" BorderThickness="0"/>
+                        <TextBox Text="{Binding Path=FullName, Mode=TwoWay}" BorderThickness="0"/>
                     </Border>
                 </ControlTemplate>
             </TextBox.Template>
@@ -101,7 +102,7 @@
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{StaticResource MainGreenColor}"
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                        <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" BorderThickness="0"/>
+                        <TextBox Text="{Binding Login, Mode=TwoWay}" BorderThickness="0"/>
                     </Border>
                 </ControlTemplate>
             </TextBox.Template>
@@ -128,7 +129,7 @@
                                           Margin="5,2,5,2"
                                           BorderThickness="0" 
                                           FontWeight="Regular" 
-                                          StoredPassword="{Binding Password, Mode=TwoWay}"
+                                          StoredPassword="{Binding ConfirmPassword, Mode=TwoWay}"
                                           FontFamily="Source Serif Pro" FontSize="17" 
                                           Padding="7"/>
         </Border>
@@ -137,12 +138,11 @@
                            Style="{StaticResource LabelStyle}" 
                            Content="Тип профиля"
                            Margin="0,0,30,0"/>
-        <ListView 
-            Grid.Column="5" Grid.Row="2" Grid.RowSpan="5"  Grid.ColumnSpan="2"
-            ItemsSource="{Binding WeightTypeViewModel.Items}" SelectedItem="{Binding WeightTypeViewModel.SelectedItem}" 
-            SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
-            ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-            Padding="0,15" Style="{StaticResource WeightListViewTemplate}" HorizontalContentAlignment="Stretch" >
+        <ListView Grid.Column="5" Grid.Row="2" Grid.RowSpan="4"  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding ProfileTypeViewModel.Items}" SelectedItem="{Binding ProfileTypeViewModel.SelectedItem}" 
+                  SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
+                  ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  Padding="0,15" Style="{StaticResource EnumMenuListViewTemplate}" HorizontalContentAlignment="Stretch" >
         </ListView>
 
     </Grid>

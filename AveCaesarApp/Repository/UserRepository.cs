@@ -40,9 +40,9 @@ namespace AveCaesarApp.Repository
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async void Delete(int id)
+        public void Delete(int id)
         {
-            User user =await db.Users.FindAsync(id);
+            User user =  db.Users.Find(id);
             if (user != null)
                 db.Users.Remove(user);
         }

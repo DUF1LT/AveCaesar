@@ -126,7 +126,7 @@
                                 ItemsSource="{Binding WeightTypeViewModel.Items}" SelectedItem="{Binding WeightTypeViewModel.SelectedItem}" 
                                 SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
                                 ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                Padding="0,15" Style="{StaticResource WeightListViewTemplate}" HorizontalContentAlignment="Stretch" >
+                                Padding="0,15" Style="{StaticResource EnumMenuListViewTemplate}" HorizontalContentAlignment="Stretch" >
                     </ListView>
                 </Grid>
             </TabItem>

@@ -20,6 +20,8 @@ namespace AveCaesarApp.UserControls
         public static readonly DependencyProperty StoredPasswordProperty =
             DependencyProperty.Register("StoredPassword", typeof(string), typeof(PasswordTextBox), new PropertyMetadata(""));
 
+
+
         public static readonly RoutedEvent WatermarkChangedEvent =
             EventManager.RegisterRoutedEvent("WatermarkChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(WatermarkTextBox));
 

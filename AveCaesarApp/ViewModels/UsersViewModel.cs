@@ -59,8 +59,9 @@ namespace AveCaesarApp.ViewModels
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                unitOfWork.ProductRepository.Delete(SelectedItem.Id);
+                unitOfWork.UserRepository.Delete(SelectedItem.Id);
                 await unitOfWork.SaveAsync();
+                GetAllUsers();
             }
         }
 

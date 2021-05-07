@@ -51,8 +51,8 @@ namespace AveCaesarApp.ViewModels
             NavigateToProductsCommand =
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            WeightTypeViewModel = new ProductWeightTypeViewModel();
-            WeightTypeViewModel.OnSelectionChanged += ProductWeightTypeViewModelOnOnSelectionChanged;
+            WeightTypeViewModel = new EnumMenuViewModel<WeightType>();
+            WeightTypeViewModel.OnSelectionChanged += () => ProductWeightType = WeightTypeViewModel.SelectedItem;
 
             ProductWeightType = WeightType.Kg;
             if (_productOperationType == ProductOperationType.Edit && _itemToEdit != null)
@@ -112,20 +112,16 @@ namespace AveCaesarApp.ViewModels
             get => _addOrEditTabText;
             set => Set(ref _addOrEditTabText, value);
         }
-
-        public ProductWeightTypeViewModel WeightTypeViewModel { get; }
-
-        public ICommand AddOrEditProductCommand { get; }
-        public ICommand NavigateToProductsCommand { get; }
-
         public Product ItemToEdit
         {
             get => _itemToEdit;
             set => Set(ref _itemToEdit, value);
         }
+        public EnumMenuViewModel<WeightType> WeightTypeViewModel { get; }
 
+        public ICommand AddOrEditProductCommand { get; }
+        public ICommand NavigateToProductsCommand { get; }
 
-        private void ProductWeightTypeViewModelOnOnSelectionChanged() => ProductWeightType = WeightTypeViewModel.SelectedItem;
 
     }
 }

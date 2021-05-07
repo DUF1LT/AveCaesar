@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,25 +9,25 @@ using AveCaesarApp.ViewModels.Base;
 
 namespace AveCaesarApp.ViewModels
 {
-    public class ProductWeightTypeViewModel : ViewModel
+    public class EnumMenuViewModel<TEnum> : ViewModel where TEnum : struct, Enum
     {
-        private IList<WeightType> _items;
-        private WeightType _selectedItem;
-        public event Action OnSelectionChanged;
-
-        public ProductWeightTypeViewModel()
+        private IList<TEnum> _items;
+        private TEnum _selectedItem;
+        public event Action OnSelectionChanged = null!;
+            
+        public EnumMenuViewModel()
         {
-            Items = Enum.GetValues<WeightType>().ToList();
-            SelectedItem = WeightType.Kg;
+            _items = Enum.GetValues<TEnum>().ToList();
+            _selectedItem = Items[0];
         }
 
-        public IList<WeightType> Items
+        public IList<TEnum> Items
         {
             get => _items;
             set => Set(ref _items, value);
         }
 
-        public WeightType SelectedItem
+        public TEnum SelectedItem
         {
             get => _selectedItem;
             set

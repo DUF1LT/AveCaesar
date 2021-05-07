@@ -24,4 +24,51 @@
             </Track.Thumb>
         </Track>
     </ControlTemplate>
+
+    <Style TargetType="{x:Type ListViewItem}" x:Key="EnumMenuButtonStyle">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Background="Transparent" Width="175" BorderThickness="0"
+                                Name="Border"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Center"
+                                Cursor="Hand">
+                            <TextBlock Text="{TemplateBinding Property=Content, Converter={StaticResource EnumConverter}}"
+                                       Name="TextBlock" VerticalAlignment="Stretch" HorizontalAlignment="Center"
+                                       Width="{TemplateBinding Property=Width}" FontFamily="{TemplateBinding Property=FontFamily}" 
+                                       FontSize="20" Padding="0,4" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type ListView}" x:Key="EnumMenuListViewTemplate">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border Margin="0,0,30,0" Background="#FF024300" CornerRadius="15" Padding="0,15,0,0">
+                            <ItemsPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
 </ResourceDictionary>

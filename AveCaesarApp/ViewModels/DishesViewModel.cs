@@ -111,7 +111,6 @@ namespace AveCaesarApp.ViewModels
         }
 
         public DishesFilterViewModel FilterViewModel { get; set; }
-
         public ICommand NavigateToHomeCommand { get; }
         public ICommand DeleteSelectedItem { get; }
     }
