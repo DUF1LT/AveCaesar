@@ -36,6 +36,7 @@
     <None Remove="Images\OrdersIconButton.png" />
     <None Remove="Images\ProductsIconButton.png" />
     <None Remove="Images\redcross.png" />
+    <None Remove="Images\SearchIcon.png" />
     <None Remove="Images\user.png" />
     <None Remove="Images\useredit.png" />
     <None Remove="Images\WhiteLogo.png" />
@@ -90,6 +91,7 @@
     <Resource Include="Images\MainWindowExit.png" />
     <Resource Include="Images\OrdersIconButton.png" />
     <Resource Include="Images\ProductsIconButton.png" />
+    <Resource Include="Images\SearchIcon.png" />
     <Resource Include="Images\user.png" />
     <Resource Include="Images\useredit.png" />
     <Resource Include="Images\WhiteLogo.png" />

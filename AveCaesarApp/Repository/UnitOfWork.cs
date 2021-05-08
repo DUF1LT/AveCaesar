@@ -68,7 +68,6 @@ namespace AveCaesarApp.Repository
 
         public void Dispose()
         {
-            _dbContext.Dispose();
         }
     }
 }

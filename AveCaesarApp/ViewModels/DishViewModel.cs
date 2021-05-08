@@ -21,8 +21,7 @@ namespace AveCaesarApp.ViewModels
         private DishType _dishType;
         private List<ProductToAdd> _productsToAdd;
 
-
-        public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,UnitOfWorkFactory unitOfWorkFactory)
+        public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
 
