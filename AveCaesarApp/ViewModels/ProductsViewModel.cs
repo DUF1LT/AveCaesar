@@ -45,9 +45,6 @@ namespace AveCaesarApp.ViewModels
                 () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, authenticationStore, unitOfWorkFactory, _selectedItem),
                 (parameter) => parameter != null || _authenticationStore.CurrentUser.ProfileType != ProfileType.Manager);
 
-            SearchProductsByExpressionCommand = new RelayCommand(SearchProductsByExpressionCommandExecute,
-                SearchProductsByExpressionCommandCanExecute);
-
 
             GetAllProducts();
 
@@ -75,8 +72,14 @@ namespace AveCaesarApp.ViewModels
         public string SearchExpression
         {
             get => _searchExpression;
-            set => Set(ref _searchExpression, value);
+            set
+            {
+                Set(ref _searchExpression, value);
+                SearchExpressionChanged();
+            }
         }
+
+        
 
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToAddProductCommand { get; }
@@ -94,11 +97,9 @@ namespace AveCaesarApp.ViewModels
                 await unitOfWork.SaveAsync();
             }
         }
-        public ICommand SearchProductsByExpressionCommand{ get; }
 
-        private bool SearchProductsByExpressionCommandCanExecute(object arg) => true;
 
-        private void SearchProductsByExpressionCommandExecute(object obj)
+        private void SearchExpressionChanged()
         {
             if (SearchExpression == string.Empty)
                 ProductsList = DefaultList;
@@ -107,9 +108,7 @@ namespace AveCaesarApp.ViewModels
                 Regex regex = new Regex($"^{SearchExpression.ToLower()}");
                 ProductsList = DefaultList.Where(p => regex.IsMatch(p.Name.ToLower())).ToList();
             }
-
         }
-
 
         private void GetAllProducts()
         {

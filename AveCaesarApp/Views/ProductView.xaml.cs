@@ -28,8 +28,14 @@ namespace AveCaesarApp.Views
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            Regex regex = new Regex("^[0-9]{0,3}$");
+            e.Handled = !regex.IsMatch(((TextBox)sender).Text + e.Text);  
+        }
+
+        private void TextLengthValidation(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^\\w{0,15}$");
+            e.Handled = !regex.IsMatch(((TextBox)sender).Text + e.Text);
         }
     }
 }

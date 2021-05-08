@@ -103,10 +103,7 @@
                          Text="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
-            <Border Style="{StaticResource WhiteButtons}" CornerRadius="4" Margin="3">
-                <Border.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" Command="{Binding SearchProductsByExpressionCommand}"/>
-                </Border.InputBindings>
+            <Border Style="{StaticResource WhiteButtons}" CornerRadius="4" Margin="3" Cursor="Arrow" >
                 <Image  Source="../Images/SearchIcon.png" Margin="3" />
             </Border>
         </StackPanel>
