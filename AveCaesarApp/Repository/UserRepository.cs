@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
+using Microsoft.EntityFrameworkCore;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace AveCaesarApp.Repository
 {

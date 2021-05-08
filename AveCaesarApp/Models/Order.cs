@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace AveCaesarApp.Models
     }
     public class Order : Item
     {
-
+        public Order()
+        {
+            
+        }
         public Order(int id, int tableNumber, BindingList<Dish> dishes, DateTime acceptedTime, DateTime preparedTime, OrderStatus status, string note) : base(id)
         {
             TableNumber = tableNumber;
-            Dishes = dishes;
             AcceptedTime = acceptedTime;
             PreparedTime = preparedTime;
             Status = status;
@@ -31,12 +34,12 @@ namespace AveCaesarApp.Models
 
         public User Waiter { get; set; }
         public int TableNumber { get; set; }
-        public BindingList<Dish> Dishes { get; set; }
         public DateTime AcceptedTime { get; set; }
         public DateTime PreparedTime { get; set; }
         public OrderStatus Status { get; set; }
         public float TotalPrice { get; }
         public string Note { get; set; }
+        public IList<DishesOrders> DishesOrders { get; set; }
 
     }
 }

@@ -50,18 +50,18 @@
         <Button Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="2" Command="{Binding RegisterUserCommand}" Cursor="Hand">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="AddOrEditButtonBorder" Background="White" CornerRadius="10" 
+                    <Border x:Name="RegisterBorder" Background="White" CornerRadius="10" 
                                         BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
-                        <TextBlock x:Name="AddOrEditButtonText"  
+                        <TextBlock x:Name="RegisterButtonText"  
                                    HorizontalAlignment="Center"  VerticalAlignment="Center"  
                                    Foreground="{StaticResource MainGreenColor}" Text="Зарегистрировать" 
                                    Padding="2"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
-                            <Setter TargetName="AddOrEditButtonBorder" Property="Background" Value="{StaticResource MainGreenColor}" />
-                            <Setter TargetName="AddOrEditButtonBorder" Property="BorderThickness" Value="0" />
-                            <Setter TargetName="AddOrEditButtonText" Property="Foreground" Value="White" />
+                            <Setter TargetName="RegisterBorder" Property="Background" Value="{StaticResource MainGreenColor}" />
+                            <Setter TargetName="RegisterBorder" Property="BorderThickness" Value="0" />
+                            <Setter TargetName="RegisterButtonText" Property="Foreground" Value="White" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -111,12 +111,11 @@
         <Border Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3" x:Name="PasswordTextBoxBorder" 
                 BorderBrush="#FF024300" BorderThickness="2"  
                 CornerRadius="5" Margin="0,5,30,5" Width="250">
-            <userControls:PasswordTextBox x:Name="PasswordTextBox"  
+            <userControls:BindableWatermarkPasswordBox x:Name="PasswordTextBox"  
                                 BorderBrush="{x:Null}" 
-                                Margin="5,2,5,2"
                                 BorderThickness="0" 
                                 FontWeight="Regular" 
-                                StoredPassword="{Binding Password, Mode=TwoWay}"
+                                Password="{Binding Password}"
                                 FontFamily="Source Serif Pro" FontSize="17" 
                                 Padding="7"/>
         </Border>
@@ -124,12 +123,11 @@
         <Border Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3" x:Name="RepeatPasswordBorder" 
                 BorderBrush="#FF024300" BorderThickness="2"  
                 CornerRadius="5" Margin="0,5,30,5" Width="250">
-            <userControls:PasswordTextBox x:Name="RepeatPasswordTextBox"  
+            <userControls:BindableWatermarkPasswordBox x:Name="RepeatPasswordTextBox"  
                                           BorderBrush="{x:Null}" 
-                                          Margin="5,2,5,2"
                                           BorderThickness="0" 
                                           FontWeight="Regular" 
-                                          StoredPassword="{Binding ConfirmPassword, Mode=TwoWay}"
+                                          Password="{Binding ConfirmPassword}"
                                           FontFamily="Source Serif Pro" FontSize="17" 
                                           Padding="7"/>
         </Border>

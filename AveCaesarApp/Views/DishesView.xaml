@@ -42,7 +42,10 @@
             </Image>
             <Border Grid.Column="3" 
                     Style="{StaticResource WhiteButtons}">
-                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="7" />
+                <Border.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddDishCommand}"/>
+                </Border.InputBindings>
+                    <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="7" />
             </Border>
             <Border Grid.Column="4" 
                     Style="{StaticResource WhiteButtons}">

@@ -89,7 +89,7 @@
                             <ControlTemplate TargetType="TextBox">
                                 <Border BorderBrush="{StaticResource MainGreenColor}"
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" BorderThickness="0"/>
+                                    <TextBox Text="{Binding ProductAmount, Mode=TwoWay}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox"/>
                                 </Border>
                             </ControlTemplate>
                         </TextBox.Template>
@@ -100,7 +100,7 @@
                             <ControlTemplate TargetType="TextBox">
                                 <Border BorderBrush="{StaticResource MainGreenColor}" 
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductCalories, Mode=TwoWay}" BorderThickness="0" />
+                                    <TextBox Text="{Binding ProductCalories, Mode=TwoWay}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox" />
                                 </Border>
                             </ControlTemplate>
                         </TextBox.Template>
@@ -111,7 +111,7 @@
                             <ControlTemplate TargetType="TextBox">
                                 <Border BorderBrush="{StaticResource MainGreenColor}" 
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductPrice, Mode=TwoWay}" BorderThickness="0"/>
+                                    <TextBox Text="{Binding ProductPrice, Mode=TwoWay}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox"/>
                                 </Border>
                             </ControlTemplate>
                         </TextBox.Template>

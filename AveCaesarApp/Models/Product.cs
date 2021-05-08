@@ -45,9 +45,9 @@ namespace AveCaesarApp.Models
         public string Name { get; set; }
         public int Calories { get; set; }
         public int Price { get; set; }
-        public int Amount { get; set; }
-        public IList<Dish> Dishes { get; set; }
+        public float Amount { get; set; }
         public WeightType WeightType { get; set; }
+        public IList<ProductsDishes> ProductDishes { get; set; }
 
         //public override string ToString()
         //{

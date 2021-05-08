@@ -66,13 +66,13 @@
             <Border x:Name="PasswordTextBoxBorder" 
                     BorderBrush="#FF024300" BorderThickness="0.9"  
                     Margin="60,10,60,10" CornerRadius="10">
-                <us:PasswordTextBox x:Name="PasswordTextBox"  
+                <us:BindableWatermarkPasswordBox x:Name="PasswordTextBox"  
                              ToolTip="Пароль" BorderBrush="{x:Null}" 
                              Margin="5,2,5,2"
                              BorderThickness="0" 
                              FontWeight="Regular" 
                              Watermark="Пароль"
-                             StoredPassword="{Binding Password, Mode=TwoWay}"
+                             Password="{Binding Password}"
                              FontFamily="Source Serif Pro" FontSize="17" 
                              Padding="7"/>
             </Border>

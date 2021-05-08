@@ -32,11 +32,16 @@ namespace AveCaesarApp.Services
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 User loginUser = await unitOfWork.UserRepository.GetByLogin(login);
-                var passwordHashier = new SaltedHashier(password);
-                if (!SaltedHashier.Verify(loginUser.Salt, loginUser.HashedPassword, password))
+                if (loginUser != null)
                 {
-                    return null;
+                    var passwordHashier = new SaltedHashier(password);
+                    if (!SaltedHashier.Verify(loginUser.Salt, loginUser.HashedPassword, password))
+                    {
+                        return null;
+                    }
                 }
+                else
+                    return null;
 
                 return loginUser;
             }

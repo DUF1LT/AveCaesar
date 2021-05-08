@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
-using System.Data.Entity;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace AveCaesarApp.Repository
 {

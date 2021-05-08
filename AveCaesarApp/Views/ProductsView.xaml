@@ -93,7 +93,7 @@
         </TabControl>
         <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,0,-30,0" x:Name="Logo" Source="../Images/WhiteLogo.png" Cursor="Hand">
             <Image.InputBindings>
-                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToHomeCommand}"></MouseBinding>
+                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToHomeCommand}"/>
             </Image.InputBindings>
         </Image>
     </Grid>

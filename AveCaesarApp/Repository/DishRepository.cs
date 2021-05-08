@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
+using Microsoft.EntityFrameworkCore;
+using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace AveCaesarApp.Repository
 {
@@ -12,10 +13,20 @@ namespace AveCaesarApp.Repository
         public DishRepository(AveCaesarContext context)
         {
             db = context;
+            db.Dishes
+                .Include(p => p.DishesOrders)
+                .ThenInclude(c => c.Order)
+                .Include(d => d.ProductsDishes)
+                .ThenInclude(t => t.Product);
         }
+
         public IEnumerable<Dish> GetAll()
         {
-            return db.Dishes;
+            return db.Dishes
+                .Include(p => p.DishesOrders)
+                .ThenInclude(c => c.Order)
+                .Include(d => d.ProductsDishes)
+                .ThenInclude(t => t.Product);
         }
 
         public Dish Get(int id)

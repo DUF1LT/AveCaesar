@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
 using Microsoft.EntityFrameworkCore;
-using EntityState = System.Data.Entity.EntityState;
 
 namespace AveCaesarApp.Repository
 {
@@ -20,7 +19,7 @@ namespace AveCaesarApp.Repository
         }
         public IEnumerable<Product> GetAll()
         {
-            return db.Products;
+            return db.Products.Include(p => p.ProductDishes).ThenInclude(c => c.Dish);
         }
 
         public async Task<Product> Get(int id)

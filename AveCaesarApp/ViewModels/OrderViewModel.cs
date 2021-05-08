@@ -25,7 +25,7 @@ namespace AveCaesarApp.ViewModels
             NavigateToOrdersCommand =
                 new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
+           //DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
 
             StatusViewModel = new OrderStatusViewModel();
         }

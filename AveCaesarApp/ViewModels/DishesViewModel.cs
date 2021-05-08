@@ -71,25 +71,13 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+            NavigateToAddDishCommand = new NavigateCommand<DishViewModel>(navigationStore, () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 
             DishesList = DefaultList;
             DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(DefaultList);
 
-        }
-
-        private void FilterViewModelOnOnSelectionChanged()
-        {
-            SelectedItem = null;
-            if (FilterViewModel.SelectedItem == DishesFilterViewModel.DishTypeFilter.All)
-            {
-                DishesList = DefaultList;
-            }
-            else
-            {
-                DishesList = DefaultList.Where(el => el.DishType == (DishType)FilterViewModel.SelectedItem).ToList();
-            }
         }
 
         public IList<Dish> DishesList
@@ -112,6 +100,21 @@ namespace AveCaesarApp.ViewModels
 
         public DishesFilterViewModel FilterViewModel { get; set; }
         public ICommand NavigateToHomeCommand { get; }
+        public ICommand NavigateToAddDishCommand { get; }
         public ICommand DeleteSelectedItem { get; }
+
+        private void FilterViewModelOnOnSelectionChanged()
+        {
+            SelectedItem = null;
+            if (FilterViewModel.SelectedItem == DishesFilterViewModel.DishTypeFilter.All)
+            {
+                DishesList = DefaultList;
+            }
+            else
+            {
+                DishesList = DefaultList.Where(el => el.DishType == (DishType)FilterViewModel.SelectedItem).ToList();
+            }
+        }
     }
+
 }
