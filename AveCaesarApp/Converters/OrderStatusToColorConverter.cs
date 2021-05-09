@@ -24,7 +24,6 @@ namespace AveCaesarApp.Converters
                 {
                     var item = new ComboBoxItem();
                     item.Content = status.GetDisplayName();
-                    item.Background = Brushes.Green;
                     comboboxItems.Add(item);
                 }
 

@@ -3,6 +3,7 @@
                     xmlns:converters="clr-namespace:AveCaesarApp.Converters">
 
     <converters:EnumDisplayNameConverter x:Key="EnumConverter"/>
+    <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
 
     <DataTemplate x:Key="UnselectedTabItemForeground">
         <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>

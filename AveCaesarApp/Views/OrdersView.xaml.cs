@@ -24,5 +24,16 @@ namespace AveCaesarApp.Views
         {
             InitializeComponent();
         }
+
+        private void VerticalScrollBar_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scroll =
+                (sender as ListView).Parent as ScrollViewer;
+
+            if (e.Delta < 0)
+                scroll.LineDown();
+            else
+                scroll.LineUp();
+        }
     }
 }

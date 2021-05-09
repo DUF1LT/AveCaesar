@@ -67,10 +67,11 @@
         <Label Grid.Row="1" Grid.Column="1"  Content="#" HorizontalAlignment="Left" FontSize="20" Margin="25,0" Style="{StaticResource LabelStyle}"/>
         <Label Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="4" Content="ФИО" Style="{StaticResource LabelStyle}"/>
         <Label Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Content="Профиль" Margin="15,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
-        <ScrollViewer Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="7" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="7" Grid.RowSpan="6" 
+                      VerticalScrollBarVisibility="Auto" >
             <ListView x:Name="ItemsList" 
                       ItemsSource="{Binding Path=UsersList}"  SelectedItem="{Binding SelectedItem}"
-                      BorderThickness="0" HorizontalContentAlignment="Stretch" >
+                      BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource UsersListViewTemplate}"/>

@@ -66,13 +66,13 @@
         <Label Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Content="Статус" Margin="0,0,40,0" VerticalAlignment="Center" Style="{StaticResource LabelStyle}"/>
         <Label Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="3" Content="Дата и время" Margin="0,0,40,0" VerticalAlignment="Center"  Style="{StaticResource LabelStyle}"/>
         <Label Grid.Column="6" Grid.Row="1" Content="Сумма"   HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource LabelStyle}"/>
-        
-        <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="6" 
+
+        <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="8" Grid.RowSpan="6" 
                       VerticalScrollBarVisibility="Auto"
-                      Margin="70,0">
+                      Margin="70,0" >
             <ListView x:Name="ItemsList" 
                       ItemsSource="{Binding Path=OrdersList}"  SelectedItem="{Binding SelectedItem}"
-                      BorderThickness="0" HorizontalContentAlignment="Stretch">
+                      BorderThickness="0" HorizontalContentAlignment="Stretch"  PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource OrdersListViewTemplate}"/>

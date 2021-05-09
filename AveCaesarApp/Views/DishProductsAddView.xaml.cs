@@ -16,15 +16,14 @@ using System.Windows.Shapes;
 namespace AveCaesarApp.Views
 {
     /// <summary>
-    /// Interaction logic for UsersView.xaml
+    /// Interaction logic for DishProductsAddView.xaml
     /// </summary>
-    public partial class UsersView : UserControl
+    public partial class DishProductsAddView : UserControl
     {
-        public UsersView()
+        public DishProductsAddView()
         {
             InitializeComponent();
         }
-
         private void VerticalScrollBar_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             ScrollViewer scroll =
