@@ -17,47 +17,7 @@ namespace AveCaesarApp.ViewModels
         private readonly AuthenticationStore _authenticationStore;
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
-        private IList<Dish> _defaultList = new BindingList<Dish>()
-        {
-            new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,  
-                new BindingList<Product>()
-                {
-                    new(1, "Помидор", 25, 10, 10, "кг"), 
-                    new (2, "Помидор", 25, 10, 10, "кг"),
-                    new (3, "Масло", 25, 10, 10, "л" ),
-
-                },
-                WeightType.Kg,
-                DishType.Salad),
-            new(2, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
-                new BindingList<Product>()
-                {
-                    new(1, "Помидор", 25, 10, 10, "кг"),
-                    new (2, "Помидор", 25, 10, 10, "кг"),
-                    new (3, "Масло", 25, 10, 10, "л" ),
-
-                }, WeightType.Kg,
-                DishType.Salad),
-            new(3, "Смузи", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
-                new BindingList<Product>()
-                {
-                    new(1, "Помидор", 25, 10, 10, "кг"),
-                    new (2, "Помидор", 25, 10, 10, "кг"),
-                    new (3, "Масло", 25, 10, 10, "л" ),
-
-                }, WeightType.Kg,
-            DishType.Smoothie),
-            new(4, "Сэндвич", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
-                new BindingList<Product>()
-                {
-                    new(1, "Помидор", 25, 10, 10, "кг"),
-                    new (2, "Помидор", 25, 10, 10, "кг"),
-                    new (3, "Масло", 25, 10, 10, "л" ),
-
-                },WeightType.Kg,
-            DishType.Sandwich)
-        };
-
+        private IList<Dish> _defaultList;
         private IList<Dish> _dishesList;
         private Dish _selectedItem;
 
@@ -75,11 +35,13 @@ namespace AveCaesarApp.ViewModels
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 
-            DishesList = DefaultList;
             DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(DefaultList);
+
+            LoadDishes();
 
         }
 
+       
         public IList<Dish> DishesList
         {
             get => _dishesList;
@@ -102,6 +64,15 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToAddDishCommand { get; }
         public ICommand DeleteSelectedItem { get; }
+
+        private void LoadDishes()
+        {
+            using (var context = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                DishesList = DefaultList = context.DishRepository.GetAll().ToList();
+            }
+
+        }
 
         private void FilterViewModelOnOnSelectionChanged()
         {

@@ -19,17 +19,19 @@ namespace AveCaesarApp.ViewModels
     {
         private UnitOfWorkFactory _unitOfWorkFactory;
         private string _searchExpression;
-        private IList<ProductToAdd> _productsToAddList;
+        private IList<ProductToAdd> _productsToAdd;
+        private IList<ProductToAdd> _filteredList;
         private IList<ProductToAdd> _defaultList;
 
 
         public DishProductAddViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
-            string name, int price, string image, DishType dishType, IList<ProductToAdd> productsToAdd)
+            string name, int price, int weight, string image, DishType dishType, DishWeightType dishWeightType ,IList<ProductToAdd> productsToAdd)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
-          
+            _productsToAdd = productsToAdd;
+
             NavigateToDishCommand = new NavigateCommand<DishViewModel>(navigationStore,
-                () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory, name, price, image, dishType, ProductsToAdd));
+                () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory, name, price, weight, image, dishType, dishWeightType, _productsToAdd));
 
             NavigateToHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore,
                 () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
@@ -54,10 +56,10 @@ namespace AveCaesarApp.ViewModels
         }
 
     
-        public IList<ProductToAdd> ProductsToAdd
+        public IList<ProductToAdd> FilteredList
         {
-            get => _productsToAddList;
-            set => Set(ref _productsToAddList, value);
+            get => _filteredList;
+            set => Set(ref _filteredList, value);
         }
         public ICommand NavigateToDishCommand { get; }
         public ICommand NavigateToHomeCommand { get; }
@@ -65,20 +67,18 @@ namespace AveCaesarApp.ViewModels
 
        
 
-        private bool AddProductsToDishCommandCanExecute(object arg)
-        {
-            return true;
-        }
+        private bool AddProductsToDishCommandCanExecute(object arg) => _defaultList.Count(p => p.IsSelected) > 0;
 
         private void AddProductsToDishCommandExecute(object obj)
         {
-            throw new NotImplementedException();
+            _productsToAdd = _defaultList.Where(p => p.IsSelected).ToList();
+            NavigateToDishCommand.Execute(null);
         }
 
 
         private void LoadProducts()
         {
-            ProductsToAdd = _defaultList = new List<ProductToAdd>();
+            FilteredList = _defaultList = new List<ProductToAdd>();
             using(var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 var list = unitOfWork.ProductRepository.GetAll().ToList();
@@ -91,7 +91,7 @@ namespace AveCaesarApp.ViewModels
                         IsSelected = false
                     };
 
-                    ProductsToAdd.Add(productToAdd);
+                    FilteredList.Add(productToAdd);
                 }
             }
         }
@@ -99,10 +99,10 @@ namespace AveCaesarApp.ViewModels
         private void SearchExpressionChanged()
         {
             if (SearchExpression == string.Empty)
-                ProductsToAdd = _defaultList;
+                FilteredList = _defaultList;
             else
             {
-                ProductsToAdd = _defaultList.Where(p =>p.Product.Name.ToLower().Contains(SearchExpression.ToLower())).ToList();
+                FilteredList = _defaultList.Where(p =>p.Product.Name.ToLower().Contains(SearchExpression.ToLower())).ToList();
             }
         }
 

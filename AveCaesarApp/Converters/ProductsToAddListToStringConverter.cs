@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Markup;
+using AveCaesarApp.Extensions;
 using AveCaesarApp.Models;
 
 namespace AveCaesarApp.Converters
 {
-    class ProductsListToStringConverter : MarkupExtension, IValueConverter
+    class ProductsToAddListToStringConverter : MarkupExtension, IValueConverter
     {
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
@@ -20,9 +21,9 @@ namespace AveCaesarApp.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is IList<Product> productsList)
+            if (value is IList<ProductToAdd> productsList)
             {
-                return string.Join(", ", productsList.Select(el => el.Name.ToLower()));
+                return string.Join(", ", productsList.Select(el => el.Product.Name.ToLower() + " - " + el.Amount + " " + el.Product.WeightType.GetDisplayName()));
             }
             return null;
         }

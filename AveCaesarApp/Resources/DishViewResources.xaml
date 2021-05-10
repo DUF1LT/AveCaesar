@@ -4,8 +4,9 @@
                     xmlns:local="clr-namespace:AveCaesarApp">
 
     <conv:EnumDisplayNameConverter x:Key="EnumConverter"/>
-    <conv:ProductsListToStringConverter x:Key="ProductsListConverter"/>
+    <conv:ProductsToAddListToStringConverter x:Key="ProductsListConverter"/>
     <conv:FromIntToStringConverter x:Key="FromIntToStringConverter"/>
+    <conv:ProductsDishesToStringConverter x:Key="ProductsDishesConverter"/>
 
     <Style TargetType="{x:Type ListView}" x:Key="ListViewTemplate">
         <Style.Setters>
@@ -68,7 +69,7 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="DishesListDefault" TargetType="ListViewItem">
+    <ControlTemplate x:Key="DishesListViewTemplate" TargetType="ListViewItem">
         <Border  Name="Border" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
                  Padding="10" Margin="0,0,0,10" HorizontalAlignment="Stretch" 
                  Height="100" Background="White" Cursor="Hand">
@@ -86,7 +87,7 @@
                     <ColumnDefinition Width="0.9*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= Id}"  />
-                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Image}" />
+                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Image}" Margin="5,0" />
                 <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name}"  />
                 <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" >
                     <TextBlock.Text>
@@ -102,9 +103,11 @@
                 <TextBlock Grid.Row="0" Grid.Column="3"  
                            VerticalAlignment="Center" HorizontalAlignment="Center" 
                            Text="Состав:" FontWeight="SemiBold" FontSize="15"/>
-                <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center" 
-                           Text="{Binding Products, Converter={StaticResource ProductsListConverter}}" FontSize="13"/>
+                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center">
+                    <TextBlock
+                           VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
+                           Text="{Binding ProductsDishes, Converter={StaticResource ProductsDishesConverter}}" FontSize="13"/>
+                </ScrollViewer>
 
             </Grid>
         </Border>

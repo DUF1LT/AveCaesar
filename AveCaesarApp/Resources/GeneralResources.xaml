@@ -4,6 +4,53 @@
 
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
 
+    <Style TargetType="{x:Type ListView}" x:Key="DishWeightTypeViewTemplate">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border Margin="-5,0,55,0" Background="#FF024300" CornerRadius="8" Padding="0,5">
+                            <ItemsPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type ListViewItem}" x:Key="DishWeightTypeEnumStyle">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Background="Transparent" Width="85" BorderThickness="0"
+                                Name="Border"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Center"
+                                Cursor="Hand">
+                            <TextBlock Text="{TemplateBinding Property=Content, Converter={StaticResource EnumConverter}}"
+                                       Name="TextBlock" VerticalAlignment="Stretch" HorizontalAlignment="Center"
+                                       Width="{TemplateBinding Property=Width}" FontFamily="{TemplateBinding Property=FontFamily}" 
+                                       FontSize="14" Padding="0,0" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+        </Style.Setters>
+    </Style>
+
     <Style TargetType="{x:Type ListViewItem}" x:Key="EnumMenuButtonStyle">
         <Style.Setters>
             <Setter Property="Template">
@@ -58,7 +105,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Canvas Height="18">
-                        <Polygon Fill="{StaticResource MainGreenColor}" Points="3,15 15,15 9,3"></Polygon>
+                        <Polygon Fill="{StaticResource MainGreenColor}" Points="3,15 14,15 8.5,2"></Polygon>
                     </Canvas>
                 </ControlTemplate>
             </Setter.Value>
@@ -71,7 +118,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Canvas Height="18">
-                        <Polygon Fill="{StaticResource MainGreenColor}" Points="3,3 9,15 15,3"></Polygon>
+                        <Polygon Fill="{StaticResource MainGreenColor}" Points="3,2 8.5,15 14,2"></Polygon>
                     </Canvas>
                 </ControlTemplate>
             </Setter.Value>

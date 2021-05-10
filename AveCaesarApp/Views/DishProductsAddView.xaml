@@ -50,7 +50,7 @@
                 <Image   Source="../Images/ArrowBackwardBrdlss.png" Margin="7"/>
                 <Border.InputBindings>
                     <MouseBinding MouseAction="LeftClick" 
-                                  Command="{Binding NavigateToDishView}" />
+                                  Command="{Binding NavigateToDishCommand}" />
                 </Border.InputBindings>
             </Border>
         </Grid>
@@ -77,7 +77,7 @@
         <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="5" 
                       VerticalScrollBarVisibility="Auto" >
             <ListView x:Name="ItemsList" 
-                      ItemsSource="{Binding Path=ProductsToAdd}" 
+                      ItemsSource="{Binding Path=FilteredList}" 
                       BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" 
                       SelectionMode="Single">
                 <ListView.Resources>
@@ -138,7 +138,7 @@
                 </ListView.Resources>
             </ListView>
         </ScrollViewer>
-        <Button Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="3" Margin="40,15" VerticalAlignment="Top" Command="{Binding AddProductsToDishCommand}" Cursor="Hand">
+        <Button Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="3" Margin="45,15" VerticalAlignment="Top" Command="{Binding AddProductsToDishCommand}" Cursor="Hand">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="AddButtonBorder" Background="White" CornerRadius="10" 

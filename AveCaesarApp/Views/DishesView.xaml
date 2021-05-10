@@ -74,7 +74,7 @@
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="Template" Value="{StaticResource DishesListDefault}"/>
+                        <Setter Property="Template" Value="{StaticResource DishesListViewTemplate}"/>
                     </Style>
                 </ListView.Resources>
             </ListView>

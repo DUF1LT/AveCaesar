@@ -10,13 +10,13 @@ namespace AveCaesarApp.Models
 {
     public class ProductToAdd : INotifyPropertyChanged
     {
-        private float _amount;
+        private int _amount;
         private bool _isSelected;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Product Product { get; set; }
 
-        public float Amount
+        public int Amount
         {
             get => _amount;
             set

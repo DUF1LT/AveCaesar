@@ -4,6 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AveCaesarApp.Models
 {
+    public enum DishWeightType
+    {
+        [Display(Name = "гр")]
+        G = 2,
+        [Display(Name = "мл")]
+        Ml = 4,
+     
+    }
     public enum DishType
     {
         [Display(Name = "Роллы")]

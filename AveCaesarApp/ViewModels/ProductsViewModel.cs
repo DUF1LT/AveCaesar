@@ -46,7 +46,7 @@ namespace AveCaesarApp.ViewModels
                 (parameter) => parameter != null || _authenticationStore.CurrentUser.ProfileType != ProfileType.Manager);
 
 
-            GetAllProducts();
+            LoadProducts();
 
         }
 
@@ -110,7 +110,7 @@ namespace AveCaesarApp.ViewModels
             }
         }
 
-        private void GetAllProducts()
+        private void LoadProducts()
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {

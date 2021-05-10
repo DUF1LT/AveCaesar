@@ -25,6 +25,7 @@
     <None Remove="Images\DeleteElementIconWhite.png" />
     <None Remove="Images\DishesIconButton.png" />
     <None Remove="Images\Dishes\Caesar.jpg" />
+    <None Remove="Images\download.png" />
     <None Remove="Images\EditIcon.png" />
     <None Remove="Images\EditIconBrdrlss.png" />
     <None Remove="Images\FullLogo.png" />
@@ -68,6 +69,7 @@
     <Resource Include="Images\DeleteElementIconWhite.png" />
     <Resource Include="Images\DishesIconButton.png" />
     <Resource Include="Images\Dishes\Caesar.jpg" />
+    <Resource Include="Images\download.png" />
     <Resource Include="Images\EditIcon.png" />
     <Resource Include="Images\EditIconBrdrlss.png" />
     <Resource Include="Images\FullLogo.png" />

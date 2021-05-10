@@ -5,22 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AveCaesarApp.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" FontFamily="Segoe UI">
+             d:DesignHeight="80" d:DesignWidth="350" FontFamily="Segoe UI">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button x:Name="DownloadButton" Height="35" Width="120"
-                Margin="10"  Click="DownloadButton_OnClick" Cursor="Hand">
+        <Image  x:Name="ImageField" Source="{Binding Image}" 
+                Width="120" Height="55" 
+                Margin="0,5,0,0"/>
+        <Button x:Name="DownloadButton" Width="35" Height="35"
+                Margin="90,10,40,10"  Click="DownloadButton_OnClick" Cursor="Hand">
             <Button.Template>
                 <ControlTemplate>
-                    <Border BorderThickness="0" 
-                            Background="{StaticResource MainGreenColor}" 
-                            CornerRadius="8" VerticalAlignment="Top" Padding="6">
-                        <TextBlock Text="Загрузить" FontWeight="DemiBold" 
-                                   HorizontalAlignment="Center"  FontSize="14" 
-                                   VerticalAlignment="Center" Foreground="White" FontFamily="Source Serif Pro"/>
+                    <Border BorderThickness="2" 
+                            Background="Transparent" BorderBrush="{StaticResource MainGreenColor}" 
+                            CornerRadius="8" VerticalAlignment="Top" Padding="4">
+                        <Image Source="../Images/download.png"></Image>
                     </Border>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Image x:Name="ImageField" Width="100" Height="100"/>
     </StackPanel>
 </UserControl>

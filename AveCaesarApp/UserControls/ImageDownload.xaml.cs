@@ -23,7 +23,16 @@ namespace AveCaesarApp.UserControls
         public string ImagePath
         {
             get => (string)GetValue(ImageProperty);
-            set => SetValue(ImageProperty, value);
+            set
+            {
+                SetValue(ImageProperty, value);
+                ImagePathChanged();
+            }
+        }
+
+        private void ImagePathChanged()
+        {
+            ImageField.Source = new BitmapImage(new Uri(@$"{ImagePath}"));
         }
 
         public event RoutedEventHandler ImageDownloaded
@@ -49,6 +58,8 @@ namespace AveCaesarApp.UserControls
         public ImageDownload()
         {
             InitializeComponent();
+            if(!string.IsNullOrEmpty(ImagePath))
+                ImageField.Source = new BitmapImage(new Uri(@$"{ImagePath}"));
         }
     }
 }
