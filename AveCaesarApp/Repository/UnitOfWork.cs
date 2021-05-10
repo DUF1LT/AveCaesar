@@ -24,7 +24,7 @@ namespace AveCaesarApp.Repository
         {
             get
             {
-                if (_productRepository== null)
+                if (_productRepository == null)
                     _productRepository = new ProductRepository(_dbContext);
                 return _productRepository;
             }

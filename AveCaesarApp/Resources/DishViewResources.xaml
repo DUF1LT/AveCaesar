@@ -5,6 +5,7 @@
 
     <conv:EnumDisplayNameConverter x:Key="EnumConverter"/>
     <conv:ProductsListToStringConverter x:Key="ProductsListConverter"/>
+    <conv:FromIntToStringConverter x:Key="FromIntToStringConverter"/>
 
     <Style TargetType="{x:Type ListView}" x:Key="ListViewTemplate">
         <Style.Setters>
@@ -53,7 +54,7 @@
         </Style.Setters>
     </Style>
 
-        
+
     <Style x:Key="WhiteButtons" TargetType="Border">
         <Setter Property="Margin" Value="15, 7"/>
         <Setter Property="Padding" Value="1"/>
@@ -118,6 +119,52 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    
+    <ControlTemplate x:Key="DishProductAddListViewTemplate" TargetType="ListViewItem" >
+        <Border x:Name="ListViewBorder" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
+                Padding="10" Margin="0,0,0,10" 
+                HorizontalAlignment="Stretch" Background="White" Cursor="Hand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="1.6*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Product.Id}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Product.Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Product.Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} руб/{1}">
+                            <Binding Path="Price" />
+                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <StackPanel Grid.Column="4">
+                    <TextBox Width="50" Margin="0,5,5,5">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
+                                    <TextBox Text="{Binding Path=Amount, Converter={StaticResource FromIntToStringConverter}, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
+                                </Border>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center" Text="{Binding WeightType}" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="3.5"/>
+                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 </ResourceDictionary>

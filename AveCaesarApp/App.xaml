@@ -34,6 +34,9 @@
             <DataTemplate DataType="{x:Type vm:DishViewModel}">
                 <views:DishView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DishProductAddViewModel}">
+                <views:DishProductsAddView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
                 <views:OrdersView/>
             </DataTemplate>

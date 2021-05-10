@@ -19,10 +19,17 @@ namespace AveCaesarApp.ViewModels
         private int _price;
         private string _image;
         private DishType _dishType;
-        private List<ProductToAdd> _productsToAdd;
+        private IList<ProductToAdd> _productsToAdd;
 
-        public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory)
+        public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
+            string name = null, int price = 0, string image = null, DishType dishType = DishType.Salad, IList<ProductToAdd> productsToAdd = null)
         {
+            Name = name;
+            Price = price;
+            Image = image;
+            DishType = dishType;
+            ProductsToAdd = productsToAdd;
+
             _unitOfWorkFactory = unitOfWorkFactory;
 
             DishTypeViewModel = new EnumMenuViewModel<DishType>();
@@ -33,6 +40,9 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore,
                 () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+
+            NavigateToDishProductAddCommand = new NavigateCommand<DishProductAddViewModel>(navigationStore,
+                () => new DishProductAddViewModel(navigationStore, authenticationStore, unitOfWorkFactory, Name , Price , Image , DishType, ProductsToAdd));
         }
 
         public string Name
@@ -53,7 +63,7 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _image, value);
         }
 
-        public List<ProductToAdd> ProductsToAdd
+        public IList<ProductToAdd> ProductsToAdd
         {
             get => _productsToAdd;
             set => Set(ref _productsToAdd, value);
@@ -67,7 +77,8 @@ namespace AveCaesarApp.ViewModels
         public EnumMenuViewModel<DishType> DishTypeViewModel { get; }
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToDishesCommand { get; }
+        public ICommand NavigateToDishProductAddCommand { get; }
 
-       
+
     }
 }

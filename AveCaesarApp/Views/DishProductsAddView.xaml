@@ -5,13 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AveCaesarApp.Views"
              mc:Ignorable="d" 
-               Height="450" Width="800" 
+             Height="450" Width="800" 
              MinWidth="800" MinHeight="480" 
              Background="White" 
              FontFamily="Source Serif Pro">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.95*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -19,6 +18,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -34,10 +34,9 @@
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Background="{StaticResource MainGreenColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.4*"/>
                 <ColumnDefinition Width="2.5*"/>
-                <ColumnDefinition Width="0.6*"/>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.45*"/>
                 <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="1" Grid.Row="0"  
@@ -48,36 +47,116 @@
             </Image>
             <Border Grid.Column="3" 
                     Style="{StaticResource WhiteButtons}">
-                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="7" />
+                <Image   Source="../Images/ArrowBackwardBrdlss.png" Margin="7"/>
                 <Border.InputBindings>
                     <MouseBinding MouseAction="LeftClick" 
-                                  Command="{Binding NavigateToUserCommand}"/>
-                </Border.InputBindings>
-            </Border>
-            <Border Grid.Column="4" 
-                    Style="{StaticResource WhiteButtons}">
-                <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7"/>
-                <Border.InputBindings>
-                    <MouseBinding MouseAction="LeftClick" 
-                                  Command="{Binding DeleteSelectedUserCommand}" 
-                                  CommandParameter="{Binding SelectedItem}"/>
+                                  Command="{Binding NavigateToDishView}" />
                 </Border.InputBindings>
             </Border>
         </Grid>
-        <Label Grid.Row="1" Grid.Column="1"  Content="#" HorizontalAlignment="Left" FontSize="20" Margin="25,0" Style="{StaticResource LabelStyle}"/>
-        <Label Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="4" Content="ФИО" Style="{StaticResource LabelStyle}"/>
-        <Label Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Content="Профиль" Margin="15,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
-        <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="7" Grid.RowSpan="6" 
+
+        <StackPanel Grid.Row="0" Grid.Column="3"  Grid.ColumnSpan="3"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"  Margin="10,10,20,14" >
+            <Border BorderThickness="2" CornerRadius="10"  Padding="3" Background="White">
+                <TextBox Width="200" FontSize="20" BorderThickness="0" 
+                         Text="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border Style="{StaticResource WhiteButtons}" CornerRadius="4" Margin="3" Cursor="Arrow" >
+                <Image  Source="../Images/SearchIcon.png" Margin="4" />
+            </Border>
+        </StackPanel>
+
+        <Label Content="#" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="25,0" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Column="2" Grid.Row="1" Content="Название"  Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" Content="Калорийность" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="2" Content="Цена"  Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="2" Content="Кол-во/Вес" Margin="15,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
+
+        
+        <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="5" 
                       VerticalScrollBarVisibility="Auto" >
             <ListView x:Name="ItemsList" 
-                      ItemsSource="{Binding Path=UsersList}"  SelectedItem="{Binding SelectedItem}"
-                      BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
+                      ItemsSource="{Binding Path=ProductsToAdd}" 
+                      BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" 
+                      SelectionMode="Single">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="Template" Value="{StaticResource UsersListViewTemplate}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem" >
+                                    <Border x:Name="ListViewBorder" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
+                                            Padding="8" Margin="0,0,0,10" 
+                                            HorizontalAlignment="Stretch" Background="White" Cursor="Hand">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.4*"/>
+                                                <ColumnDefinition Width="1.4*"/>
+                                                <ColumnDefinition Width="1.6*"/>
+                                                <ColumnDefinition Width="0.9*"/>
+                                                <ColumnDefinition Width="0.9*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Product.Id}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Product.Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Product.Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                                            <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} руб/{1}">
+                                                        <Binding Path="Product.Price" />
+                                                        <Binding Path="Product.WeightType" Converter="{StaticResource EnumConverter}"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="20,0,0,0">
+                                                <TextBox Width="50" Margin="0,5,5,5">
+                                                    <TextBox.Template>
+                                                        <ControlTemplate TargetType="TextBox">
+                                                            <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="1" CornerRadius="4" Padding="2">
+                                                                <TextBox Text="{Binding Path=Amount, Converter={StaticResource FromIntToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </TextBox.Template>
+                                                </TextBox>
+                                                <TextBlock VerticalAlignment="Center" Text="{Binding Product.WeightType, Converter={StaticResource EnumConverter}}" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="3.5"/>
+                                            <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Style>
                 </ListView.Resources>
             </ListView>
         </ScrollViewer>
+        <Button Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="3" Margin="40,15" VerticalAlignment="Top" Command="{Binding AddProductsToDishCommand}" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="AddButtonBorder" Background="White" CornerRadius="10" 
+                            BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
+                        <TextBlock x:Name="AddButtonText"  FontSize="18"
+                                   HorizontalAlignment="Center"  VerticalAlignment="Center"  
+                                   Foreground="{StaticResource MainGreenColor}" Text="Добавить" 
+                                   Padding="6"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="True">
+                            <Setter TargetName="AddButtonBorder" Property="Background" Value="{StaticResource MainGreenColor}" />
+                            <Setter TargetName="AddButtonBorder" Property="BorderThickness" Value="0" />
+                            <Setter TargetName="AddButtonText" Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </UserControl>
