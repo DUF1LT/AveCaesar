@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -10,44 +12,76 @@ namespace AveCaesarApp.ViewModels
 {
     class OrderViewModel : ViewModel
     {
+        private readonly NavigationStore _navigationStore;
+        private readonly AuthenticationStore _authenticationStore;
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
-        private Order _currentOrder;
-        private Dish _selectedItem;
 
-        public OrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,Order currentOrder, UnitOfWorkFactory unitOfWorkFactory)
+        private int _tableNumber;
+        private string _note;
+        private float _totalPrice;
+        private IList<DishToAdd> _dishesToAdd;
+
+        public OrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory,
+            int tableNumber = 1, string note = "", float totalPrice = 0, IList<DishToAdd> dishesToAdd = null)
         {
-            _currentOrder = currentOrder;
+            _navigationStore = navigationStore;
+            _authenticationStore = authenticationStore;
             _unitOfWorkFactory = unitOfWorkFactory;
 
+            TableNumber = tableNumber;
+            Note = note;
+            TotalPrice = totalPrice;
+            DishesToAdd = dishesToAdd; 
+
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+                new NavigateCommand<HomeViewModel>(navigationStore, 
+                    () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            NavigateToOrdersCommand =
-                new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+            NavigateToOrdersCommand = new NavigateCommand<OrdersViewModel>(navigationStore,
+                () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-           //DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
+            NavigateToOrderDishesCommand = new NavigateCommand<OrderDishesViewModel>(navigationStore, () =>
+                new OrderDishesViewModel(navigationStore, authenticationStore, unitOfWorkFactory,
+                    TableNumber, Note, totalPrice, DishesToAdd));
 
-            StatusViewModel = new OrderStatusViewModel();
+            AddOrderCommand = new 
         }
 
-        public Order CurrentOrder
+        
+        public int TableNumber
         {
-            get => _currentOrder;
-            set => Set(ref _currentOrder, value);
+            get => _tableNumber;
+            set => Set(ref _tableNumber, value);
         }
 
-        public Dish SelectedItem
+        public string Note
         {
-            get => _selectedItem;
-            set => Set(ref _selectedItem, value);
+            get => _note;
+            set => Set(ref _note, value);
         }
 
-        public OrderStatusViewModel StatusViewModel { get; set; }
+        public float TotalPrice
+        {
+            get => _totalPrice;
+            set => Set(ref _totalPrice, value);
+        }
+
+        public IList<DishToAdd> DishesToAdd
+        {
+            get => _dishesToAdd;
+            set
+            {
+                Set(ref _dishesToAdd, value);
+                if(DishesToAdd != null)
+                    TotalPrice = DishesToAdd.Sum(p => p.Dish.Price);
+            }
+
+        }
 
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToOrdersCommand { get; }
-        public ICommand DeleteSelectedItem { get; }
+        public ICommand NavigateToOrderDishesCommand { get; }
+        public ICommand AddOrderCommand { get; }
 
-       
     }
 }

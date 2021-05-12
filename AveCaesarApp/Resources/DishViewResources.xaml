@@ -80,14 +80,14 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="0.9"/>
                     <ColumnDefinition Width="0.9*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= Id}"  />
-                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding Image}" Margin="5,0" />
+                <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Width="120" ClipToBounds="True" VerticalAlignment="Center" HorizontalAlignment="Left" Source="{Binding Image}" Margin="0,0,5,0" />
                 <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name}"  />
                 <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" >
                     <TextBlock.Text>
@@ -108,7 +108,6 @@
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
                            Text="{Binding ProductsDishes, Converter={StaticResource ProductsDishesConverter}}" FontSize="13"/>
                 </ScrollViewer>
-
             </Grid>
         </Border>
         <ControlTemplate.Triggers>

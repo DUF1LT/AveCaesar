@@ -25,7 +25,7 @@ namespace AveCaesarApp.ViewModels
         private IList<ProductToAdd> _productsToAdd;
 
         public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
-            string name = null, int price = 0, int weight = 0 ,string image = null, DishType dishType = DishType.Rolls, DishWeightType dishWeightType = DishWeightType.G  , IList<ProductToAdd> productsToAdd = null)
+            string name = null, int price = 0, int weight = 0 ,string image = "", DishType dishType = DishType.Rolls, DishWeightType dishWeightType = DishWeightType.G  , IList<ProductToAdd> productsToAdd = null)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
 
@@ -49,8 +49,8 @@ namespace AveCaesarApp.ViewModels
             NavigateToHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore,
                 () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            NavigateToDishProductAddCommand = new NavigateCommand<DishProductAddViewModel>(navigationStore,
-                () => new DishProductAddViewModel(navigationStore, authenticationStore, unitOfWorkFactory, Name , Price, Weight , Image , DishType, DishWeightType ,ProductsToAdd));
+            NavigateToDishProductAddCommand = new NavigateCommand<DishProductsViewModel>(navigationStore,
+                () => new DishProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory, Name , Price, Weight , Image , DishType, DishWeightType, ProductsToAdd));
 
             AddDishCommand = new AddDishCommand(this, _unitOfWorkFactory);
         }

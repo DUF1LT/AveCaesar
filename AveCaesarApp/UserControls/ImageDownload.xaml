@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="350" FontFamily="Segoe UI">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <Image  x:Name="ImageField" Source="{Binding Image}" 
+        <Image  x:Name="ImageField" Source="{Binding Image, Mode=TwoWay}" 
                 Width="120" Height="55" 
                 Margin="0,5,0,0"/>
         <Button x:Name="DownloadButton" Width="35" Height="35"

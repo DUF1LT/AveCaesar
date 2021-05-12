@@ -68,12 +68,16 @@ namespace AveCaesarApp.ViewModels
         {
             _authenticationStore = authenticationStore;
             _unitOfWorkFactory = unitOfWorkFactory;
-            
+
 
             NavigateToHomeCommand =
-                new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+                new NavigateCommand<HomeViewModel>(navigationStore,
+                    () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore,_authenticationStore,  this, _unitOfWorkFactory);
+
+            NavigateToOrderCommand = new NavigateCommand<OrderViewModel>(navigationStore,
+                () => new OrderViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
         }
@@ -90,6 +94,7 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _selectedItem, value);
         }
         public ICommand NavigateToHomeCommand { get; }
+        public ICommand NavigateToOrderCommand { get; }
         public ICommand NavigateToSelectedOrderCommand { get; }
         public DeleteSelectedItemCommand<Order> DeleteSelectedItem { get; }
 

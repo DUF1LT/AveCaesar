@@ -17,24 +17,28 @@ using System.Windows.Shapes;
 namespace AveCaesarApp.Views
 {
     /// <summary>
-    /// Interaction logic for ProductView.xaml
+    /// Interaction logic for OrderDishesView.xaml
     /// </summary>
-    public partial class ProductView : UserControl
+    public partial class OrderDishesView : UserControl
     {
-        public ProductView()
+        public OrderDishesView()
         {
             InitializeComponent();
+        }
+        private void VerticalScrollBar_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            ScrollViewer scroll =
+                (sender as ListView).Parent as ScrollViewer;
+
+            if (e.Delta < 0)
+                scroll.LineDown();
+            else
+                scroll.LineUp();
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("^[0-9]{0,4}$");
-            e.Handled = !regex.IsMatch(((TextBox)sender).Text + e.Text);  
-        }
-
-        private void TextLengthValidation(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("^\\w{0,15}$");
+            Regex regex = new Regex("^[0-9]{0,2}$");
             e.Handled = !regex.IsMatch(((TextBox)sender).Text + e.Text);
         }
     }

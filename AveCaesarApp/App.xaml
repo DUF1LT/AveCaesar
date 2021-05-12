@@ -34,14 +34,20 @@
             <DataTemplate DataType="{x:Type vm:DishViewModel}">
                 <views:DishView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vm:DishProductAddViewModel}">
-                <views:DishProductsAddView/>
+            <DataTemplate DataType="{x:Type vm:DishProductsViewModel}">
+                <views:DishProductsView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:OrdersViewModel}">
                 <views:OrdersView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:OrderViewModel}">
                 <views:OrderView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:OrderDishesViewModel}">
+                <views:OrderDishesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ConcreteOrderViewModel}">
+                <views:ConcreteOrderView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:UsersViewModel}">
                 <views:UsersView/>

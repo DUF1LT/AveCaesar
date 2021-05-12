@@ -32,12 +32,12 @@ namespace AveCaesarApp.Models
         }
 
 
-        public User Waiter { get; set; }
+        public string WaiterName { get; set; }
         public int TableNumber { get; set; }
-        public DateTime AcceptedTime { get; set; }
+        public DateTime AcceptedTime { get; set; }  
         public DateTime PreparedTime { get; set; }
         public OrderStatus Status { get; set; }
-        public float TotalPrice { get; }
+        public float TotalPrice { get; set; }
         public string Note { get; set; }
         public IList<DishesOrders> DishesOrders { get; set; }
 

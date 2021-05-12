@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace AveCaesarApp.Models
 {
-    public class ProductToAdd : INotifyPropertyChanged
+    class DishToAdd : INotifyPropertyChanged
     {
         private int _amount;
         private bool _isSelected;
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Product Product { get; set; }
+        public Dish Dish { get; set; }
 
         public int Amount
         {
@@ -45,6 +45,7 @@ namespace AveCaesarApp.Models
             }
 
         }
+
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

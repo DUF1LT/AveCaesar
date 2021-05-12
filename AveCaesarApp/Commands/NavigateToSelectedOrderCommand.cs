@@ -35,7 +35,7 @@ namespace AveCaesarApp.Commands
         public override void Execute(object parameter)
         {
             if (parameter is Order order)
-                new NavigateCommand<OrderViewModel>(_navigationStore, () => new OrderViewModel(_navigationStore, _authenticationStore, order, _unitOfWorkFactory)).Execute(null);
+                new NavigateCommand<ConcreteOrderViewModel>(_navigationStore, () => new ConcreteOrderViewModel(_navigationStore, _authenticationStore, order, _unitOfWorkFactory)).Execute(null);
         }
     }
 }

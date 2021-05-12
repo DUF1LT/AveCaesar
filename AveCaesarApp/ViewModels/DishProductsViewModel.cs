@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Data;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -15,7 +9,7 @@ using AveCaesarApp.ViewModels.Base;
 
 namespace AveCaesarApp.ViewModels
 {
-    class DishProductAddViewModel : ViewModel
+    class DishProductsViewModel : ViewModel
     {
         private UnitOfWorkFactory _unitOfWorkFactory;
         private string _searchExpression;
@@ -24,7 +18,7 @@ namespace AveCaesarApp.ViewModels
         private IList<ProductToAdd> _defaultList;
 
 
-        public DishProductAddViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
+        public DishProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
             string name, int price, int weight, string image, DishType dishType, DishWeightType dishWeightType ,IList<ProductToAdd> productsToAdd)
         {
             _unitOfWorkFactory = unitOfWorkFactory;

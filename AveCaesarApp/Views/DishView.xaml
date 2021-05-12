@@ -6,27 +6,27 @@
              xmlns:local="clr-namespace:AveCaesarApp.Views"
              xmlns:userControls="clr-namespace:AveCaesarApp.UserControls"
              mc:Ignorable="d" 
-              Height="450" Width="800" 
+             Height="450" Width="800" 
              MinWidth="800" MinHeight="480" 
              Background="White" 
              FontFamily="Source Serif Pro" FontSize="20">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="0.8*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.1*"/>
             <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.1*"/>
             <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="1.3*"/>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="1.6*"/>
             <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.1*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1.1*"/>
             <RowDefinition Height="1.2*"/>
-            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="1.3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -91,9 +91,9 @@
         <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="9" HorizontalAlignment="Right">
             <Label Content="Название" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,0,0,9"/>
             <Label Content="Цена" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,0,0,10"/>
-            <Label Content="Вес" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,10,0,8"/>
-            <Label Content="Изображение" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,20,0,12"/>
-            <Label Content="Продукты" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,5,0,0"/>
+            <Label Content="Вес" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,6,0,8"/>
+            <Label Content="Изображение" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,10,0,12"/>
+            <Label Content="Продукты" HorizontalAlignment="Right" FontWeight="SemiBold" Margin="0,10,0,0"/>
         </StackPanel>
 
 
@@ -139,8 +139,7 @@
 
         <userControls:ImageDownload x:Name="ImageDownload" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="3"  Grid.RowSpan="2" 
                                     HorizontalAlignment="Center"
-                                    Margin="15,0,0,0"
-                                    ImagePath="{Binding Image, Mode=TwoWay}"/>
+                                    Margin="15,0,0,0"/>
 
         <Button Grid.Column="4" Grid.Row="10" Command="{Binding NavigateToDishProductAddCommand}" 
                 Cursor="Hand" Width="35" Height="35" Margin="0,0,42,0">
@@ -154,13 +153,18 @@
             </Button.Template>
         </Button>
 
-        <ScrollViewer Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
-            <TextBlock Margin="20,0,0,0"
-                    FontSize="13"
-                    Text="{Binding ProductsToAdd, Converter={StaticResource ProductsListConverter}}" TextWrapping="Wrap"/>
-        </ScrollViewer>
+        <Border  Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                 BorderThickness="2" BorderBrush="{StaticResource MainGreenColor}" CornerRadius="5" 
+                 Margin="30,0,0,0" Padding="3">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBlock 
+                       FontSize="13"
+                       Text="{Binding ProductsToAdd, Converter={StaticResource ProductsListConverter}}" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Border>
 
-        <ListView Grid.Column="5" Grid.Row="2" Grid.RowSpan="10"  Grid.ColumnSpan="2"
+
+        <ListView Grid.Column="5" Grid.Row="2" Grid.RowSpan="10"  Grid.ColumnSpan="2" Width="200"
                   ItemsSource="{Binding DishTypeViewModel.Items}" SelectedItem="{Binding DishTypeViewModel.SelectedItem}" 
                   SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
                   ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
