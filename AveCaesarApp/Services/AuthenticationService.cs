@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using AveCaesarApp.Hashier;
+using AveCaesarApp.Hasher;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
 
@@ -27,15 +27,15 @@ namespace AveCaesarApp.Services
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public async Task<User> Login(string login, string password)
+        public async Task<Profile> Login(string login, string password)
         {
             using (UnitOfWork unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 User loginUser = await unitOfWork.UserRepository.GetByLogin(login);
                 if (loginUser != null)
                 {
-                    var passwordHashier = new SaltedHashier(password);
-                    if (!SaltedHashier.Verify(loginUser.Salt, loginUser.HashedPassword, password))
+                    var passwordHashier = new SaltedHasher(password);
+                    if (!SaltedHasher.Verify(loginUser.Salt, loginUser.HashedPassword, password))
                     {
                         return null;
                     }
@@ -43,11 +43,11 @@ namespace AveCaesarApp.Services
                 else
                     return null;
 
-                return loginUser;
+                return new Profile(loginUser.FullName, loginUser.ProfileType);
             }
         }
 
-        public async Task<RegistrationResult> Register(string login, string password, string confirmPassword, string fullName, ProfileType profileType)
+        public async Task<RegistrationResult> Register(string login, string password, string confirmPassword, string fullName, FullProfileType profileType)
         {
             RegistrationResult result = RegistrationResult.Success;
 
@@ -58,7 +58,7 @@ namespace AveCaesarApp.Services
                     if (await unitOfWork.UserRepository.GetByLogin(login) != null)
                         result = RegistrationResult.LoginAlreadyExists;
 
-                    var passwordHashier = new SaltedHashier(password);
+                    var passwordHashier = new SaltedHasher(password);
 
                     User user = new User()
                     {

@@ -39,8 +39,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="1.3*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="1" Text="{Binding AuthenticationStore.CurrentUser.FullName}" FontSize="12"/>
-                <TextBlock Grid.Row="2" Text="{Binding AuthenticationStore.CurrentUser.ProfileType, Converter={StaticResource EnumConverter}}" FontSize="11" FontWeight="Light"/>
+                <TextBlock Grid.Row="1" Text="{Binding AuthenticationStore.CurrentProfile.FullName}" FontSize="12"/>
+                <TextBlock Grid.Row="2" Text="{Binding AuthenticationStore.CurrentProfile.ProfileType, Converter={StaticResource EnumConverter}}" FontSize="11" FontWeight="Light"/>
             </Grid>
 
             <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"

@@ -20,22 +20,22 @@ namespace AveCaesarApp.Stores
             _authenticationService = authenticationService;
         }
 
-        public User CurrentUser { get; set; }
+        public Profile CurrentProfile { get; set; }
 
-        public async Task<User> Login(string login, string password)
+        public async Task<Profile> Login(string login, string password)
         {
             return await _authenticationService.Login(login, password);
         }
 
         public async Task<RegistrationResult> Register(string login, string password, string confirmPassword, string fullName,
-            ProfileType profileType)
+            FullProfileType profileType)
         {
            return await _authenticationService.Register(login, password, confirmPassword, fullName, profileType);
         }
 
         public void Logout()
         {
-            CurrentUser = null;
+            CurrentProfile = null;
         }
 
     }

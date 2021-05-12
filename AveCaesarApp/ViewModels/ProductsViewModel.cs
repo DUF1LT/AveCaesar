@@ -10,6 +10,7 @@ using AveCaesarApp.ViewModels.Base;
 using AveCaesarApp.Stores;
 using System;
 using System.Text.RegularExpressions;
+using AveCaesarApp.Services;
 
 namespace AveCaesarApp.ViewModels
 {
@@ -39,11 +40,12 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList, authenticationStore, unitOfWorkFactory));
+                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList, authenticationStore, unitOfWorkFactory),
+                (parameter) => AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile));
 
             NavigateToEditProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
                 () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, authenticationStore, unitOfWorkFactory, _selectedItem),
-                (parameter) => parameter != null || _authenticationStore.CurrentUser.ProfileType != ProfileType.Manager);
+                (parameter) => parameter != null || AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile));
 
 
             LoadProducts();
@@ -79,7 +81,6 @@ namespace AveCaesarApp.ViewModels
             }
         }
 
-        
 
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToAddProductCommand { get; }
@@ -87,7 +88,7 @@ namespace AveCaesarApp.ViewModels
         public ICommand DeleteSelectedProductCommand { get; }
 
         private bool DeleteSelectedProductCanExecute(object arg) =>
-            SelectedItem != null && MessageBox.Show("Вы точно хотите удалить данные?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+            SelectedItem != null && AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile) && MessageBox.Show("Вы точно хотите удалить данные?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         private async void DeleteSelectedProductExecute(object obj)
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
@@ -97,7 +98,6 @@ namespace AveCaesarApp.ViewModels
                 await unitOfWork.SaveAsync();
             }
         }
-
 
         private void SearchExpressionChanged()
         {

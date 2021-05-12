@@ -19,48 +19,7 @@ namespace AveCaesarApp.ViewModels
         private readonly AuthenticationStore _authenticationStore;
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
-        private IList<Order> _ordersList = new BindingList<Order>()
-        {
-            new Order(1,
-                2,
-                new BindingList<Dish>()
-            {
-                new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
-                    new BindingList<Product>()
-                    {
-                        new(1, "Помидор", 25, 10, 10, "кг"),
-                        new (2, "Помидор", 25, 10, 10, "кг"),
-                        new (3, "Масло", 25, 10, 10, "л" ),
-                    },  
-                    WeightType.Kg,
-                    DishType.Salad)
-            },
-                DateTime.Now,
-                DateTime.Now,
-                OrderStatus.Accepted,
-                "Погорячее"
-            ),
-
-            new Order(1,
-                2,
-                new BindingList<Dish>()
-                {
-                    new(1, "Цезарь", @"pack://application:,,,/Images/Dishes/Caesar.jpg", 10, 20,
-                        new BindingList<Product>()
-                        {
-                            new(1, "Помидор", 25, 10, 10, "кг"),
-                            new (2, "Помидор", 25, 10, 10, "кг"),
-                            new (3, "Масло", 25, 10, 10, "л" ),
-                        },
-                        WeightType.Kg,
-                        DishType.Salad)
-                },
-                DateTime.Now,
-                DateTime.Now,
-                OrderStatus.Accepted,
-                "Погорячее"
-            )
-        };
+        private IList<Order> _ordersList;
 
         private Order _selectedItem;
 
@@ -80,7 +39,11 @@ namespace AveCaesarApp.ViewModels
                 () => new OrderViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
+
+            LoadOrders();
         }
+
+      
 
         public IList<Order> OrdersList
         {
@@ -98,6 +61,12 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToSelectedOrderCommand { get; }
         public DeleteSelectedItemCommand<Order> DeleteSelectedItem { get; }
 
-
+        private void LoadOrders()
+        {
+            using (var context = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                OrdersList = context.OrderRepository.GetAll().Where(p => p.WaiterName == _authenticationStore.CurrentProfile.FullName).ToList();
+            }
+        }
     }
 }

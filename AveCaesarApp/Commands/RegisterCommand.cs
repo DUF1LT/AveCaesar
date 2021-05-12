@@ -35,7 +35,7 @@ namespace AveCaesarApp.Commands
         public override async void Execute(object parameter)
         {
             await _authenticationStore.Register(_userViewModel.Login, _userViewModel.Password, _userViewModel.ConfirmPassword,
-                _userViewModel.FullName, _userViewModel.ProfileType);
+                _userViewModel.FullName, (FullProfileType)_userViewModel.ProfileType);
             _navigateToUsers.Execute(null);
         }
     }

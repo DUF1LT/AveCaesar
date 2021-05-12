@@ -2,6 +2,7 @@
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -32,8 +33,8 @@ namespace AveCaesarApp.ViewModels
                     () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToUsersCommand = new NavigateCommand<UsersViewModel>(navigationStore,
-                () => new UsersViewModel(navigationStore, _authenticationStore, _unitOfWorkFactory), 
-                (param) => _authenticationStore.CurrentUser.ProfileType == ProfileType.Manager);
+                () => new UsersViewModel(navigationStore, _authenticationStore, _unitOfWorkFactory),
+                (param) => AccessService.CanProfileAccessUsers(_authenticationStore.CurrentProfile));
         }
 
         public ICommand NavigateToAuthorizationCommand { get; }

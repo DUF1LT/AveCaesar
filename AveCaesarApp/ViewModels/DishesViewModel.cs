@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -31,7 +33,11 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToHomeCommand =
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
-            NavigateToAddDishCommand = new NavigateCommand<DishViewModel>(navigationStore, () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+
+            NavigateToAddDishCommand = new NavigateCommand<DishViewModel>(navigationStore,
+                () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory),
+                (parameter) => AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile));
+           
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 

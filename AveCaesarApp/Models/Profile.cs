@@ -8,7 +8,12 @@ namespace AveCaesarApp.Models
 {
     public class Profile
     {
-        public string FullName { get; set; }
-        public ProfileType ProfileType { get; set; }
+        public Profile(string fullName, FullProfileType profileType)
+        {
+            FullName = fullName;
+            ProfileType = profileType;
+        }
+        public string FullName { get;  }
+        public FullProfileType ProfileType { get; }
     }
 }

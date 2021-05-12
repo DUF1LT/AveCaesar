@@ -5,13 +5,13 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AveCaesarApp.Hashier
+namespace AveCaesarApp.Hasher
 {
-    class SaltedHashier
+    class SaltedHasher
     {
         public string Hash { get; }
         public string Salt { get; }
-        public SaltedHashier(string password)
+        public SaltedHasher(string password)
         {
             var saltBytes = new byte[32];
             new Random().NextBytes(saltBytes);

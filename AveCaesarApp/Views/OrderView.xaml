@@ -60,7 +60,7 @@
             <TextBox.Template>
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
-                        <TextBox Text="{Binding Path=TableNumber, Mode=TwoWay}" BorderThickness="0"/>
+                        <TextBox Text="{Binding Path=TableNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
                     </Border>
                 </ControlTemplate>
             </TextBox.Template>
@@ -92,7 +92,7 @@
                    Text="{Binding TotalPrice, StringFormat={}{0} руб.}" FontSize="25"/>
 
         <Button Grid.Column="1" Grid.Row="12" Grid.ColumnSpan="2" 
-                Command="{Binding AddDishCommand}" Cursor="Hand"
+                Command="{Binding AddOrderCommand}" Cursor="Hand"
                 Margin="15,0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">

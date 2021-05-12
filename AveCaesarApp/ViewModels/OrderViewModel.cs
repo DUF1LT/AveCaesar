@@ -44,10 +44,11 @@ namespace AveCaesarApp.ViewModels
                 new OrderDishesViewModel(navigationStore, authenticationStore, unitOfWorkFactory,
                     TableNumber, Note, totalPrice, DishesToAdd));
 
-            AddOrderCommand = new 
+            AddOrderCommand = new AddOrderCommand(this, _unitOfWorkFactory);
         }
 
-        
+        public AuthenticationStore AuthenticationStore => _authenticationStore;
+
         public int TableNumber
         {
             get => _tableNumber;
@@ -73,7 +74,7 @@ namespace AveCaesarApp.ViewModels
             {
                 Set(ref _dishesToAdd, value);
                 if(DishesToAdd != null)
-                    TotalPrice = DishesToAdd.Sum(p => p.Dish.Price);
+                    TotalPrice = DishesToAdd.Sum(p => p.Dish.Price*p.Amount);
             }
 
         }

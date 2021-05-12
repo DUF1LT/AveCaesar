@@ -30,15 +30,15 @@ namespace AveCaesarApp
             NavigationStore navigationStore = new NavigationStore();
             AuthenticationStore authenticationStore = new AuthenticationStore(new AuthenticationService(unitOfWorkFactory));
 
-            using (var context = new AveCaesarContext())
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
+            //using (var context = new AveCaesarContext())
+            //{
+            //    context.Database.EnsureDeleted();
+            //    context.Database.EnsureCreated();
 
-                authenticationStore.Register("admin", "admin", "admin", "Наркевич Вадим Викторович", ProfileType.Manager);
+            //    authenticationStore.Register("admin", "admin", "admin", "Наркевич Вадим Викторович", FullProfileType.Admin);
 
-                context.SaveChanges();
-            }
+            //    context.SaveChanges();
+            //}
 
             navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore, authenticationStore, unitOfWorkFactory);
 

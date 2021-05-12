@@ -47,7 +47,7 @@
                 <Image   Source="../Images/ArrowBackwardBrdlss.png" Margin="7"/>
                 <Border.InputBindings>
                     <MouseBinding MouseAction="LeftClick" 
-                                  Command="{Binding NavigateToDishCommand}" />
+                                  Command="{Binding NavigateToOrdersCommand}" />
                 </Border.InputBindings>
             </Border>
         </Grid>
