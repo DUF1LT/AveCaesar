@@ -57,7 +57,7 @@ namespace AveCaesarApp.Commands
             }
 
             _dishViewModel.Name = string.Empty;
-            _dishViewModel.Image = string.Empty;
+            _dishViewModel.Image = "../Images/imageholder.png";
             _dishViewModel.Price = 0;
             _dishViewModel.Weight = 0;
             _dishViewModel.ProductsToAdd = null;

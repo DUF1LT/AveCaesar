@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -36,14 +38,16 @@ namespace AveCaesarApp.ViewModels
             NavigateToSelectedOrderCommand = new NavigateToSelectedOrderCommand(navigationStore,_authenticationStore,  this, _unitOfWorkFactory);
 
             NavigateToOrderCommand = new NavigateCommand<OrderViewModel>(navigationStore,
-                () => new OrderViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
+                () => new OrderViewModel(navigationStore, authenticationStore, unitOfWorkFactory), 
+                (parameter) => AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile) );
 
-            DeleteSelectedItem = new DeleteSelectedItemCommand<Order>(_ordersList);
+            DeleteSelectedItem = new RelayCommand(DeleteSelectedItemExecute, DeleteSelectedItemCanExecute);
 
             LoadOrders();
         }
 
-      
+       
+
 
         public IList<Order> OrdersList
         {
@@ -59,7 +63,16 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToOrderCommand { get; }
         public ICommand NavigateToSelectedOrderCommand { get; }
-        public DeleteSelectedItemCommand<Order> DeleteSelectedItem { get; }
+        public ICommand DeleteSelectedItem { get; }
+        private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile) 
+            && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        private void DeleteSelectedItemExecute(object obj)
+        {
+            using(var context = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                context.OrderRepository.Delete(context.OrderRepository.Get(SelectedItem.Id).Id);
+            }
+        }
 
         private void LoadOrders()
         {

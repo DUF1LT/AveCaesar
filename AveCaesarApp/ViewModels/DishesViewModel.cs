@@ -41,13 +41,15 @@ namespace AveCaesarApp.ViewModels
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 
-            DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(DefaultList);
+            DeleteSelectedItem = new RelayCommand(DeleteSelectedItemExecute, DeleteSelectedItemCanExecute);
 
             LoadDishes();
 
         }
 
        
+
+
         public IList<Dish> DishesList
         {
             get => _dishesList;
@@ -70,6 +72,16 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToAddDishCommand { get; }
         public ICommand DeleteSelectedItem { get; }
+        private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile)
+            && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+
+        private void DeleteSelectedItemExecute(object obj)
+        {
+            using (var context = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                context.DishRepository.Delete(context.DishRepository.Get(SelectedItem.Id).Id);
+            }
+        }
 
         private void LoadDishes()
         {

@@ -11,7 +11,7 @@
              FontFamily="Source Serif Pro">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -33,14 +33,14 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Background="{StaticResource MainGreenColor}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="0.25*"/>
                 <ColumnDefinition Width="1.4*"/>
-                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition Width="2.3*"/>
                 <ColumnDefinition Width="0.45*"/>
                 <ColumnDefinition Width="0.4*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="1" Grid.Row="0"  
-                   Source="../Images/WhiteLogo.png" Margin="0,0,0,-20" Cursor="Hand">
+                   Source="../Images/WhiteLogo.png" Margin="0,0,0,-20" Cursor="Hand" HorizontalAlignment="Left">
                 <Image.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToHomeCommand}"/>
                 </Image.InputBindings>
@@ -112,7 +112,7 @@
                                                     <TextBox.Template>
                                                         <ControlTemplate TargetType="TextBox">
                                                             <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="1" CornerRadius="4" Padding="2">
-                                                                <TextBox Text="{Binding Path=Amount, Converter={StaticResource FromIntToStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox"/>
+                                                                <TextBox Text="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" BorderThickness="0"/>
                                                             </Border>
                                                         </ControlTemplate>
                                                     </TextBox.Template>

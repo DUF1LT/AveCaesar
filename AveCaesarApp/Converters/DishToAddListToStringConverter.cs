@@ -22,7 +22,7 @@ namespace AveCaesarApp.Converters
         {
             if (value is IList<DishToAdd> productsList)
             {
-                return string.Join(", ", productsList.Select(el => el.Dish.Name.ToLower() + " - " + el.Amount));
+                return string.Join(", ", productsList.Select(el => el.Dish.Name + " - " + el.Amount));
             }
             return null;
         }

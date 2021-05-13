@@ -68,7 +68,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
                             <Binding Path="Amount" />
-                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}" />
+                            <Binding Path="PriceWeightType" Converter="{StaticResource EnumConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>

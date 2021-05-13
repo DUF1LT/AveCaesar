@@ -26,10 +26,11 @@ namespace AveCaesarApp.ViewModels
         private string _addOrEditTabText;
         private ProductOperationType _productOperationType;
         private string _productName;
-        private string _productCalories;
-        private string _productPrice;
-        private string _productAmount;
+        private int _productCalories;
+        private float _productPrice;
+        private float _productAmount;
         private WeightType _productWeightType;
+        private PriceWeightType _priceWeightType;
 
 
         public ProductViewModel(NavigationStore navigationStore, ProductOperationType productOperationType,
@@ -41,7 +42,6 @@ namespace AveCaesarApp.ViewModels
             _productsList = productsList;
             _itemToEdit = itemToEdit;
 
-            // TODO: Use converter
             AddOrEditButtonText = _productOperationType == ProductOperationType.Add ? "Добавить" : "Подтвердить";
             AddOrEditTabText = _productOperationType == ProductOperationType.Add ? "Добавление" : "Редактирование";
             AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
@@ -52,16 +52,23 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             WeightTypeViewModel = new EnumMenuViewModel<WeightType>();
-            WeightTypeViewModel.OnSelectionChanged += () => ProductWeightType = WeightTypeViewModel.SelectedItem;
+            WeightTypeViewModel.OnSelectionChanged += 
+                () => ProductWeightType = WeightTypeViewModel.SelectedItem;
+
+            PriceWeightTypeViewModel = new EnumMenuViewModel<PriceWeightType>();
+            PriceWeightTypeViewModel.OnSelectionChanged +=
+                () => PriceWeightType = PriceWeightTypeViewModel.SelectedItem;
 
             ProductWeightType = WeightType.Kg;
+            PriceWeightType = PriceWeightType.Kg;
             if (_productOperationType == ProductOperationType.Edit && _itemToEdit != null)
             {
                 ProductName = _itemToEdit.Name;
-                ProductAmount = _itemToEdit.Amount.ToString();
-                ProductCalories = _itemToEdit.Calories.ToString();
-                ProductPrice = _itemToEdit.Price.ToString();
+                ProductAmount = _itemToEdit.Amount;
+                ProductCalories = _itemToEdit.Calories;
+                ProductPrice = _itemToEdit.Price;
                 WeightTypeViewModel.SelectedItem = _itemToEdit.WeightType;
+                PriceWeightTypeViewModel.SelectedItem = (PriceWeightType)_itemToEdit.PriceWeightType;
             }
         }
 
@@ -78,19 +85,19 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _productName, value);
         }
 
-        public string ProductCalories
+        public int ProductCalories
         {
             get => _productCalories;
             set => Set(ref _productCalories, value);
         }
 
-        public string ProductPrice
+        public float ProductPrice
         {
             get => _productPrice;
             set => Set(ref _productPrice, value);
         }
 
-        public string ProductAmount
+        public float ProductAmount
         {
             get => _productAmount;
             set => Set(ref _productAmount, value);
@@ -100,6 +107,11 @@ namespace AveCaesarApp.ViewModels
         {
             get => _productWeightType;
             set => Set(ref _productWeightType, value);
+        }
+        public PriceWeightType PriceWeightType
+        {
+            get => _priceWeightType;
+            set => Set(ref _priceWeightType, value);
         }
         public string AddOrEditButtonText
         {
@@ -117,11 +129,13 @@ namespace AveCaesarApp.ViewModels
             get => _itemToEdit;
             set => Set(ref _itemToEdit, value);
         }
+       
         public EnumMenuViewModel<WeightType> WeightTypeViewModel { get; }
+        public EnumMenuViewModel<PriceWeightType> PriceWeightTypeViewModel { get; }
 
         public ICommand AddOrEditProductCommand { get; }
         public ICommand NavigateToProductsCommand { get; }
 
-
+       
     }
 }

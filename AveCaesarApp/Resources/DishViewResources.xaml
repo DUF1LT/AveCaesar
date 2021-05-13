@@ -82,7 +82,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="45"/>
                     <ColumnDefinition Width="110"/>
-                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="0.9"/>
                     <ColumnDefinition Width="0.9*"/>
                 </Grid.ColumnDefinitions>
@@ -100,10 +100,10 @@
                 <TextBlock Grid.Row="2" Grid.Column="2" 
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            FontSize="16" FontWeight="SemiBold" Text="{Binding StringFormat={}{0} руб, Path=Price}"/>
-                <TextBlock Grid.Row="0" Grid.Column="3"  
-                           VerticalAlignment="Center" HorizontalAlignment="Center" 
+                <TextBlock Grid.Row="0" Grid.Column="3"  Grid.ColumnSpan="2"
+                           VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Text="Состав:" FontWeight="SemiBold" FontSize="15"/>
-                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center">
+                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
                     <TextBlock
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
                            Text="{Binding ProductsDishes, Converter={StaticResource ProductsDishesConverter}}" FontSize="13"/>
@@ -120,53 +120,4 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
-    <ControlTemplate x:Key="DishProductAddListViewTemplate" TargetType="ListViewItem" >
-        <Border x:Name="ListViewBorder" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
-                Padding="10" Margin="0,0,0,10" 
-                HorizontalAlignment="Stretch" Background="White" Cursor="Hand">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="1.4*"/>
-                    <ColumnDefinition Width="1.6*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Product.Id}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Product.Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Product.Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} руб/{1}">
-                            <Binding Path="Price" />
-                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-                <StackPanel Grid.Column="4">
-                    <TextBox Width="50" Margin="0,5,5,5">
-                        <TextBox.Template>
-                            <ControlTemplate TargetType="TextBox">
-                                <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
-                                    <TextBox Text="{Binding Path=Amount, Converter={StaticResource FromIntToStringConverter}, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0"/>
-                                </Border>
-                            </ControlTemplate>
-                        </TextBox.Template>
-                    </TextBox>
-                    <TextBlock VerticalAlignment="Center" Text="{Binding WeightType}" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}"/>
-                </StackPanel>
-            </Grid>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="3.5"/>
-                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
 </ResourceDictionary>

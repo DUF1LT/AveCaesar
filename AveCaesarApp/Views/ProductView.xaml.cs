@@ -34,8 +34,10 @@ namespace AveCaesarApp.Views
 
         private void TextLengthValidation(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("^\\w{0,15}$");
+            Regex regex = new Regex("^[a-zA-Z а-яА-я]{0,15}$");
             e.Handled = !regex.IsMatch(((TextBox)sender).Text + e.Text);
         }
+
+     
     }
 }

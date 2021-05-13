@@ -25,7 +25,7 @@ namespace AveCaesarApp.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string strVal && strVal != string.Empty)
+            if (value is string strVal && strVal != string.Empty && strVal != " " && strVal != "  " && strVal != "   " && strVal != "     ")
                 return System.Convert.ToInt32(strVal);
             return null;
         }

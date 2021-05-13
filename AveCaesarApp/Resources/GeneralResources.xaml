@@ -4,7 +4,7 @@
 
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
 
-    <Style TargetType="{x:Type ListView}" x:Key="DishWeightTypeViewTemplate">
+    <Style TargetType="{x:Type ListView}" x:Key="TinyWeightTypeViewTemplate">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
@@ -18,7 +18,7 @@
         </Style.Setters>
     </Style>
 
-    <Style TargetType="{x:Type ListViewItem}" x:Key="DishWeightTypeEnumStyle">
+    <Style TargetType="{x:Type ListViewItem}" x:Key="TinyWeightTypeEnumStyle">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>

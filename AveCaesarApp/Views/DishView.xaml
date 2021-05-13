@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="1" Grid.Row="0"  
-                   Source="../Images/WhiteLogo.png" Margin="0,0,0,-20" Cursor="Hand">
+                   Source="../Images/WhiteLogo.png" Margin="0,0,0,-22" Cursor="Hand" HorizontalAlignment="Left">
                 <Image.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToHomeCommand}"/>
                 </Image.InputBindings>
@@ -112,7 +112,7 @@
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{StaticResource MainGreenColor}"
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                        <TextBox Text="{Binding Price, Mode=TwoWay}" BorderThickness="0"/>
+                        <TextBox Text="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" BorderThickness="0"/>
                     </Border>
                 </ControlTemplate>
             </TextBox.Template>
@@ -129,11 +129,11 @@
                     </ControlTemplate>
                 </TextBox.Template>
             </TextBox>
-            <ListView Margin="30,0,0,0" Width="150"
+            <ListView Margin="50,0,0,0" Width="130"
                       ItemsSource="{Binding DishWeightTypeViewModel.Items}" SelectedItem="{Binding DishWeightTypeViewModel.SelectedItem}" 
-                      SelectionMode="Single" ItemContainerStyle="{StaticResource DishWeightTypeEnumStyle}"
+                      SelectionMode="Single" ItemContainerStyle="{StaticResource TinyWeightTypeEnumStyle}"
                       ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                      Padding="0,15" Style="{StaticResource DishWeightTypeViewTemplate}" HorizontalContentAlignment="Stretch" >
+                      Padding="0,15" Style="{StaticResource TinyWeightTypeViewTemplate}" HorizontalContentAlignment="Stretch" >
             </ListView>
         </StackPanel>
 
@@ -164,7 +164,7 @@
         </Border>
 
 
-        <ListView Grid.Column="5" Grid.Row="2" Grid.RowSpan="10"  Grid.ColumnSpan="2" Width="200"
+        <ListView Grid.Column="5" Grid.Row="2" Grid.RowSpan="11"  Grid.ColumnSpan="2" Width="200" Margin="0,0,0,25"
                   ItemsSource="{Binding DishTypeViewModel.Items}" SelectedItem="{Binding DishTypeViewModel.SelectedItem}" 
                   SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
                   ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 

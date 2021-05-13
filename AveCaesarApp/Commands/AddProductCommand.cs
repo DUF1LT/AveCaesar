@@ -22,10 +22,10 @@ namespace AveCaesarApp.Commands
 
         public override bool CanExecute(object parameter)
         {
-            if (string.IsNullOrEmpty(_productViewModel.ProductAmount) ||
-                string.IsNullOrEmpty(_productViewModel.ProductCalories) ||
+            if (_productViewModel.ProductAmount == 0 ||
+                _productViewModel.ProductCalories == 0 ||
                 string.IsNullOrEmpty(_productViewModel.ProductName) ||
-                string.IsNullOrEmpty(_productViewModel.ProductPrice))
+                _productViewModel.ProductPrice == 0)
                 return false;
             return true;
         }
@@ -37,10 +37,11 @@ namespace AveCaesarApp.Commands
                 Product newProd = new Product()
                 {
                     Name = _productViewModel.ProductName,
-                    Calories = Convert.ToInt32(_productViewModel.ProductCalories),
-                    Price = Convert.ToInt32(_productViewModel.ProductPrice),
-                    Amount = Convert.ToInt32(_productViewModel.ProductAmount),
-                    WeightType = _productViewModel.ProductWeightType
+                    Calories = _productViewModel.ProductCalories,
+                    Price = _productViewModel.ProductPrice,
+                    Amount = _productViewModel.ProductAmount,
+                    WeightType = _productViewModel.ProductWeightType,
+                    PriceWeightType = (WeightType)_productViewModel.PriceWeightType
                 };
 
                 unitOfWork.ProductRepository.Create(newProd);
@@ -48,9 +49,9 @@ namespace AveCaesarApp.Commands
             }
 
             _productViewModel.ProductName = string.Empty;
-            _productViewModel.ProductAmount = null;
-            _productViewModel.ProductCalories = null;
-            _productViewModel.ProductPrice = null;
+            _productViewModel.ProductAmount = 0;
+            _productViewModel.ProductCalories = 0;
+            _productViewModel.ProductPrice = 0;
         }
     }
 }

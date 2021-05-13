@@ -23,7 +23,7 @@ namespace AveCaesarApp.Converters
         {
             if (value is IList<ProductToAdd> productsList)
             {
-                return string.Join(", ", productsList.Select(el => el.Product.Name.ToLower() + " - " + el.Amount + " " + el.Product.WeightType.GetDisplayName()));
+                return string.Join(", ", productsList.Select(el => el.Product.Name + " - " + el.Amount + " " + el.Product.WeightType.GetDisplayName()));
             }
             return null;
         }

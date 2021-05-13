@@ -30,6 +30,7 @@
     <None Remove="Images\EditIconBrdrlss.png" />
     <None Remove="Images\FullLogo.png" />
     <None Remove="Images\Image-holder.jpg" />
+    <None Remove="Images\imageholder.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\LogoIcon.png" />
     <None Remove="Images\MainWindowBackground.png" />
@@ -73,7 +74,7 @@
     <Resource Include="Images\EditIcon.png" />
     <Resource Include="Images\EditIconBrdrlss.png" />
     <Resource Include="Images\FullLogo.png" />
-    <Resource Include="Images\Image-holder.jpg" />
+    <Resource Include="Images\imageholder.png" />
   </ItemGroup>
 
   <ItemGroup>

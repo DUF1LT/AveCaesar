@@ -89,7 +89,7 @@
                             <ControlTemplate TargetType="TextBox">
                                 <Border BorderBrush="{StaticResource MainGreenColor}"
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox"/>
+                                    <TextBox Text="{Binding ProductAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" BorderThickness="0"/>
                                 </Border>
                             </ControlTemplate>
                         </TextBox.Template>
@@ -100,23 +100,30 @@
                             <ControlTemplate TargetType="TextBox">
                                 <Border BorderBrush="{StaticResource MainGreenColor}" 
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductCalories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox" />
+                                    <TextBox Text="{Binding ProductCalories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FromIntToStringConverter}}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox" />
                                 </Border>
                             </ControlTemplate>
                         </TextBox.Template>
                     </TextBox>
 
-                    <TextBox Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5" >
-                        <TextBox.Template>
-                            <ControlTemplate TargetType="TextBox">
-                                <Border BorderBrush="{StaticResource MainGreenColor}" 
+                    <StackPanel Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox  Width="100" Margin="25,5,35,5" >
+                            <TextBox.Template>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Border BorderBrush="{StaticResource MainGreenColor}" 
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" PreviewTextInput="NumberValidationTextBox"/>
-                                </Border>
-                            </ControlTemplate>
-                        </TextBox.Template>
-                    </TextBox>
-
+                                        <TextBox Text="{Binding ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" BorderThickness="0" />
+                                    </Border>
+                                </ControlTemplate>
+                            </TextBox.Template>
+                        </TextBox>
+                        <ListView Margin="20,0,0,0" Width="150"
+                              ItemsSource="{Binding PriceWeightTypeViewModel.Items}" SelectedItem="{Binding PriceWeightTypeViewModel.SelectedItem}" 
+                              SelectionMode="Single" ItemContainerStyle="{StaticResource TinyWeightTypeEnumStyle}"
+                              ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                              Padding="0,15" Style="{StaticResource TinyWeightTypeViewTemplate}" HorizontalContentAlignment="Stretch" >
+                        </ListView>
+                    </StackPanel>
                     <ListView 
                                 Grid.Column="5" Grid.Row="1" Grid.RowSpan="7"  Grid.ColumnSpan="2"
                                 ItemsSource="{Binding WeightTypeViewModel.Items}" SelectedItem="{Binding WeightTypeViewModel.SelectedItem}" 

@@ -14,6 +14,6 @@ namespace AveCaesarApp.Models
         public int DishId { get; set; }
         public Dish Dish { get; set; }
 
-        public int ProductAmount { get; set; }
+        public float ProductAmount { get; set; }
     }
 }

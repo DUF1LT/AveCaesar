@@ -17,7 +17,7 @@ namespace AveCaesarApp.ViewModels
     {
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
         private string _name;
-        private int _price;
+        private float _price;
         private int _weight;
         private string _image;
         private DishType _dishType;
@@ -25,7 +25,7 @@ namespace AveCaesarApp.ViewModels
         private IList<ProductToAdd> _productsToAdd;
 
         public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
-            string name = null, int price = 0, int weight = 0 ,string image = "", DishType dishType = DishType.Rolls, DishWeightType dishWeightType = DishWeightType.G  , IList<ProductToAdd> productsToAdd = null)
+            string name = null, float price = 0, int weight = 0 ,string image = "../Images/imageholder.png", DishType dishType = DishType.Rolls, DishWeightType dishWeightType = DishWeightType.G  , IList<ProductToAdd> productsToAdd = null)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
 
@@ -61,7 +61,7 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _name, value);
         }
 
-        public int Price
+        public float Price
         {
             get => _price;
             set => Set(ref _price, value);

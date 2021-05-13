@@ -105,8 +105,7 @@ namespace AveCaesarApp.ViewModels
                 ProductsList = DefaultList;
             else
             {
-                Regex regex = new Regex($"^{SearchExpression.ToLower()}");
-                ProductsList = DefaultList.Where(p => regex.IsMatch(p.Name.ToLower())).ToList();
+                ProductsList = DefaultList.Where(p => p.Name.ToLower().Contains(SearchExpression)).ToList();
             }
         }
 

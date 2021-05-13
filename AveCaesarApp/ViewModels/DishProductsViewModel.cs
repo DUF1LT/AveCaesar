@@ -19,7 +19,7 @@ namespace AveCaesarApp.ViewModels
 
 
         public DishProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
-            string name, int price, int weight, string image, DishType dishType, DishWeightType dishWeightType ,IList<ProductToAdd> productsToAdd)
+            string name, float price, int weight, string image, DishType dishType, DishWeightType dishWeightType ,IList<ProductToAdd> productsToAdd)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
             _productsToAdd = productsToAdd;

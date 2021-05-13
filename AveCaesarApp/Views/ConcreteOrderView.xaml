@@ -98,7 +98,7 @@
         <ComboBox Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2"
                   Margin="0,10"
                   ItemsSource="{Binding StatusViewModel.Items, Converter={conv:OrderStatusToColorConverter}}"
-                  SelectedItem="{Binding StatusViewModel.SelectedItem, Converter={conv:SelectedOrderStatusToColorConverter}}">
+                  SelectedItem="{Binding CurrentOrder.Status, Converter={conv:SelectedOrderStatusToColorConverter}}">
         </ComboBox>
 
         <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="6" Grid.RowSpan="4" 
