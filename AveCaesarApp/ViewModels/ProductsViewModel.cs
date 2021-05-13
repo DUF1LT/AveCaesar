@@ -100,8 +100,9 @@ namespace AveCaesarApp.ViewModels
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 unitOfWork.ProductRepository.Delete(SelectedItem.Id);
-                ProductsList.Remove(SelectedItem);
                 await unitOfWork.SaveAsync();
+                ProductsList = unitOfWork.ProductRepository.GetAll().ToList();
+
             }
         }
 
@@ -119,7 +120,7 @@ namespace AveCaesarApp.ViewModels
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                ProductsList = DefaultList = new BindingList<Product>(unitOfWork.ProductRepository.GetAll().ToList());
+                ProductsList = DefaultList = unitOfWork.ProductRepository.GetAll().ToList();
             }
         }
     }

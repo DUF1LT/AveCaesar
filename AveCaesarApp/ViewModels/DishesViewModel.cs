@@ -75,11 +75,14 @@ namespace AveCaesarApp.ViewModels
         private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile)
             && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
-        private void DeleteSelectedItemExecute(object obj)
+        private async void DeleteSelectedItemExecute(object obj)
         {
-            using (var context = _unitOfWorkFactory.CreateUnitOfWork())
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                context.DishRepository.Delete(context.DishRepository.Get(SelectedItem.Id).Id);
+                unitOfWork.DishRepository.Delete(unitOfWork.DishRepository.Get(SelectedItem.Id).Id);
+                await unitOfWork.SaveAsync();
+                DefaultList = unitOfWork.DishRepository.GetAll().ToList();
+                FilterViewModelOnOnSelectionChanged();
             }
         }
 

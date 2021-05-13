@@ -64,11 +64,14 @@ namespace AveCaesarApp.ViewModels
 
         private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile) 
             && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
-        private void DeleteSelectedItemExecute(object obj)
+        private async void DeleteSelectedItemExecute(object obj)
         {
-            using(var context = _unitOfWorkFactory.CreateUnitOfWork())
+            using(var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                context.OrderRepository.Delete(context.OrderRepository.Get(SelectedItem.Id).Id);
+                unitOfWork.OrderRepository.Delete(unitOfWork.OrderRepository.Get(SelectedItem.Id).Id);
+;               await unitOfWork.SaveAsync();
+                OrdersList = unitOfWork.OrderRepository.GetAll().ToList();
+
             }
         }
 

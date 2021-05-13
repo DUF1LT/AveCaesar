@@ -26,7 +26,7 @@ namespace AveCaesarApp.Commands
 
         public override async void Execute(object parameter)
         {
-            using (var context = _unitOfWorkFactory.CreateUnitOfWork())
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 Order newOrder = new Order()
                 {
@@ -42,15 +42,21 @@ namespace AveCaesarApp.Commands
                 {
                     var newOrderDishes = new DishesOrders()
                     {
-                        Dish = context.DishRepository.Get(element.Dish.Id),
+                        Dish = unitOfWork.DishRepository.Get(element.Dish.Id),
                         DishAmount = element.Amount,
                         Order = newOrder
                     };
                     newOrder.DishesOrders.Add(newOrderDishes);
+
+                    foreach (var productsDish in element.Dish.ProductsDishes)
+                    {
+                        var updatingProduct = await unitOfWork.ProductRepository.Get(productsDish.ProductId);
+                        updatingProduct.Amount -= productsDish.ProductAmount;
+                    }
                 }
 
-                context.OrderRepository.Create(newOrder);
-                await context.SaveAsync();
+                unitOfWork.OrderRepository.Create(newOrder);
+                await unitOfWork.SaveAsync();
             }
             _orderViewModel.NavigateToOrdersCommand.Execute(null);
         }
