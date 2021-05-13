@@ -61,7 +61,7 @@ namespace AveCaesarApp.Commands
             _dishViewModel.Price = 0;
             _dishViewModel.Weight = 0;
             _dishViewModel.ProductsToAdd = null;
-            _dishViewModel.DishTypeViewModel.SelectedItem = DishType.Soup;
+            _dishViewModel.DishTypeViewModel.SelectedItem = DishType.Rolls;
             _dishViewModel.DishWeightTypeViewModel.SelectedItem = DishWeightType.G;
         }
     }

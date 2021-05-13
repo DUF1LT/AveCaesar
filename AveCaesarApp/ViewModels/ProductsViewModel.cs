@@ -33,7 +33,7 @@ namespace AveCaesarApp.ViewModels
             _authenticationStore = authenticationStore;
             _unitOfWorkFactory = unitOfWorkFactory;
 
-            DeleteSelectedProductCommand = new RelayCommand(DeleteSelectedProductExecute, 
+            DeleteSelectedProductCommand = new RelayCommand(DeleteSelectedProductExecute,
                 DeleteSelectedProductCanExecute);
 
             NavigateToHomeCommand =
@@ -87,8 +87,14 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToEditProductCommand { get; }
         public ICommand DeleteSelectedProductCommand { get; }
 
-        private bool DeleteSelectedProductCanExecute(object arg) =>
-            SelectedItem != null && AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile) && MessageBox.Show("Вы точно хотите удалить данные?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        private bool DeleteSelectedProductCanExecute(object arg)
+        {
+           return SelectedItem != null && AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile)
+            && MessageBox.Show("Вы точно хотите удалить продукт?\nЭто повлечет за собой каскадное удаление блюд и заказов, от этого продукта!", "Предупреждение", MessageBoxButton.YesNo) ==
+            MessageBoxResult.Yes;
+            
+        }
+
         private async void DeleteSelectedProductExecute(object obj)
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
@@ -113,10 +119,10 @@ namespace AveCaesarApp.ViewModels
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-               ProductsList = DefaultList = new BindingList<Product>(unitOfWork.ProductRepository.GetAll().ToList());
+                ProductsList = DefaultList = new BindingList<Product>(unitOfWork.ProductRepository.GetAll().ToList());
             }
         }
     }
 
-   
+
 }

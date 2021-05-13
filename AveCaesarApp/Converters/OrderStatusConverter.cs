@@ -13,7 +13,7 @@ using AveCaesarApp.Models;
 
 namespace AveCaesarApp.Converters
 {
-    public class OrderStatusToColorConverter : MarkupExtension,  IValueConverter
+    public class OrderStatusConverter : MarkupExtension,  IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,6 @@ namespace AveCaesarApp.Repository
         public DishRepository(AveCaesarContext context)
         {
             db = context;
-            db.Dishes
-                .Include(p => p.DishesOrders)
-                .ThenInclude(c => c.Order)
-                .Include(d => d.ProductsDishes)
-                .ThenInclude(t => t.Product);
         }
 
         public IEnumerable<Dish> GetAll()
@@ -46,9 +42,18 @@ namespace AveCaesarApp.Repository
 
         public void Delete(int id)
         {
-            Dish dish = db.Dishes.Find(id);
+            Dish dish = db.Dishes
+                .Include(p => p.DishesOrders)
+                .ThenInclude(p => p.Order)
+                .First(p => p.Id == id);
             if (dish != null)
+            {
+                foreach (var dishesOrder in dish.DishesOrders)
+                {
+                    db.Orders.Remove(db.Orders.Find(dishesOrder.OrderId));
+                }
                 db.Dishes.Remove(dish);
+            }
         }
     }
 }

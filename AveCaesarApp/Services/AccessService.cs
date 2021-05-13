@@ -21,7 +21,7 @@ namespace AveCaesarApp.Services
         }
         public static bool CanProfileAccessDish(Profile profile)
         {
-           if(profile.ProfileType == FullProfileType.Admin || profile.ProfileType == FullProfileType.Chef)
+           if(profile.ProfileType == FullProfileType.Admin || profile.ProfileType == FullProfileType.Manager)
                return true;
            MessageBox.Show("Доступ запрещен", "Ошибка");
            return false;
@@ -29,6 +29,13 @@ namespace AveCaesarApp.Services
         public static bool CanProfileAccessOrder(Profile profile)
         {
             if(profile.ProfileType == FullProfileType.Admin || profile.ProfileType == FullProfileType.Waiter)
+                return true;
+            MessageBox.Show("Доступ запрещен", "Ошибка");
+            return false;
+        }
+        public static bool CanProfileAccessConcreteOrder(Profile profile)
+        {
+            if (profile.ProfileType == FullProfileType.Admin || profile.ProfileType == FullProfileType.Waiter || profile.ProfileType == FullProfileType.Chef)
                 return true;
             MessageBox.Show("Доступ запрещен", "Ошибка");
             return false;

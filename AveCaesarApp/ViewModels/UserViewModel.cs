@@ -24,6 +24,7 @@ namespace AveCaesarApp.ViewModels
             _unitOfWorkFactory = unitOfWorkFactory;
 
             ProfileTypeViewModel = new EnumMenuViewModel<ProfileType>();
+            ProfileType = ProfileType.Manager;
             ProfileTypeViewModel.OnSelectionChanged += () => ProfileType = ProfileTypeViewModel.SelectedItem;
 
             NavigateToHomeCommand =

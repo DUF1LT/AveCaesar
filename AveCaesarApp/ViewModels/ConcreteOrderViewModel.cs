@@ -27,8 +27,14 @@ namespace AveCaesarApp.ViewModels
 
            //DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
 
-            StatusViewModel = new OrderStatusViewModel();
+            StatusViewModel = new EnumMenuViewModel<OrderStatus>();
+            StatusViewModel.SelectedItem = CurrentOrder.Status;
+            StatusViewModel.OnSelectionChanged += StatusViewModelOnOnSelectionChanged;
+           
+
         }
+
+        
 
         public Order CurrentOrder
         {
@@ -42,12 +48,23 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _selectedItem, value);
         }
 
-        public OrderStatusViewModel StatusViewModel { get; set; }
+        public EnumMenuViewModel<OrderStatus> StatusViewModel { get; }
 
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToOrdersCommand { get; }
         public ICommand DeleteSelectedItem { get; }
 
-       
+
+        private async void StatusViewModelOnOnSelectionChanged()
+        {
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                var currentOrder = unitOfWork.OrderRepository.Get(CurrentOrder.Id);
+                CurrentOrder.Status = currentOrder.Status = StatusViewModel.SelectedItem;
+                unitOfWork.OrderRepository.Update(currentOrder);
+                await unitOfWork.SaveAsync();
+            }
+        }
+
     }
 }

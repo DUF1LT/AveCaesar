@@ -32,7 +32,7 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToOrderCommand = new NavigateCommand<OrderViewModel>(navigationStore,
                 () => new OrderViewModel(navigationStore, authenticationStore, unitOfWorkFactory, tableNumber, note, totalPrice, _dishesToAdd));
-            AddDishesToOrderCommand = new RelayCommand(AddDishesToOrderCommandExecute);
+            AddDishesToOrderCommand = new RelayCommand(AddDishesToOrderCommandExecute, AddDishesToOrderCommandCanExecute);
             FilterViewModel = new DishesFilterViewModel();
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 
@@ -41,6 +41,7 @@ namespace AveCaesarApp.ViewModels
         }
 
        
+
         public IList<DishToAdd> DishesList
         {
             get => _dishesList;
@@ -57,6 +58,8 @@ namespace AveCaesarApp.ViewModels
             _dishesToAdd = DishesList.Where(p => p.IsSelected).ToList();
             NavigateToOrderCommand.Execute(null);
         }
+        private bool AddDishesToOrderCommandCanExecute(object arg) => _defaultList.Count(p => p.IsSelected) > 0;
+
 
         private void LoadDishes()
         {
@@ -66,13 +69,23 @@ namespace AveCaesarApp.ViewModels
                 var list = context.DishRepository.GetAll().ToList();
                 foreach (var dish in list)
                 {
-                    var newDishToAdd = new DishToAdd()
+                    var isNotEnoughProduct = false;
+                    foreach (var productsDish in dish.ProductsDishes)
                     {
-                        Dish = dish,
-                        Amount = 0,
-                        IsSelected = false
-                    };
-                    _defaultList.Add(newDishToAdd);
+                        if (productsDish.ProductAmount > productsDish.Product.Amount)
+                            isNotEnoughProduct = true;
+                    }
+
+                    if (isNotEnoughProduct == false)
+                    {
+                        var newDishToAdd = new DishToAdd()
+                        {
+                            Dish = dish,
+                            Amount = 0,
+                            IsSelected = false
+                        };
+                        _defaultList.Add(newDishToAdd);
+                    }
                 }
             }
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels;
 
@@ -29,7 +30,7 @@ namespace AveCaesarApp.Commands
         }
         public override bool CanExecute(object parameter)
         {
-            return _ordersViewModel.SelectedItem != null;
+            return _ordersViewModel.SelectedItem != null && AccessService.CanProfileAccessConcreteOrder(_authenticationStore.CurrentProfile);
         }
 
         public override void Execute(object parameter)

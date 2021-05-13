@@ -46,9 +46,6 @@ namespace AveCaesarApp.ViewModels
             LoadOrders();
         }
 
-       
-
-
         public IList<Order> OrdersList
         {
             get => _ordersList;
@@ -64,6 +61,7 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToOrderCommand { get; }
         public ICommand NavigateToSelectedOrderCommand { get; }
         public ICommand DeleteSelectedItem { get; }
+
         private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile) 
             && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         private void DeleteSelectedItemExecute(object obj)
@@ -78,7 +76,11 @@ namespace AveCaesarApp.ViewModels
         {
             using (var context = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                OrdersList = context.OrderRepository.GetAll().Where(p => p.WaiterName == _authenticationStore.CurrentProfile.FullName).ToList();
+                if(_authenticationStore.CurrentProfile.ProfileType == FullProfileType.Waiter || _authenticationStore.CurrentProfile.ProfileType == FullProfileType.Admin)
+                    OrdersList = context.OrderRepository.GetAll().Where(p => p.WaiterName == _authenticationStore.CurrentProfile.FullName).ToList();
+                else
+                    OrdersList = context.OrderRepository.GetAll().ToList();
+
             }
         }
     }

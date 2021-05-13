@@ -37,11 +37,25 @@ namespace AveCaesarApp.Repository
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async void Delete(int id)
+
+        public void Delete(int id)
         {
-            Product product = await db.Products.FindAsync(id);
+            Product product = db.Products.Include(p => p.ProductDishes)
+                .ThenInclude(p => p.Dish)
+                .ThenInclude(p => p.DishesOrders)
+                .ThenInclude(p => p.Order).First(p => p.Id == id);
             if (product != null)
+            {
+                foreach (var productDish in product.ProductDishes)
+                {
+                    foreach (var dishesOrder in productDish.Dish.DishesOrders)
+                    {
+                        db.Orders.Remove(db.Orders.Find(dishesOrder.OrderId));
+                    }
+                    db.Dishes.Remove(db.Dishes.Find(productDish.DishId));
+                }
                 db.Products.Remove(product);
+            }
         }
     }
 }

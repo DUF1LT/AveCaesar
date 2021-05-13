@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
+using Microsoft.EntityFrameworkCore;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace AveCaesarApp.Repository
@@ -19,7 +20,10 @@ namespace AveCaesarApp.Repository
         }
         public IEnumerable<Order> GetAll()
         {
-            return db.Orders;
+            return db.Orders.Include(p => p.DishesOrders)
+                .ThenInclude(c => c.Dish)
+                .ThenInclude(e => e.ProductsDishes)
+                .ThenInclude(t => t.Product);
         }
 
         public Order Get(int id)
