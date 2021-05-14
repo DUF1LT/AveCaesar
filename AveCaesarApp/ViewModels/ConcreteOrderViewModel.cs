@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels.Base;
 
@@ -11,11 +14,13 @@ namespace AveCaesarApp.ViewModels
     class ConcreteOrderViewModel : ViewModel
     {
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
+        private readonly AuthenticationStore _authenticationStore;
         private Order _currentOrder;
-        private Dish _selectedItem;
+        private DishToAdd _selectedItem;
 
         public ConcreteOrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,Order currentOrder, UnitOfWorkFactory unitOfWorkFactory)
         {
+            _authenticationStore = authenticationStore;
             _currentOrder = currentOrder;
             _unitOfWorkFactory = unitOfWorkFactory;
 
@@ -25,7 +30,7 @@ namespace AveCaesarApp.ViewModels
             NavigateToOrdersCommand =
                 new NavigateCommand<OrdersViewModel>(navigationStore, () => new OrdersViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-           //DeleteSelectedItem = new DeleteSelectedItemCommand<Dish>(CurrentOrder.Dishes);
+            DeleteSelectedDish = new RelayCommand(DeleteSelectedDishExecute, DeleteSelectedDishCanExecute);
 
             StatusViewModel = new EnumMenuViewModel<OrderStatus>();
             StatusViewModel.SelectedItem = CurrentOrder.Status;
@@ -34,15 +39,13 @@ namespace AveCaesarApp.ViewModels
 
         }
 
-        
-
         public Order CurrentOrder
         {
             get => _currentOrder;
             set => Set(ref _currentOrder, value);
         }
 
-        public Dish SelectedItem
+        public DishToAdd SelectedItem
         {
             get => _selectedItem;
             set => Set(ref _selectedItem, value);
@@ -52,7 +55,28 @@ namespace AveCaesarApp.ViewModels
 
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToOrdersCommand { get; }
-        public ICommand DeleteSelectedItem { get; }
+        public ICommand DeleteSelectedDish { get; }
+
+        private bool DeleteSelectedDishCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile)
+            && MessageBox.Show("Вы действительно хотите удалить выбранное блюдо из заказа?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        
+        private async void DeleteSelectedDishExecute(object obj)
+        {
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                var order = unitOfWork.OrderRepository.Get(CurrentOrder.Id);
+                order.DishesOrders.Remove(order.DishesOrders.First(p => p.DishId == SelectedItem.Dish.Id));
+                CurrentOrder = order;
+                if (order.DishesOrders.Count == 0)
+                {
+                    unitOfWork.OrderRepository.Delete(order.Id);
+                    await unitOfWork.SaveAsync();
+                    NavigateToOrdersCommand.Execute(null);
+                }
+                await unitOfWork.SaveAsync();
+
+            }
+        }
 
 
         private async void StatusViewModelOnOnSelectionChanged()

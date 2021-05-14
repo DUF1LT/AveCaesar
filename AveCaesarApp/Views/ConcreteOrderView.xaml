@@ -12,7 +12,7 @@
              FontFamily="Source Serif Pro">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -55,7 +55,7 @@
                 <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7">
                     <Image.InputBindings>
                         <MouseBinding MouseAction="LeftClick" 
-                                  Command="{Binding DeleteSelectedItem}" 
+                                  Command="{Binding DeleteSelectedDish}" 
                                   CommandParameter="{Binding SelectedItem}"/>
                     </Image.InputBindings>
                 </Image>
