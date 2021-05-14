@@ -52,6 +52,7 @@ namespace AveCaesarApp.Commands
                     {
                         var updatingProduct = await unitOfWork.ProductRepository.Get(productsDish.ProductId);
                         updatingProduct.Amount -= productsDish.ProductAmount;
+                        updatingProduct.Amount = (float)Math.Round(updatingProduct.Amount, 2);
                     }
                 }
 

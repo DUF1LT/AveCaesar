@@ -50,6 +50,15 @@
                        HorizontalAlignment="Center" VerticalAlignment="Center" 
                        FontSize="27"
                        Foreground="White"/>
+            <Border Grid.Column="3" 
+                    Style="{StaticResource WhiteButtons}">
+                <Image   Source="../Images/printer.png" Margin="7">
+                    <Image.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" 
+                                      Command="{Binding PrintBillCommand}"/>
+                    </Image.InputBindings>
+                </Image>
+            </Border>
             <Border Grid.Column="4" 
                     Style="{StaticResource WhiteButtons}">
                 <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7">
@@ -125,7 +134,7 @@
                        FontSize="19"  
                        HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.Column="4" Grid.ColumnSpan="4" 
+        <StackPanel Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="4" 
                     HorizontalAlignment="Left" VerticalAlignment="Top" 
                     Orientation="Horizontal">
             <Label  HorizontalAlignment="Left" VerticalAlignment="Top"  
@@ -135,7 +144,7 @@
                     FontSize="22"/>
         </StackPanel>
 
-        <Border Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="70,30,30,15" Height="60"
+        <Border Grid.Row="5" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0,30,0,15" Height="60"
                 BorderThickness="2" BorderBrush="{StaticResource MainGreenColor}" CornerRadius="4" VerticalAlignment="Center">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <TextBlock Text="{Binding CurrentOrder.Note}" 

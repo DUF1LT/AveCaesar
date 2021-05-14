@@ -11,7 +11,7 @@ namespace AveCaesarApp.ViewModels
 {
     public enum ItemOperationType
     {
-        Add, 
+        Add,
         Edit
     }
 
@@ -23,25 +23,25 @@ namespace AveCaesarApp.ViewModels
         private IList<Product> _productsList;
         private Product _itemToEdit;
 
-        private string _addOrEditButtonText;
         private string _addOrEditTabText;
         private string _productName;
         private int _productCalories;
         private float _productPrice;
         private float _productAmount;
+        private float _productAddingAmount;
         private WeightType _productWeightType;
         private PriceWeightType _priceWeightType;
 
 
         public ProductViewModel(NavigationStore navigationStore, ItemOperationType itemOperationType,
-            IList<Product> productsList, AuthenticationStore authenticationStore,UnitOfWorkFactory unitOfWorkFactory, Product itemToEdit = null)
+            IList<Product> productsList, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, Product itemToEdit = null)
         {
+            ItemOperationType = itemOperationType;
             _authenticationStore = authenticationStore;
             _unitOfWorkFactory = unitOfWorkFactory;
             _productsList = productsList;
             _itemToEdit = itemToEdit;
 
-            AddOrEditButtonText = itemOperationType == ItemOperationType.Add ? "Добавить" : "Подтвердить";
             AddOrEditTabText = itemOperationType == ItemOperationType.Add ? "Добавление" : "Редактирование";
             AddOrEditProductCommand = itemOperationType == ItemOperationType.Add
                 ? new AddProductCommand(this, _unitOfWorkFactory)
@@ -51,7 +51,7 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             WeightTypeViewModel = new EnumMenuViewModel<WeightType>();
-            WeightTypeViewModel.OnSelectionChanged += 
+            WeightTypeViewModel.OnSelectionChanged +=
                 () => ProductWeightType = WeightTypeViewModel.SelectedItem;
 
             PriceWeightTypeViewModel = new EnumMenuViewModel<PriceWeightType>();
@@ -71,7 +71,7 @@ namespace AveCaesarApp.ViewModels
             }
         }
 
-      
+
 
         public IList<Product> ProductsList
         {
@@ -101,6 +101,11 @@ namespace AveCaesarApp.ViewModels
             get => _productAmount;
             set => Set(ref _productAmount, value);
         }
+        public float ProductAddingAmount
+        {
+            get => _productAddingAmount;
+            set => Set(ref _productAddingAmount, value);
+        }
 
         public WeightType ProductWeightType
         {
@@ -111,11 +116,6 @@ namespace AveCaesarApp.ViewModels
         {
             get => _priceWeightType;
             set => Set(ref _priceWeightType, value);
-        }
-        public string AddOrEditButtonText
-        {
-            get => _addOrEditButtonText;
-            set => Set(ref _addOrEditButtonText, value);
         }
 
         public string AddOrEditTabText
@@ -128,13 +128,14 @@ namespace AveCaesarApp.ViewModels
             get => _itemToEdit;
             set => Set(ref _itemToEdit, value);
         }
-       
+
         public EnumMenuViewModel<WeightType> WeightTypeViewModel { get; }
         public EnumMenuViewModel<PriceWeightType> PriceWeightTypeViewModel { get; }
+        public ItemOperationType ItemOperationType { get; }
 
         public ICommand AddOrEditProductCommand { get; }
         public ICommand NavigateToProductsCommand { get; }
 
-       
+
     }
 }

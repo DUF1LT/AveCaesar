@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AveCaesarApp.Views"
+        xmlns:models="clr-namespace:AveCaesarApp.Models"
         xmlns:vm="clr-namespace:AveCaesarApp.ViewModels"
         mc:Ignorable="d"
         Height="450" Width="800" FontFamily="Source Serif Pro" FontSize="24" Background="#FF024300" >
@@ -41,7 +42,7 @@
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="AddOrEditButtonBorder" Background="White" CornerRadius="10" 
                                         BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
-                                    <TextBlock x:Name="AddOrEditButtonText" Text="{Binding AddOrEditButtonText}" 
+                                    <TextBlock x:Name="AddOrEditButtonText" Text="{Binding ItemOperationType, Converter={StaticResource AddOrEditConverter}}" 
                                                HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="{StaticResource MainGreenColor}"  />
                                 </Border>
                                 <ControlTemplate.Triggers>
@@ -84,16 +85,41 @@
                         </TextBox.Template>
                     </TextBox>
 
-                    <TextBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5" >
-                        <TextBox.Template>
-                            <ControlTemplate TargetType="TextBox">
-                                <Border BorderBrush="{StaticResource MainGreenColor}"
+                    <StackPanel Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="30,0,60,0">
+                        <TextBox Margin="0,5,0,5" HorizontalAlignment="Stretch" >
+                            <TextBox.Template>
+                                <ControlTemplate TargetType="TextBox">
+                                    <Border BorderBrush="{StaticResource MainGreenColor}"
                                             BorderThickness="2" CornerRadius="5"  Padding="2">
-                                    <TextBox Text="{Binding ProductAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" BorderThickness="0"/>
-                                </Border>
-                            </ControlTemplate>
-                        </TextBox.Template>
-                    </TextBox>
+                                        <TextBox x:Name="AmountTextBox" 
+                                                 Text="{Binding ProductAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" 
+                                                 BorderThickness="0"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ItemOperationType}" Value="{x:Static vm:ItemOperationType.Add}">
+                                            <Setter TargetName="AmountTextBox" Property="Width" Value="243"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ItemOperationType}" Value="{x:Static vm:ItemOperationType.Edit}">
+                                            <Setter TargetName="AmountTextBox" Property="Width" Value="100"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </TextBox.Template>
+                        </TextBox>
+                        <StackPanel x:Name="EditStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0,0,0">
+                            <Image Source="../Images/AddElementIconBrdrlss.png" Width="25"/>
+                            <TextBox Margin="10,5,0,5" HorizontalAlignment="Stretch" Width="98">
+                                <TextBox.Template>
+                                    <ControlTemplate TargetType="TextBox">
+                                        <Border BorderBrush="{StaticResource MainGreenColor}"
+                                            BorderThickness="2" CornerRadius="5"  Padding="2">
+                                            <TextBox Text="{Binding ProductAddingAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" BorderThickness="0"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </TextBox.Template>
+                            </TextBox>
+                        </StackPanel>
+                    </StackPanel>
 
                     <TextBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="3" Width="250" Margin="0,5,30,5" >
                         <TextBox.Template>

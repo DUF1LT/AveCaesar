@@ -26,9 +26,9 @@ namespace AveCaesarApp.Commands
             {
                 var itemToEdit = await unitOfWork.ProductRepository.Get(_productViewModel.ItemToEdit.Id);
                 itemToEdit.Name = _productViewModel.ProductName;
-                itemToEdit.Price = Convert.ToInt32(_productViewModel.ProductPrice);
-                itemToEdit.Amount= Convert.ToInt32(_productViewModel.ProductAmount);
-                itemToEdit.Calories = Convert.ToInt32(_productViewModel.ProductCalories);
+                itemToEdit.Price = _productViewModel.ProductPrice;
+                itemToEdit.Amount= _productViewModel.ProductAmount + _productViewModel.ProductAddingAmount;
+                itemToEdit.Calories = _productViewModel.ProductCalories;
                 itemToEdit.WeightType = _productViewModel.ProductWeightType;
                 await unitOfWork.SaveAsync();
             }

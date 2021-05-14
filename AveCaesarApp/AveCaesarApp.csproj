@@ -36,6 +36,7 @@
     <None Remove="Images\MainWindowBackground.png" />
     <None Remove="Images\MainWindowExit.png" />
     <None Remove="Images\OrdersIconButton.png" />
+    <None Remove="Images\printer.png" />
     <None Remove="Images\ProductsIconButton.png" />
     <None Remove="Images\redcross.png" />
     <None Remove="Images\SearchIcon.png" />
@@ -46,6 +47,7 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -93,6 +95,7 @@
     </Resource>
     <Resource Include="Images\MainWindowExit.png" />
     <Resource Include="Images\OrdersIconButton.png" />
+    <Resource Include="Images\printer.png" />
     <Resource Include="Images\ProductsIconButton.png" />
     <Resource Include="Images\SearchIcon.png" />
     <Resource Include="Images\user.png" />

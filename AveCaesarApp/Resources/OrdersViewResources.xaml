@@ -119,6 +119,7 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="IsSynchronizedWithCurrentItem" Value="False"/>
+        <Setter Property="IsEnabled" Value="False"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -180,6 +181,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ProfileType}" Value="{x:Static models:FullProfileType.Chef}">
+                <Setter Property="IsEnabled" Value="True"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ProfileType}" Value="{x:Static models:FullProfileType.Admin}">
+                <Setter Property="IsEnabled" Value="True"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- ComboBoxItem -->

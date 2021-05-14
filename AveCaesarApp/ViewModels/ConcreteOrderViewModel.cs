@@ -14,13 +14,13 @@ namespace AveCaesarApp.ViewModels
     class ConcreteOrderViewModel : ViewModel
     {
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
-        private readonly AuthenticationStore _authenticationStore;
+        public AuthenticationStore authenticationStore;
         private Order _currentOrder;
         private DishToAdd _selectedItem;
 
         public ConcreteOrderViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore ,Order currentOrder, UnitOfWorkFactory unitOfWorkFactory)
         {
-            _authenticationStore = authenticationStore;
+            this.authenticationStore = authenticationStore;
             _currentOrder = currentOrder;
             _unitOfWorkFactory = unitOfWorkFactory;
 
@@ -32,10 +32,13 @@ namespace AveCaesarApp.ViewModels
 
             DeleteSelectedDish = new RelayCommand(DeleteSelectedDishExecute, DeleteSelectedDishCanExecute);
 
+            PrintBillCommand = new PrintBillCommand(this);
+
             StatusViewModel = new EnumMenuViewModel<OrderStatus>();
             StatusViewModel.SelectedItem = CurrentOrder.Status;
             StatusViewModel.OnSelectionChanged += StatusViewModelOnOnSelectionChanged;
-           
+
+            ProfileType = this.authenticationStore.CurrentProfile.ProfileType;
 
         }
 
@@ -51,13 +54,15 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _selectedItem, value);
         }
 
+        public FullProfileType ProfileType { get; }
         public EnumMenuViewModel<OrderStatus> StatusViewModel { get; }
-
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToOrdersCommand { get; }
         public ICommand DeleteSelectedDish { get; }
+        public ICommand PrintBillCommand { get; }
 
-        private bool DeleteSelectedDishCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile)
+
+        private bool DeleteSelectedDishCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(authenticationStore.CurrentProfile)
             && MessageBox.Show("Вы действительно хотите удалить выбранное блюдо из заказа?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         
         private async void DeleteSelectedDishExecute(object obj)
@@ -66,6 +71,7 @@ namespace AveCaesarApp.ViewModels
             {
                 var order = unitOfWork.OrderRepository.Get(CurrentOrder.Id);
                 order.DishesOrders.Remove(order.DishesOrders.First(p => p.DishId == SelectedItem.Dish.Id));
+                order.TotalPrice = order.DishesOrders.Sum(p => p.DishAmount * p.Dish.Price);
                 CurrentOrder = order;
                 if (order.DishesOrders.Count == 0)
                 {
@@ -85,6 +91,8 @@ namespace AveCaesarApp.ViewModels
             {
                 var currentOrder = unitOfWork.OrderRepository.Get(CurrentOrder.Id);
                 CurrentOrder.Status = currentOrder.Status = StatusViewModel.SelectedItem;
+                if (authenticationStore.CurrentProfile.ProfileType == FullProfileType.Chef)
+                    CurrentOrder.ChefName = currentOrder.ChefName = authenticationStore.CurrentProfile.FullName;
                 unitOfWork.OrderRepository.Update(currentOrder);
                 await unitOfWork.SaveAsync();
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using AveCaesarApp.Commands;
 using AveCaesarApp.Models;
@@ -40,21 +41,36 @@ namespace AveCaesarApp.ViewModels
 
         }
 
-       
+
 
         public IList<DishToAdd> DishesList
         {
             get => _dishesList;
             set => Set(ref _dishesList, value);
         }
-        public ICommand NavigateToHomeCommand { get;  }
-        public ICommand NavigateToOrderCommand { get;}
+        public ICommand NavigateToHomeCommand { get; }
+        public ICommand NavigateToOrderCommand { get; }
         public ICommand AddDishesToOrderCommand { get; }
 
         public DishesFilterViewModel FilterViewModel { get; set; }
 
         private void AddDishesToOrderCommandExecute(object obj)
         {
+            foreach (var dishToAdd in DishesList)
+            {
+                var isNotEnoughProduct = false;
+
+                foreach (var product in dishToAdd.Dish.ProductsDishes)
+                {
+                    if (product.ProductAmount*dishToAdd.Amount > product.Product.Amount)
+                        isNotEnoughProduct = true;
+                }
+                if (isNotEnoughProduct)
+                {
+                    MessageBox.Show($"Не хватает продуктов, чтобы приготовить такое количество блюда. '{dishToAdd.Dish.Name}'\nВыберите меньшее количество блюда.", "Ошибка");
+                    return;
+                }
+            }
             _dishesToAdd = DishesList.Where(p => p.IsSelected).ToList();
             NavigateToOrderCommand.Execute(null);
         }

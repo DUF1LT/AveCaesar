@@ -37,6 +37,8 @@ namespace AveCaesarApp.Models
 
 
         public string WaiterName { get; set; }
+        public string ChefName { get; set; }
+
         public int TableNumber { get; set; }
         public DateTime AcceptedTime { get; set; }
         public DateTime PreparedTime { get; set; }
