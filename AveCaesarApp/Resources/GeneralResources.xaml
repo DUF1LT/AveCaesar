@@ -1,7 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:AveCaesarApp">
+                    xmlns:local="clr-namespace:AveCaesarApp"
+                    xmlns:conv="clr-namespace:AveCaesarApp.Converters">
 
+
+    <!--Converters-->
+    <conv:AddOrEditConverter x:Key="AddOrEditConverter"/>
     <!--Colors-->
 
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>

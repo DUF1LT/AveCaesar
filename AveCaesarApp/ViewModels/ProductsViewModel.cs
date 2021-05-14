@@ -40,11 +40,11 @@ namespace AveCaesarApp.ViewModels
                 new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToAddProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Add, _productsList, authenticationStore, unitOfWorkFactory),
+                () => new ProductViewModel(navigationStore, ItemOperationType.Add, _productsList, authenticationStore, unitOfWorkFactory),
                 (parameter) => AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile));
 
             NavigateToEditProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
-                () => new ProductViewModel(navigationStore, ProductOperationType.Edit, _productsList, authenticationStore, unitOfWorkFactory, _selectedItem),
+                () => new ProductViewModel(navigationStore, ItemOperationType.Edit, _productsList, authenticationStore, unitOfWorkFactory, _selectedItem),
                 (parameter) => parameter != null || AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile));
 
 

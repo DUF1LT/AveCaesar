@@ -29,7 +29,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition Width="1.9*"/>
+                <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.4*"/>
@@ -56,6 +57,16 @@
                                   CommandParameter="{Binding SelectedItem}"/>
                 </Image.InputBindings>
             </Image>
+            </Border>
+            <Border Grid.Column="5" 
+                    Style="{StaticResource WhiteButtons}">
+                <Image   Source="../Images/EditIconBrdrlss.png" Margin="7">
+                    <Image.InputBindings>
+                        <MouseBinding MouseAction="LeftClick" 
+                                      Command="{Binding NavigateToEditDishCommand}" 
+                                      CommandParameter="{Binding SelectedItem}"/>
+                    </Image.InputBindings>
+                </Image>
             </Border>
         </Grid>
 

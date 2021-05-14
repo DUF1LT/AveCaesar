@@ -18,14 +18,15 @@ namespace AveCaesarApp.ViewModels
         private IList<ProductToAdd> _defaultList;
 
 
-        public DishProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
+        public DishProductsViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory,ItemOperationType itemOperationType, Dish dishToEdit,
             string name, float price, int weight, string image, DishType dishType, DishWeightType dishWeightType ,IList<ProductToAdd> productsToAdd)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
             _productsToAdd = productsToAdd;
 
             NavigateToDishCommand = new NavigateCommand<DishViewModel>(navigationStore,
-                () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory, name, price, weight, image, dishType, dishWeightType, _productsToAdd));
+                () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory, itemOperationType, dishToEdit,
+                    name, price, weight, image, dishType, dishWeightType, _productsToAdd));
 
             NavigateToHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore,
                 () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));

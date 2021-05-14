@@ -12,7 +12,7 @@ using AveCaesarApp.ViewModels.Base;
 
 namespace AveCaesarApp.ViewModels
 {
-   
+
     class DishViewModel : ViewModel
     {
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
@@ -24,24 +24,62 @@ namespace AveCaesarApp.ViewModels
         private DishWeightType _dishWeightType;
         private IList<ProductToAdd> _productsToAdd;
 
-        public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, 
-            string name = null, float price = 0, int weight = 0 ,string image = "../Images/imageholder.png", DishType dishType = DishType.Rolls, DishWeightType dishWeightType = DishWeightType.G  , IList<ProductToAdd> productsToAdd = null)
+        public Dish dishToEdit;
+
+        public DishViewModel(NavigationStore navigationStore, AuthenticationStore authenticationStore, UnitOfWorkFactory unitOfWorkFactory, ItemOperationType itemOperationType, 
+            Dish dishToEdit = null, string name = null, float price = 0, int weight = 0 ,string image = "../Images/imageholder.png", DishType dishType = DishType.Rolls, 
+            DishWeightType dishWeightType = DishWeightType.G, IList<ProductToAdd> productsToAdd = null)
         {
             _unitOfWorkFactory = unitOfWorkFactory;
-
-
-            Name = name;
-            Price = price;
-            Weight = weight;
-            Image = image;
-            DishTypeViewModel = new EnumMenuViewModel<DishType>();
-            DishTypeViewModel.OnSelectionChanged += () => DishType = DishTypeViewModel.SelectedItem;
-            DishTypeViewModel.SelectedItem = DishType = dishType;
-            ProductsToAdd = productsToAdd;
+            this.dishToEdit = dishToEdit;
+            OperationType = itemOperationType;
 
             DishWeightTypeViewModel = new EnumMenuViewModel<DishWeightType>();
-            DishWeightTypeViewModel.OnSelectionChanged += () => DishWeightType = DishWeightTypeViewModel.SelectedItem;
-            DishWeightTypeViewModel.SelectedItem = DishWeightType = dishWeightType;
+            DishWeightTypeViewModel.OnSelectionChanged +=
+                () => DishWeightType = DishWeightTypeViewModel.SelectedItem;
+
+            DishTypeViewModel = new EnumMenuViewModel<DishType>();
+            DishTypeViewModel.OnSelectionChanged += 
+                () => DishType = DishTypeViewModel.SelectedItem;
+
+            if (itemOperationType == ItemOperationType.Add)
+            {
+                Name = name;
+                Price = price;
+                Weight = weight;
+                Image = image;
+                
+                DishTypeViewModel.SelectedItem = DishType = dishType;
+                DishWeightTypeViewModel.SelectedItem = DishWeightType = dishWeightType;
+                ProductsToAdd = productsToAdd;
+
+
+                AddOrEditDishCommand = new AddDishCommand(this, _unitOfWorkFactory);
+            }
+            if(itemOperationType == ItemOperationType.Edit && dishToEdit != null)
+            {
+                this.dishToEdit = dishToEdit;
+                Name = this.dishToEdit.Name;
+                Price = this.dishToEdit.Price;
+                Weight = this.dishToEdit.Weight;
+                Image = this.dishToEdit.Image;
+
+                DishTypeViewModel.SelectedItem = this.dishToEdit.DishType;
+                DishWeightTypeViewModel.SelectedItem = (DishWeightType)this.dishToEdit.WeightType;
+
+                var list = new List<ProductToAdd>();
+                foreach (var product in this.dishToEdit.ProductsDishes)
+                {
+                    list.Add(new ProductToAdd()
+                    {
+                        Product = product.Product,
+                        Amount = product.ProductAmount,
+                        IsSelected = true
+                    });
+                }
+                ProductsToAdd = list;
+                AddOrEditDishCommand = new EditDishCommand(this, _unitOfWorkFactory);
+            }
 
             NavigateToDishesCommand = new NavigateCommand<DishesViewModel>(navigationStore,
                 () => new DishesViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
@@ -50,9 +88,9 @@ namespace AveCaesarApp.ViewModels
                 () => new HomeViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
             NavigateToDishProductAddCommand = new NavigateCommand<DishProductsViewModel>(navigationStore,
-                () => new DishProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory, Name , Price, Weight , Image , DishType, DishWeightType, ProductsToAdd));
+                () => new DishProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory, itemOperationType, dishToEdit, Name , Price, Weight , Image , DishType, DishWeightType, ProductsToAdd));
 
-            AddDishCommand = new AddDishCommand(this, _unitOfWorkFactory);
+           
         }
 
         public string Name
@@ -71,7 +109,6 @@ namespace AveCaesarApp.ViewModels
             get => _weight;
             set => Set(ref _weight, value);
         }
-
         public string Image
         {
             get => _image;
@@ -94,15 +131,16 @@ namespace AveCaesarApp.ViewModels
             get => _dishWeightType;
             set => Set(ref _dishWeightType, value);
         }
-
+       
+        public ItemOperationType OperationType { get; }
         public EnumMenuViewModel<DishType> DishTypeViewModel { get; }
         public EnumMenuViewModel<DishWeightType> DishWeightTypeViewModel { get; }
 
         public ICommand NavigateToHomeCommand { get; }
         public ICommand NavigateToDishesCommand { get; }
         public ICommand NavigateToDishProductAddCommand { get; }
-        public ICommand AddDishCommand { get; }
+        public ICommand AddOrEditDishCommand { get; }
 
-       
+        
     }
 }

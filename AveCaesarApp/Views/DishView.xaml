@@ -51,7 +51,7 @@
             </Image>
         </Grid>
         <Button Grid.Column="1" Grid.Row="13" Grid.ColumnSpan="2" 
-                Command="{Binding AddDishCommand}" Cursor="Hand"
+                Command="{Binding AddOrEditDishCommand}" Cursor="Hand"
                 Margin="15,0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -59,7 +59,8 @@
                                         BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
                         <TextBlock x:Name="AddButtonText"  
                                    HorizontalAlignment="Center" FontSize="18"  VerticalAlignment="Center"  
-                                   Foreground="{StaticResource MainGreenColor}" Text="Добавить" 
+                                   Foreground="{StaticResource MainGreenColor}" 
+                                   Text="{Binding OperationType, Converter={StaticResource AddOrEditConverter}}" 
                                    Padding="2"/>
                     </Border>
                     <ControlTemplate.Triggers>

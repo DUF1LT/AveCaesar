@@ -9,17 +9,16 @@ using AveCaesarApp.ViewModels;
 
 namespace AveCaesarApp.Commands
 {
-    class AddDishCommand : Command
+    class EditDishCommand : Command
     {
         private readonly DishViewModel _dishViewModel;
         private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
-        public AddDishCommand(DishViewModel dishViewModel, UnitOfWorkFactory unitOfWorkFactory)
+        public EditDishCommand(DishViewModel dishViewModel, UnitOfWorkFactory unitOfWorkFactory)
         {
             _dishViewModel = dishViewModel;
             _unitOfWorkFactory = unitOfWorkFactory;
         }
-
         public override bool CanExecute(object parameter)
         {
             return !string.IsNullOrEmpty(_dishViewModel.Name) && !string.IsNullOrEmpty(_dishViewModel.Image) && _dishViewModel.Price != 0 && _dishViewModel.ProductsToAdd != null;
@@ -29,40 +28,28 @@ namespace AveCaesarApp.Commands
         {
             using(var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                Dish newDish = new Dish()
-                {
-                    Name = _dishViewModel.Name,
-                    DishType = _dishViewModel.DishType,
-                    Image = _dishViewModel.Image,
-                    Price = _dishViewModel.Price,
-                    Weight = _dishViewModel.Weight,
-                    WeightType = (WeightType)_dishViewModel.DishWeightType, 
-                    ProductsDishes = new List<ProductsDishes>(),
-                    DishesOrders = new List<DishesOrders>()
-                };
+                var dishToEdit = unitOfWork.DishRepository.Get(_dishViewModel.dishToEdit.Id);
+                dishToEdit.Name = _dishViewModel.Name;
+                dishToEdit.Price = _dishViewModel.Price;
+                dishToEdit.Image = _dishViewModel.Image;
+                dishToEdit.Weight = _dishViewModel.Weight;
+                dishToEdit.WeightType = (WeightType)_dishViewModel.DishWeightType;
+                dishToEdit.DishType = _dishViewModel.DishType;
+                dishToEdit.ProductsDishes.Clear();
                 foreach (var productToAdd in _dishViewModel.ProductsToAdd)
                 {
                     var newProductDishes = new ProductsDishes()
                     {
                         Product = await unitOfWork.ProductRepository.Get(productToAdd.Product.Id),
-                        Dish = newDish,
+                        Dish = dishToEdit,
                         ProductAmount = productToAdd.Amount
                     };
-                    newDish.ProductsDishes.Add(newProductDishes);
+                    dishToEdit.ProductsDishes.Add(newProductDishes);
                 }
-
-                unitOfWork.DishRepository.Create(newDish);
+                unitOfWork.DishRepository.Update(dishToEdit);
                 await unitOfWork.SaveAsync();
-
+                _dishViewModel.NavigateToDishesCommand.Execute(null);
             }
-
-            _dishViewModel.Name = string.Empty;
-            _dishViewModel.Image = "../Images/imageholder.png";
-            _dishViewModel.Price = 0;
-            _dishViewModel.Weight = 0;
-            _dishViewModel.ProductsToAdd = null;
-            _dishViewModel.DishTypeViewModel.SelectedItem = DishType.Rolls;
-            _dishViewModel.DishWeightTypeViewModel.SelectedItem = DishWeightType.G;
         }
     }
 }

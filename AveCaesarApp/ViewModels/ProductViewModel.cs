@@ -9,9 +9,10 @@ using AveCaesarApp.ViewModels.Base;
 
 namespace AveCaesarApp.ViewModels
 {
-    public enum ProductOperationType
+    public enum ItemOperationType
     {
-        Add, Edit
+        Add, 
+        Edit
     }
 
     public class ProductViewModel : ViewModel
@@ -24,7 +25,6 @@ namespace AveCaesarApp.ViewModels
 
         private string _addOrEditButtonText;
         private string _addOrEditTabText;
-        private ProductOperationType _productOperationType;
         private string _productName;
         private int _productCalories;
         private float _productPrice;
@@ -33,18 +33,17 @@ namespace AveCaesarApp.ViewModels
         private PriceWeightType _priceWeightType;
 
 
-        public ProductViewModel(NavigationStore navigationStore, ProductOperationType productOperationType,
+        public ProductViewModel(NavigationStore navigationStore, ItemOperationType itemOperationType,
             IList<Product> productsList, AuthenticationStore authenticationStore,UnitOfWorkFactory unitOfWorkFactory, Product itemToEdit = null)
         {
             _authenticationStore = authenticationStore;
             _unitOfWorkFactory = unitOfWorkFactory;
-            _productOperationType = productOperationType;
             _productsList = productsList;
             _itemToEdit = itemToEdit;
 
-            AddOrEditButtonText = _productOperationType == ProductOperationType.Add ? "Добавить" : "Подтвердить";
-            AddOrEditTabText = _productOperationType == ProductOperationType.Add ? "Добавление" : "Редактирование";
-            AddOrEditProductCommand = _productOperationType == ProductOperationType.Add
+            AddOrEditButtonText = itemOperationType == ItemOperationType.Add ? "Добавить" : "Подтвердить";
+            AddOrEditTabText = itemOperationType == ItemOperationType.Add ? "Добавление" : "Редактирование";
+            AddOrEditProductCommand = itemOperationType == ItemOperationType.Add
                 ? new AddProductCommand(this, _unitOfWorkFactory)
                 : new EditProductCommand(this, _unitOfWorkFactory);
 
@@ -61,7 +60,7 @@ namespace AveCaesarApp.ViewModels
 
             ProductWeightType = WeightType.Kg;
             PriceWeightType = PriceWeightType.Kg;
-            if (_productOperationType == ProductOperationType.Edit && _itemToEdit != null)
+            if (itemOperationType == ItemOperationType.Edit && _itemToEdit != null)
             {
                 ProductName = _itemToEdit.Name;
                 ProductAmount = _itemToEdit.Amount;

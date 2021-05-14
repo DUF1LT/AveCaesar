@@ -34,29 +34,6 @@ namespace AveCaesarApp.Models
 
     public class Dish : Item
     {
-        public Dish()
-        {
-            
-        }
-
-        public Dish(
-            int id,
-            string name,
-            string image,
-            int weight,
-            float price,
-            IList<Product> products,
-            WeightType weightType,
-            DishType dishType) : base(id)
-        {
-            Name = name;
-            Image = image;
-            Weight = weight;
-            Price = price;
-            WeightType = weightType;
-            DishType = dishType;
-        }
-
 
         public string Name { get; set; }
         public string Image { get; set; }

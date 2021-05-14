@@ -27,7 +27,10 @@ namespace AveCaesarApp.Repository
 
         public Dish Get(int id)
         {
-            return db.Dishes.Find(id);
+            return db.Dishes.Include(p => p.DishesOrders)
+                .ThenInclude(c => c.Order)
+                .Include(d => d.ProductsDishes)
+                .ThenInclude(t => t.Product).First(p => p.Id == id);
         }
 
         public void Create(Dish item)
