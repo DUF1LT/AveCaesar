@@ -35,5 +35,10 @@ namespace AveCaesarApp.Views
             else
                 scroll.LineUp();
         }
+
+        private void ItemsList_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            ItemsList.SelectedItem = null;
+        }
     }
 }

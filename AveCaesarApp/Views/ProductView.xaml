@@ -40,14 +40,20 @@
                     <Button Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Command="{Binding AddOrEditProductCommand}" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border x:Name="AddOrEditButtonBorder" Background="White" CornerRadius="10" 
-                                        BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
+                                <Border x:Name="AddOrEditButtonBorder" Background="{StaticResource DisabledBackgroundGreenColor}" CornerRadius="10" 
+                                        BorderBrush="{StaticResource MainGreenColor}" BorderThickness="0">
                                     <TextBlock x:Name="AddOrEditButtonText" Text="{Binding ItemOperationType, Converter={StaticResource AddOrEditConverter}}" 
-                                               HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="{StaticResource MainGreenColor}"  />
+                                               HorizontalAlignment="Center"  VerticalAlignment="Center"  
+                                               Foreground="{StaticResource DisabledForegroundGreenColor}"  />
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsEnabled" Value="True">
                                         <Setter TargetName="AddOrEditButtonBorder" Property="Background" Value="{StaticResource MainGreenColor}" />
+                                        <Setter TargetName="AddOrEditButtonBorder" Property="BorderThickness" Value="0" />
+                                        <Setter TargetName="AddOrEditButtonText" Property="Foreground" Value="White" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="AddOrEditButtonBorder" Property="Background" Value="{StaticResource HoverBackgroundGreenColor}" />
                                         <Setter TargetName="AddOrEditButtonBorder" Property="BorderThickness" Value="0" />
                                         <Setter TargetName="AddOrEditButtonText" Property="Foreground" Value="White" />
                                     </Trigger>
@@ -59,10 +65,17 @@
                     <Button x:Name="ExitButton" Grid.Column="4" Grid.Row="9" Grid.ColumnSpan="2" Command="{Binding NavigateToProductsCommand}" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="White" CornerRadius="10" 
+                                <Border x:Name="ExitButtonBorder" Background="White" CornerRadius="10" 
                                         BorderThickness="3" BorderBrush="{StaticResource MainGreenColor}">
-                                    <TextBlock Text="Назад" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="{StaticResource MainGreenColor}" />
+                                    <TextBlock x:Name="ExitButtonText"  Text="Назад" HorizontalAlignment="Center"  VerticalAlignment="Center"  Foreground="{StaticResource MainGreenColor}" />
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ExitButtonBorder" Property="Background" Value="{StaticResource HoverBackgroundGreenColor}" />
+                                        <Setter TargetName="ExitButtonBorder" Property="BorderThickness" Value="0" />
+                                        <Setter TargetName="ExitButtonText" Property="Foreground" Value="White" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
@@ -101,11 +114,13 @@
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding ItemOperationType}" Value="{x:Static vm:ItemOperationType.Edit}">
                                             <Setter TargetName="AmountTextBox" Property="Width" Value="100"/>
+                                            <Setter TargetName="AmountTextBox" Property="IsReadOnly" Value="True"/>
                                         </DataTrigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
+
                         <StackPanel x:Name="EditStackPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0,0,0">
                             <Image Source="../Images/AddElementIconBrdrlss.png" Width="25"/>
                             <TextBox Margin="10,5,0,5" HorizontalAlignment="Stretch" Width="98">
@@ -143,19 +158,18 @@
                                 </ControlTemplate>
                             </TextBox.Template>
                         </TextBox>
-                        <ListView Margin="20,0,0,0" Width="150"
+                        <ListView Margin="35,0,0,0" Width="135"
                               ItemsSource="{Binding PriceWeightTypeViewModel.Items}" SelectedItem="{Binding PriceWeightTypeViewModel.SelectedItem}" 
                               SelectionMode="Single" ItemContainerStyle="{StaticResource TinyWeightTypeEnumStyle}"
                               ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                               Padding="0,15" Style="{StaticResource TinyWeightTypeViewTemplate}" HorizontalContentAlignment="Stretch" >
                         </ListView>
                     </StackPanel>
-                    <ListView 
-                                Grid.Column="5" Grid.Row="1" Grid.RowSpan="7"  Grid.ColumnSpan="2"
-                                ItemsSource="{Binding WeightTypeViewModel.Items}" SelectedItem="{Binding WeightTypeViewModel.SelectedItem}" 
-                                SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
-                                ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                Padding="0,15" Style="{StaticResource EnumMenuListViewTemplate}" HorizontalContentAlignment="Stretch" >
+                    <ListView Grid.Column="5" Grid.Row="1" Grid.RowSpan="7"  Grid.ColumnSpan="2" Width="200" Margin="0,0,0,40"
+                              ItemsSource="{Binding WeightTypeViewModel.Items}" SelectedItem="{Binding WeightTypeViewModel.SelectedItem}" 
+                              SelectionMode="Single" ItemContainerStyle="{StaticResource MenuButtonStyle}"
+                              ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                              Padding="0,15" Style="{StaticResource EnumMenuListViewTemplate}" HorizontalContentAlignment="Stretch" >
                     </ListView>
                 </Grid>
             </TabItem>

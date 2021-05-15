@@ -70,8 +70,8 @@
         <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="7" Grid.RowSpan="6" 
                       VerticalScrollBarVisibility="Auto" >
             <ListView x:Name="ItemsList" 
-                      ItemsSource="{Binding Path=UsersList}"  SelectedItem="{Binding SelectedItem}"
-                      BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
+                      ItemsSource="{Binding Path=UsersList}"  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource UsersListViewTemplate}"/>

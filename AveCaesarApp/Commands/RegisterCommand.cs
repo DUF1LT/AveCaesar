@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using AveCaesarApp.Extensions;
 using AveCaesarApp.Models;
+using AveCaesarApp.Services;
 using AveCaesarApp.Stores;
 using AveCaesarApp.ViewModels;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace AveCaesarApp.Commands
 {
@@ -26,17 +30,22 @@ namespace AveCaesarApp.Commands
 
         public override bool CanExecute(object parameter)
         {
-            return (_userViewModel.Login != string.Empty
-                    && _userViewModel.Password != string.Empty
-                    && _userViewModel.FullName != string.Empty
-                    && _userViewModel.ConfirmPassword != string.Empty);
+            return !string.IsNullOrEmpty(_userViewModel.Login) 
+                   && !string.IsNullOrEmpty(_userViewModel.Password)
+                   && !string.IsNullOrEmpty(_userViewModel.FullName) 
+                   && !string.IsNullOrEmpty(_userViewModel.ConfirmPassword);
         }
 
         public override async void Execute(object parameter)
         {
-            await _authenticationStore.Register(_userViewModel.Login, _userViewModel.Password, _userViewModel.ConfirmPassword,
+          RegistrationResult result = await _authenticationStore.Register(_userViewModel.Login, _userViewModel.Password, _userViewModel.ConfirmPassword,
                 _userViewModel.FullName, (FullProfileType)_userViewModel.ProfileType);
+          if(result == RegistrationResult.Success)
             _navigateToUsers.Execute(null);
+          else
+          {
+              MessageBox.Show($"{result.GetDisplayName()}", "Ошибка");
+          }
         }
     }
 }

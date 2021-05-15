@@ -48,7 +48,7 @@ namespace AveCaesarApp.Commands
                     builder.Append(count++ + ")");
                     builder.Append(" Блюдо: " + dish.Dish.Name + "\n");
                     builder.Append("    Количество: " + dish.DishAmount + "\n");
-                    builder.Append("    Цена: " + dish.Dish.Price*dish.DishAmount + " руб. " + $"({dish.Dish.Price} руб. / порцию)");
+                    builder.Append("    Цена: " + dish.Dish.Price*dish.DishAmount + " руб. " + $"({dish.Dish.Price} руб. / порция)");
                     doc.Add(new Paragraph(builder.ToString(), font));
                 }
                 doc.Add(new Paragraph(new string('-', Convert.ToInt32(doc.PageSize.Width/5))));

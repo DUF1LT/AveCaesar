@@ -50,7 +50,7 @@
 
                     <Label Content="#" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="25,0" Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="2" Grid.Row="0"   Content="Название"  Style="{StaticResource LabelStyle}"/>
-                    <Label Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Content="Калорийность" Style="{StaticResource LabelStyle}"/>
+                    <Label Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Content="Калорийность"  Margin="0,0,20,0" Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="2" Content="Цена"  Style="{StaticResource LabelStyle}"/>
                     <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во/Вес" Margin="15,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
 
@@ -58,7 +58,7 @@
                                   VerticalScrollBarVisibility="Auto" >
                         <ListView x:Name="ItemsList" 
                                   ItemsSource="{Binding Path=ProductsList}"  SelectedItem="{Binding SelectedItem}"
-                                  BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
+                                  BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                             <ListView.Resources>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template" Value="{StaticResource ProductsListViewTemplate}"/>
@@ -67,26 +67,23 @@
                         </ListView>
                     </ScrollViewer>
 
-                    <Border Grid.Row="2" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
-                        <Image Source="../Images/AddElementIconBrdrlss.png" >
-                            <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"/>
-                            </Image.InputBindings>
-                        </Image>
+                    <Border Grid.Row="2" Grid.Column="8" Style="{StaticResource ButtonsBorder}" HorizontalAlignment="Center">
+                        <Image Source="../Images/AddElementIconBrdrlss.png" />
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToAddProductCommand}"/>
+                        </Border.InputBindings>
                     </Border>
-                    <Border Grid.Row="3" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
-                        <Image Source="../Images/DeleteElementIconBrdrlss.png">
-                            <Image.InputBindings>
-                                <MouseBinding Command="{Binding DeleteSelectedProductCommand }"  MouseAction="LeftClick"/>
-                            </Image.InputBindings>
-                        </Image>
+                    <Border Grid.Row="3" Grid.Column="8" Style="{StaticResource ButtonsBorder}" HorizontalAlignment="Center" >
+                        <Image Source="../Images/DeleteElementIconBrdrlss.png"/>
+                        <Border.InputBindings>
+                            <MouseBinding Command="{Binding DeleteSelectedProductCommand }"  MouseAction="LeftClick"/>
+                        </Border.InputBindings>
                     </Border>
-                    <Border Grid.Row="4" Grid.Column="8" Style="{StaticResource ButtonsBorder}" >
-                        <Image Source="../Images/EditIconBrdrlss.png">
-                            <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}" CommandParameter="{Binding SelectedItem}"/>
-                            </Image.InputBindings>
-                        </Image>
+                    <Border Grid.Row="4" Grid.Column="8" Style="{StaticResource ButtonsBorder}" HorizontalAlignment="Center">
+                        <Image Source="../Images/EditIconBrdrlss.png"/>
+                        <Border.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToEditProductCommand}"/>
+                        </Border.InputBindings>
                     </Border>
 
                 </Grid>
@@ -99,13 +96,13 @@
         </Image>
         <StackPanel Grid.Row="0" Grid.Column="2"  Grid.ColumnSpan="3"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"  Margin="0,8,20,33" >
+            <Border Style="{StaticResource WhiteButtons}" CornerRadius="4" Margin="3" Cursor="Arrow" >
+                <Image  Source="../Images/SearchIcon.png" Margin="3" />
+            </Border>
             <Border BorderThickness="2" CornerRadius="10"  Padding="3" Background="White">
                 <TextBox Width="200" FontSize="20" BorderThickness="0" 
                          Text="{Binding SearchExpression, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-            <Border Style="{StaticResource WhiteButtons}" CornerRadius="4" Margin="3" Cursor="Arrow" >
-                <Image  Source="../Images/SearchIcon.png" Margin="3" />
             </Border>
         </StackPanel>
     </Grid>

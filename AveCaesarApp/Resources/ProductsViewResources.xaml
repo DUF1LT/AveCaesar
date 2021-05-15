@@ -3,14 +3,17 @@
                     xmlns:converters="clr-namespace:AveCaesarApp.Converters">
 
     <converters:EnumDisplayNameConverter x:Key="EnumConverter"/>
+
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
+    <SolidColorBrush x:Key="SelectedGreenColor" Color="#DBF7D2"/>
+
 
     <DataTemplate x:Key="UnselectedTabItemForeground">
-        <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
+        <TextBlock Foreground="White" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"/>
     </DataTemplate>
 
     <DataTemplate x:Key="SelectedTabItemForeground">
-        <TextBlock Foreground="Black" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"></TextBlock>
+        <TextBlock Foreground="Black" Text="{Binding}" FontFamily="Source Serif Pro" FontSize="20"/>
     </DataTemplate>
 
     <ControlTemplate x:Key="TabItemTemplate" TargetType="TabItem">
@@ -38,7 +41,7 @@
 
 
     <Style TargetType="TextBlock" x:Key="ProductsItemTextBlock">
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="FontSize" Value="16"/>
     </Style>
 
     <ControlTemplate x:Key="ProductsListViewTemplate" TargetType="ListViewItem" >
@@ -47,11 +50,11 @@
                 HorizontalAlignment="Stretch" Background="White" Cursor="Hand">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
-                    <ColumnDefinition Width="1.4*"/>
-                    <ColumnDefinition Width="1.6*"/>
-                    <ColumnDefinition Width="0.9*"/>
-                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Id}"  Style="{StaticResource ProductsItemTextBlock}"/>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
@@ -76,11 +79,11 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="3.5"/>
-                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="3"/>
+                <Setter TargetName="ListViewBorder" Property="Background" Value="{StaticResource SelectedGreenColor}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+                <Setter TargetName="ListViewBorder" Property="Background" Value="{StaticResource SelectedGreenColor}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -98,7 +101,7 @@
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="BorderBrush" Value="{DynamicResource MainGreenColor}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Padding" Value="7" />
         <Setter Property="CornerRadius" Value="7"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Cursor" Value="Hand"/>

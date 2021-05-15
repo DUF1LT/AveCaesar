@@ -46,14 +46,6 @@
                     BorderBrush="#FF024300" BorderThickness="0.9"  
                     Margin="60,10,60,10" 
                     CornerRadius="10">
-                <!--<TextBox x:Name="LoginTextBox"  
-                         ToolTip="Логин" BorderBrush="{x:Null}" 
-                         Margin="5,2,5,2"
-                         BorderThickness="0" 
-                         FontWeight="Regular" 
-                         FontFamily="Source Serif Pro" FontSize="17" 
-                         Padding="7" 
-                         Text="{Binding Login}"/>-->
                 <us:WatermarkTextBox x:Name="LoginTextBox"  
                                      ToolTip="Логин" BorderBrush="{x:Null}" 
                                      Margin="5,2,5,2"

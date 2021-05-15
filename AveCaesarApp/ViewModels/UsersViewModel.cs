@@ -52,9 +52,19 @@ namespace AveCaesarApp.ViewModels
             set => Set(ref _usersList, value);
         }
 
-        private bool DeleteSelectedUserCanExecute(object arg) => SelectedItem != null && MessageBox
-            .Show("Вы действительно хотите удалить пользователя?", "Предупреждение",
-            MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        private bool DeleteSelectedUserCanExecute(object arg)
+        {
+            if (SelectedItem == null)
+            {
+                MessageBox.Show("Ни один пользователь не выбран", "Ошибка");
+                return false;
+            }
+
+            return SelectedItem != null &&
+                   MessageBox.Show("Вы действительно хотите удалить пользователя?", "Предупреждение",
+                       MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
+
         private async void DeleteSelectedUserExecute(object obj)
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())

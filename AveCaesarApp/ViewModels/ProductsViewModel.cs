@@ -45,7 +45,16 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToEditProductCommand = new NavigateCommand<ProductViewModel>(navigationStore,
                 () => new ProductViewModel(navigationStore, ItemOperationType.Edit, _productsList, authenticationStore, unitOfWorkFactory, _selectedItem),
-                (parameter) => parameter != null || AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile));
+                (parameter) =>
+                {
+                    if (SelectedItem == null)
+                    {
+                        MessageBox.Show("Ни один продукт не выбран", "Ошибка");
+                        return false;
+                    }
+                    return SelectedItem != null &&
+                           AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile);
+                });
 
 
             LoadProducts();
@@ -89,8 +98,13 @@ namespace AveCaesarApp.ViewModels
 
         private bool DeleteSelectedProductCanExecute(object arg)
         {
-           return SelectedItem != null && AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile)
-            && MessageBox.Show("Вы точно хотите удалить продукт?\nЭто повлечет за собой каскадное удаление блюд и заказов, от этого продукта!", "Предупреждение", MessageBoxButton.YesNo) ==
+            if (SelectedItem == null)
+            {
+                MessageBox.Show("Ни один продукт не выбран", "Ошибка");
+                return false;
+            }
+            return SelectedItem != null && AccessService.CanProfileAccessProduct(_authenticationStore.CurrentProfile)
+            && MessageBox.Show("Вы точно хотите удалить продукт?\nЭто повлечет за собой удаление блюд и заказов, содержащих этот продукт", "Предупреждение", MessageBoxButton.YesNo) ==
             MessageBoxResult.Yes;
             
         }

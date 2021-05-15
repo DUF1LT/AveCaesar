@@ -9,7 +9,10 @@
     <!--Colors-->
 
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
-
+    <SolidColorBrush x:Key="SelectedGreenColor" Color="#DBF7D2"/>
+    <SolidColorBrush x:Key="DisabledBackgroundGreenColor" Color="#285826"/>
+    <SolidColorBrush x:Key="DisabledForegroundGreenColor" Color="#568D3B"/>
+    <SolidColorBrush x:Key="HoverBackgroundGreenColor" Color="#0E570B"/>
     <!--Images-->
 
 

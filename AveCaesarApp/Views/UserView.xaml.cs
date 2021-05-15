@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,17 @@ namespace AveCaesarApp.Views
         public UserView()
         {
             InitializeComponent();
+        }
+
+        private void SymbolValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !char.IsLetter(e.Text[0]) || ((TextBox)sender).Text.Length > 40;
+        }
+
+        private void LatinLettersValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^[A-z0-9]+$");
+            e.Handled = !regex.IsMatch(((TextBox) sender).Text + e.Text);
         }
     }
 }

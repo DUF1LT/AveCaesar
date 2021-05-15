@@ -18,11 +18,11 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="5"/>
-                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+                <Setter TargetName="ListViewBorder" Property="BorderThickness" Value="3"/>
+                <Setter TargetName="ListViewBorder" Property="Background" Value="{StaticResource SelectedGreenColor}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="ListViewBorder" Property="Background" Value="#dbf7d2"/>
+                <Setter TargetName="ListViewBorder" Property="Background" Value="{StaticResource SelectedGreenColor}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

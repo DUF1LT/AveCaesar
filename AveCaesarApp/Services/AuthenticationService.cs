@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,8 +14,11 @@ namespace AveCaesarApp.Services
 {
     public enum RegistrationResult
     {
+        [Display(Name = "Успешно")]
         Success,
+        [Display(Name = "Пароли не совпадают")]
         PasswordDoNotMatch,
+        [Display(Name = "Логин уже существует")]
         LoginAlreadyExists
     }
 
