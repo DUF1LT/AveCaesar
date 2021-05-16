@@ -62,9 +62,18 @@ namespace AveCaesarApp.ViewModels
         public ICommand PrintBillCommand { get; }
 
 
-        private bool DeleteSelectedDishCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(authenticationStore.CurrentProfile)
-            && MessageBox.Show("Вы действительно хотите удалить выбранное блюдо из заказа?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
-        
+        private bool DeleteSelectedDishCanExecute(object arg)
+        {
+            if(SelectedItem == null)
+            {
+                MessageBox.Show("Ни одно блюдо в заказе не выбрано", "Ошибка");
+                return false;
+            }
+            return SelectedItem != null && AccessService.CanProfileAccessOrder(authenticationStore.CurrentProfile)
+                                        && MessageBox.Show("Вы действительно хотите удалить выбранное блюдо из заказа?",
+                                            "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
+
         private async void DeleteSelectedDishExecute(object obj)
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())

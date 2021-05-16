@@ -62,8 +62,18 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToSelectedOrderCommand { get; }
         public ICommand DeleteSelectedItem { get; }
 
-        private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile) 
-            && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        private bool DeleteSelectedItemCanExecute(object arg)
+        {
+            if(SelectedItem == null)
+            {
+                MessageBox.Show("Ни один заказ не выбран", "Ошибка");
+                return false;
+            }    
+            return SelectedItem != null && AccessService.CanProfileAccessOrder(_authenticationStore.CurrentProfile)
+                                        && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение",
+                                            MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
+
         private async void DeleteSelectedItemExecute(object obj)
         {
             using(var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())

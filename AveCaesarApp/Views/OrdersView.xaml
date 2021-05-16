@@ -47,20 +47,19 @@
             </Image>
             <Border Grid.Column="3" 
                     Style="{StaticResource WhiteButtons}">
+                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="8" />
                 <Border.InputBindings>
                     <MouseBinding MouseAction="LeftClick" Command="{Binding NavigateToOrderCommand}"/>
                 </Border.InputBindings>
-                <Image  Source="../Images/AddElementIconBrdrlss.png" Margin="8" />
             </Border>
             <Border Grid.Column="4" 
                     Style="{StaticResource WhiteButtons}">
-                <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7">
-                    <Image.InputBindings>
-                        <MouseBinding MouseAction="LeftClick" 
-                                      Command="{Binding DeleteSelectedItem}" 
-                                      CommandParameter="{Binding SelectedItem}"/>
-                    </Image.InputBindings>
-                </Image>
+                <Image   Source="../Images/DeleteElementIconBrdrlss.png" Margin="7"/>
+                <Border.InputBindings>
+                    <MouseBinding MouseAction="LeftClick" 
+                                  Command="{Binding DeleteSelectedItem}" 
+                                  CommandParameter="{Binding SelectedItem}"/>
+                </Border.InputBindings>
             </Border>
         </Grid>
 
@@ -75,7 +74,7 @@
                       Margin="70,0" >
             <ListView x:Name="ItemsList" 
                       ItemsSource="{Binding Path=OrdersList, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedItem}"
-                      BorderThickness="0" HorizontalContentAlignment="Stretch"  PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
+                      BorderThickness="0" HorizontalContentAlignment="Stretch"  PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource OrdersListViewTemplate}"/>

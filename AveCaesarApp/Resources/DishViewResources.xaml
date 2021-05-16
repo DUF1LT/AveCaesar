@@ -88,7 +88,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Text="{Binding StringFormat= {}#{0}, Path= Id}"  />
                 <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Width="120" ClipToBounds="True" VerticalAlignment="Center" HorizontalAlignment="Left" Source="{Binding Image}" Margin="0,0,5,0" />
-                <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name}"  />
+                <TextBlock Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="SemiBold" FontSize="16"  Text="{Binding Path= Name, Converter={StaticResource NameLengthConverter}}"  />
                 <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontStyle="Italic" >
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} {1}.">
@@ -103,10 +103,10 @@
                 <TextBlock Grid.Row="0" Grid.Column="3"  Grid.ColumnSpan="2"
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Text="Состав:" FontWeight="SemiBold" FontSize="15"/>
-                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
-                    <TextBlock
-                           VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
-                           Text="{Binding ProductsDishes, Converter={StaticResource ProductsDishesConverter}}" FontSize="13"/>
+                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Center" 
+                               TextWrapping="Wrap"
+                               Text="{Binding ProductsDishes, Converter={StaticResource ProductsDishesConverter}}" FontSize="13"/>
                 </ScrollViewer>
             </Grid>
         </Border>

@@ -10,6 +10,10 @@
     <conv:OrderStatusConverter x:Key="OrderStatusConverter"/>
     <conv:OrderPreparedTimeConverter x:Key="PreparedTimeConverter"/>
 
+    <SolidColorBrush x:Key="DisabledBackgroundGreenColor" Color="#285826"/>
+    <SolidColorBrush x:Key="DisabledForegroundGreenColor" Color="#568D3B"/>
+    <SolidColorBrush x:Key="HoverBackgroundGreenColor" Color="#0E570B"/>
+
     <ControlTemplate x:Key="OrdersListViewTemplate" TargetType="ListViewItem">
         <Border x:Name="ListViewBorder" CornerRadius="10" BorderBrush="#FF024300" BorderThickness="2" 
                 Padding="10" Margin="0,0,0,10" 

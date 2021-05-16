@@ -25,12 +25,18 @@ namespace AveCaesarApp.Views
         {
             InitializeComponent();
         }
-
-
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+        private void TextLengthValidation(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^[a-zA-Z .а-яА-я]{0,30}$");
+            e.Handled = !regex.IsMatch(((TextBox)sender).Text + e.Text);
+        }
+
+
+
     }
 }

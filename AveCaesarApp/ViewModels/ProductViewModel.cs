@@ -50,13 +50,24 @@ namespace AveCaesarApp.ViewModels
             NavigateToProductsCommand =
                 new NavigateCommand<ProductsViewModel>(navigationStore, () => new ProductsViewModel(navigationStore, authenticationStore, unitOfWorkFactory));
 
-            WeightTypeViewModel = new EnumMenuViewModel<WeightType>();
-            WeightTypeViewModel.OnSelectionChanged +=
-                () => ProductWeightType = WeightTypeViewModel.SelectedItem;
-
             PriceWeightTypeViewModel = new EnumMenuViewModel<PriceWeightType>();
             PriceWeightTypeViewModel.OnSelectionChanged +=
                 () => PriceWeightType = PriceWeightTypeViewModel.SelectedItem;
+
+            WeightTypeViewModel = new EnumMenuViewModel<WeightType>();
+            WeightTypeViewModel.OnSelectionChanged +=
+                () =>
+                {
+                    ProductWeightType = WeightTypeViewModel.SelectedItem;
+                    if (WeightTypeViewModel.SelectedItem == WeightType.Kg ||
+                        WeightTypeViewModel.SelectedItem == WeightType.G)
+                        PriceWeightTypeViewModel.SelectedItem = PriceWeightType.Kg;
+                    if (WeightTypeViewModel.SelectedItem == WeightType.L ||
+                        WeightTypeViewModel.SelectedItem == WeightType.Ml)
+                        PriceWeightTypeViewModel.SelectedItem = PriceWeightType.L;
+                };
+
+           
 
             ProductWeightType = WeightType.Kg;
             PriceWeightType = PriceWeightType.Kg;

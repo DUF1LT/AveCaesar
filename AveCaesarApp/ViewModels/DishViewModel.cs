@@ -77,7 +77,10 @@ namespace AveCaesarApp.ViewModels
                         IsSelected = true
                     });
                 }
-                ProductsToAdd = list;
+                if (productsToAdd == null)
+                    ProductsToAdd = list;
+                else
+                    ProductsToAdd = productsToAdd;
                 AddOrEditDishCommand = new EditDishCommand(this, _unitOfWorkFactory);
             }
 

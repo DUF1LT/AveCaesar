@@ -55,17 +55,22 @@
                 Margin="15,0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="AddButtonBorder" Background="White" CornerRadius="10" 
-                                        BorderBrush="{StaticResource MainGreenColor}" BorderThickness="3">
+                    <Border x:Name="AddButtonBorder" Background="{StaticResource DisabledBackgroundGreenColor}" CornerRadius="10" 
+                                        BorderBrush="{StaticResource MainGreenColor}" BorderThickness="0">
                         <TextBlock x:Name="AddButtonText"  
                                    HorizontalAlignment="Center" FontSize="18"  VerticalAlignment="Center"  
-                                   Foreground="{StaticResource MainGreenColor}" 
+                                   Foreground="{StaticResource DisabledForegroundGreenColor}" 
                                    Text="{Binding OperationType, Converter={StaticResource AddOrEditConverter}}" 
                                    Padding="2"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="True">
                             <Setter TargetName="AddButtonBorder" Property="Background" Value="{StaticResource MainGreenColor}" />
+                            <Setter TargetName="AddButtonBorder" Property="BorderThickness" Value="0" />
+                            <Setter TargetName="AddButtonText" Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="AddButtonBorder" Property="Background" Value="{StaticResource HoverBackgroundGreenColor}" />
                             <Setter TargetName="AddButtonBorder" Property="BorderThickness" Value="0" />
                             <Setter TargetName="AddButtonText" Property="Foreground" Value="White" />
                         </Trigger>
@@ -79,13 +84,21 @@
                 Margin="15,0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="White" CornerRadius="10" 
-                                        BorderThickness="3" BorderBrush="{StaticResource MainGreenColor}">
-                        <TextBlock Text="Назад" FontSize="18" 
+                    <Border x:Name="ExitButtonBorder" Background="White" CornerRadius="10" 
+                            BorderThickness="3" BorderBrush="{StaticResource MainGreenColor}">
+                        <TextBlock x:Name="ExitButtonText"  Text="Назад" FontSize="18" 
                                    HorizontalAlignment="Center" VerticalAlignment="Center"  
                                    Foreground="{StaticResource MainGreenColor}" />
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ExitButtonBorder" Property="Background" Value="{StaticResource HoverBackgroundGreenColor}" />
+                            <Setter TargetName="ExitButtonBorder" Property="BorderThickness" Value="0" />
+                            <Setter TargetName="ExitButtonText" Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
+                
             </Button.Template>
         </Button>
 
@@ -102,7 +115,7 @@
             <TextBox.Template>
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="{StaticResource MainGreenColor}" BorderThickness="2" CornerRadius="5" Padding="2">
-                        <TextBox Text="{Binding Path=Name, Mode=TwoWay}" BorderThickness="0"/>
+                        <TextBox Text="{Binding Path=Name, Mode=TwoWay}" BorderThickness="0" PreviewTextInput="TextLengthValidation"/>
                     </Border>
                 </ControlTemplate>
             </TextBox.Template>
@@ -160,7 +173,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <TextBlock 
                        FontSize="13"
-                       Text="{Binding ProductsToAdd, Converter={StaticResource ProductsListConverter}}" TextWrapping="Wrap"/>
+                       Text="{Binding ProductsToAdd, Converter={StaticResource ProductsListConverter}, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
             </ScrollViewer>
         </Border>
 

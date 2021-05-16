@@ -6,6 +6,7 @@
 
     <!--Converters-->
     <conv:AddOrEditConverter x:Key="AddOrEditConverter"/>
+    
     <!--Colors-->
 
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
@@ -61,7 +62,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
     </Style>
 

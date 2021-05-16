@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converters="clr-namespace:AveCaesarApp.Converters">
+                    xmlns:converters="clr-namespace:AveCaesarApp.Converters"
+                    xmlns:models="clr-namespace:AveCaesarApp.Models">
 
     <converters:EnumDisplayNameConverter x:Key="EnumConverter"/>
+    <converters:ItemNameLengthConverter x:Key="NameLengthConverter"/>
 
     <SolidColorBrush x:Key="MainGreenColor" Color="#FF024300"/>
     <SolidColorBrush x:Key="SelectedGreenColor" Color="#DBF7D2"/>
@@ -57,7 +59,7 @@
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Id}"  Style="{StaticResource ProductsItemTextBlock}"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name}"  Style="{StaticResource ProductsItemTextBlock}"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Name, Converter={StaticResource NameLengthConverter}}"  Style="{StaticResource ProductsItemTextBlock}"/>
                 <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding  StringFormat={}{0} ккал, Path= Calories}"  Style="{StaticResource ProductsItemTextBlock}"/>
                 <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource ProductsItemTextBlock}">
                     <TextBlock.Text>
@@ -112,9 +114,60 @@
         </Style.Triggers>
     </Style>
 
-   
 
-    
+    <Style TargetType="{x:Type ListView}" x:Key="PriceWeightTypeViewTemplate">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border Margin="-5,0,55,0" Background="#FF024300" CornerRadius="8" Padding="0,5">
+                            <ItemsPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="{x:Type ListViewItem}" x:Key="PriceWeightTypeEnumStyle">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate x:Name="PriceWeightType" TargetType="ListViewItem">
+                        <Border Background="Transparent" Width="85" BorderThickness="0"
+                                Name="Border"
+                                VerticalAlignment="Stretch" 
+                                HorizontalAlignment="Center"
+                                Cursor="Hand">
+                            <TextBlock Text="{TemplateBinding Property=Content, Converter={StaticResource EnumConverter}}"
+                                       Name="TextBlock" VerticalAlignment="Stretch" HorizontalAlignment="Center"
+                                       Width="{TemplateBinding Property=Width}" FontFamily="{TemplateBinding Property=FontFamily}" 
+                                       FontSize="14" Padding="0,0" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TextBlock" Property="Foreground" Value="#FF024300"/>
+                                <Setter TargetName="Border" Property="Background" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=WeightTypeListView, Path=SelectedItem}" Value="{x:Static models:WeightType.Unit}">
+                <Setter Property="IsHitTestVisible" Value="True"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
 
 </ResourceDictionary>
     

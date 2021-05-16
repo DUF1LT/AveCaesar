@@ -9,7 +9,7 @@
     <Grid>
         <Border BorderBrush="{StaticResource MainGreenColor}" CornerRadius="5" BorderThickness="2" Padding="5">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <RichTextBox x:Name="RichTextBox"  BorderThickness="0" TextChanged="RichTextBox_OnTextChanged">
+                <RichTextBox x:Name="RichTextBox"  BorderThickness="0" TextChanged="RichTextBox_OnTextChanged" FontSize="18">
                     <FlowDocument>
                         <Paragraph Margin="0"/>
                     </FlowDocument>

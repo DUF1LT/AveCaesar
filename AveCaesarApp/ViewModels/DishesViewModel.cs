@@ -40,7 +40,16 @@ namespace AveCaesarApp.ViewModels
 
             NavigateToEditDishCommand = new NavigateCommand<DishViewModel>(navigationStore,
                 () => new DishViewModel(navigationStore, authenticationStore, unitOfWorkFactory, ItemOperationType.Edit, SelectedItem),
-                (parameter) => SelectedItem !=null && AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile));
+                (parameter) =>
+                {
+                    if (SelectedItem == null)
+                    {
+                        MessageBox.Show("Ни одно блюдо не выбрано", "Ошибка");
+                        return false;
+                    }
+                    return SelectedItem != null &&
+                           AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile);
+                });
 
             FilterViewModel.OnSelectionChanged += FilterViewModelOnOnSelectionChanged;
 
@@ -77,8 +86,18 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToEditDishCommand { get; }
 
         public ICommand DeleteSelectedItem { get; }
-        private bool DeleteSelectedItemCanExecute(object arg) => SelectedItem != null && AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile)
-            && MessageBox.Show("Вы действительно хотите удалить заказ?", "Предупреждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        private bool DeleteSelectedItemCanExecute(object arg)
+        {
+            if (SelectedItem == null)
+            {
+                MessageBox.Show("Ни одно блюдо не выбрано", "Ошибка");
+                return false;
+            }
+
+            return SelectedItem != null && AccessService.CanProfileAccessDish(_authenticationStore.CurrentProfile)
+                                        && MessageBox.Show("Вы действительно хотите удалить блюдо?", "Предупреждение",
+                                            MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
 
         private async void DeleteSelectedItemExecute(object obj)
         {
