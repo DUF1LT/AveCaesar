@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
 using AveCaesarApp.ViewModels;
@@ -34,18 +35,28 @@ namespace AveCaesarApp.Commands
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                Product newProd = new Product()
+                var product = unitOfWork.ProductRepository.GetAll()
+                    .FirstOrDefault(p => p.Name == _productViewModel.ProductName);
+                if (product == null)
                 {
-                    Name = _productViewModel.ProductName,
-                    Calories = _productViewModel.ProductCalories,
-                    Price = _productViewModel.ProductPrice,
-                    Amount = _productViewModel.ProductAmount,
-                    WeightType = _productViewModel.ProductWeightType,
-                    PriceWeightType = (WeightType)_productViewModel.PriceWeightType
-                };
+                    Product newProd = new Product()
+                    {
+                        Name = _productViewModel.ProductName,
+                        Calories = _productViewModel.ProductCalories,
+                        Price = _productViewModel.ProductPrice,
+                        Amount = _productViewModel.ProductAmount,
+                        WeightType = _productViewModel.ProductWeightType,
+                        PriceWeightType = (WeightType) _productViewModel.PriceWeightType
+                    };
 
-                unitOfWork.ProductRepository.Create(newProd);
-                await unitOfWork.SaveAsync();
+                    unitOfWork.ProductRepository.Create(newProd);
+                    await unitOfWork.SaveAsync();
+                }
+                else
+                {
+                    MessageBox.Show($"Продукт с названием '{_productViewModel.ProductName}' уже существует", "Ошибка");
+                    return;
+                }
             }
 
             _productViewModel.ProductName = string.Empty;

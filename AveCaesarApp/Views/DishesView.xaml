@@ -85,7 +85,8 @@
             <ListView x:Name="ItemsList" ItemsSource="{Binding Path=DishesList}"
                       BorderThickness="0" HorizontalContentAlignment="Stretch" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}" SelectionMode="Single"
+                      PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template" Value="{StaticResource DishesListViewTemplate}"/>

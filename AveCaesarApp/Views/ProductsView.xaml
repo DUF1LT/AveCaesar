@@ -58,7 +58,8 @@
                                   VerticalScrollBarVisibility="Auto" >
                         <ListView x:Name="ItemsList" 
                                   ItemsSource="{Binding Path=ProductsList}"  SelectedItem="{Binding SelectedItem}"
-                                  BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
+                                  BorderThickness="0" HorizontalContentAlignment="Stretch" SelectionMode="Single"
+                                  PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                             <ListView.Resources>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Template" Value="{StaticResource ProductsListViewTemplate}"/>

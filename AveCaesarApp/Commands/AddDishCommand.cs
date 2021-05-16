@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using AveCaesarApp.Models;
 using AveCaesarApp.Repository;
 using AveCaesarApp.ViewModels;
@@ -29,30 +30,39 @@ namespace AveCaesarApp.Commands
         {
             using(var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                Dish newDish = new Dish()
+                var dish = unitOfWork.DishRepository.GetAll().FirstOrDefault(p => p.Name == _dishViewModel.Name);
+                if (dish == null)
                 {
-                    Name = _dishViewModel.Name,
-                    DishType = _dishViewModel.DishType,
-                    Image = _dishViewModel.Image,
-                    Price = _dishViewModel.Price,
-                    Weight = _dishViewModel.Weight,
-                    WeightType = (WeightType)_dishViewModel.DishWeightType, 
-                    ProductsDishes = new List<ProductsDishes>(),
-                    DishesOrders = new List<DishesOrders>()
-                };
-                foreach (var productToAdd in _dishViewModel.ProductsToAdd)
-                {
-                    var newProductDishes = new ProductsDishes()
+                    Dish newDish = new Dish()
                     {
-                        Product = await unitOfWork.ProductRepository.Get(productToAdd.Product.Id),
-                        Dish = newDish,
-                        ProductAmount = productToAdd.Amount
+                        Name = _dishViewModel.Name,
+                        DishType = _dishViewModel.DishType,
+                        Image = _dishViewModel.Image,
+                        Price = _dishViewModel.Price,
+                        Weight = _dishViewModel.Weight,
+                        WeightType = (WeightType) _dishViewModel.DishWeightType,
+                        ProductsDishes = new List<ProductsDishes>(),
+                        DishesOrders = new List<DishesOrders>()
                     };
-                    newDish.ProductsDishes.Add(newProductDishes);
-                }
+                    foreach (var productToAdd in _dishViewModel.ProductsToAdd)
+                    {
+                        var newProductDishes = new ProductsDishes()
+                        {
+                            Product = await unitOfWork.ProductRepository.Get(productToAdd.Product.Id),
+                            Dish = newDish,
+                            ProductAmount = productToAdd.Amount
+                        };
+                        newDish.ProductsDishes.Add(newProductDishes);
+                    }
 
-                unitOfWork.DishRepository.Create(newDish);
-                await unitOfWork.SaveAsync();
+                    unitOfWork.DishRepository.Create(newDish);
+                    await unitOfWork.SaveAsync();
+                }
+                else
+                {
+                    MessageBox.Show($"Блюдо с названием '{_dishViewModel.Name}' уже существует", "Ошибка");
+                    return;
+                }
 
             }
 

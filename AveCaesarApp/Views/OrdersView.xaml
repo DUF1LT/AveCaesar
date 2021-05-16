@@ -73,7 +73,8 @@
                       VerticalScrollBarVisibility="Auto"
                       Margin="70,0" >
             <ListView x:Name="ItemsList" 
-                      ItemsSource="{Binding Path=OrdersList, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedItem}"
+                      ItemsSource="{Binding Path=OrdersList, UpdateSourceTrigger=PropertyChanged}"  
+                      SelectedItem="{Binding SelectedItem}" SelectionMode="Single"
                       BorderThickness="0" HorizontalContentAlignment="Stretch"  PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
