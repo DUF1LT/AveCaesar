@@ -23,14 +23,18 @@ namespace AveCaesarApp.Commands
        
         public override void Execute(object parameter)
         {
+            string billsPath = AppDomain.CurrentDomain.BaseDirectory + "\\Bills";
             iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4.Rotate());
             string fileName = string.Concat("N", _orderViewModel.CurrentOrder.Id, "_",
                 _orderViewModel.CurrentOrder.AcceptedTime.ToShortDateString() + ".pdf");
             try
             {
+                if (!Directory.Exists(billsPath))
+                    Directory.CreateDirectory(billsPath);
+
                 string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIAL.TTF");
                 PdfWriter.GetInstance(doc,
-                    new FileStream(System.AppDomain.CurrentDomain.BaseDirectory + "\\Bills\\" + $"{fileName}", FileMode.Create));
+                    new FileStream(billsPath + $"\\{fileName}", FileMode.Create));
                 BaseFont bf = BaseFont.CreateFont(ttf, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 Font font = new Font(bf, 20, Font.NORMAL);
                 doc.Open();

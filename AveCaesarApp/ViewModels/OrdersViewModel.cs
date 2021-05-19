@@ -90,9 +90,9 @@ namespace AveCaesarApp.ViewModels
             using (var context = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 if(_authenticationStore.CurrentProfile.ProfileType == FullProfileType.Waiter || _authenticationStore.CurrentProfile.ProfileType == FullProfileType.Admin)
-                    OrdersList = context.OrderRepository.GetAll().Where(p => p.WaiterName == _authenticationStore.CurrentProfile.FullName).ToList();
+                    OrdersList = context.OrderRepository.GetAll().Where(p => p.WaiterName == _authenticationStore.CurrentProfile.FullName).OrderByDescending(p => p.Status).ThenBy(p => p.AcceptedTime).ToList();
                 else
-                    OrdersList = context.OrderRepository.GetAll().ToList();
+                    OrdersList = context.OrderRepository.GetAll().OrderBy(p => p.Status).ThenBy(p => p.AcceptedTime).ToList();
 
             }
         }
