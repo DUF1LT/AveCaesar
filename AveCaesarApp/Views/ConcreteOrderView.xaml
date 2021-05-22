@@ -127,7 +127,7 @@
                     Content="Итого:"
                     FontSize="22"/>
             <TextBlock Text="{Binding CurrentOrder.TotalPrice, StringFormat={}{0} руб.}" 
-                       Margin="5,18,0,0" 
+                       Margin="5,15,0,0" 
                        FontSize="19"  
                        HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>

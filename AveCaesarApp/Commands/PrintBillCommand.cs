@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Windows;
+using AveCaesarApp.Models;
 using AveCaesarApp.Services;
 using AveCaesarApp.ViewModels;
 using iTextSharp.text;
@@ -18,8 +19,16 @@ namespace AveCaesarApp.Commands
         {
             _orderViewModel = orderViewModel;
         }
-        public override bool CanExecute(object parameter) => AccessService.CanProfileAccessOrder(_orderViewModel.authenticationStore.CurrentProfile) 
-                                                             && MessageBox.Show("Хотите сформировать чек?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        public override bool CanExecute(object parameter)
+        {
+            if(_orderViewModel.StatusViewModel.SelectedItem != OrderStatus.Ready )
+            {
+                MessageBox.Show("Чек можно сформировать только если заказ готов", "Ошибка");
+                return false;
+            }
+            return AccessService.CanProfileAccessOrder(_orderViewModel.authenticationStore.CurrentProfile)
+                                                                && MessageBox.Show("Хотите сформировать чек?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        }
        
         public override void Execute(object parameter)
         {

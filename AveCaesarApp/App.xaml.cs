@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO.Enumeration;
+using System.Linq;
 using System.Windows;
 using AveCaesarApp.Context;
 using AveCaesarApp.Models;
@@ -30,15 +32,16 @@ namespace AveCaesarApp
             NavigationStore navigationStore = new NavigationStore();
             AuthenticationStore authenticationStore = new AuthenticationStore(new AuthenticationService(unitOfWorkFactory));
 
-            //using (var context = new AveCaesarContext())
-            //{
-            //    context.Database.EnsureDeleted();
-            //    context.Database.EnsureCreated();
+            using (var context = new AveCaesarContext())
+            {
+                //context.Database.EnsureDeleted();
+                //context.Database.EnsureCreated();
 
-            //    authenticationStore.Register("admin", "admin", "admin", "Наркевич Вадим Викторович", FullProfileType.Admin);
-
-            //    context.SaveChanges();
-            //}
+                if(context.Users.FirstOrDefault(p => p.Login == "admin") == null)
+                    authenticationStore.Register("admin", "admin", "admin", System.Security.Principal.WindowsIdentity.GetCurrent().Name, FullProfileType.Admin);
+                
+                context.SaveChanges();
+            }
 
             navigationStore.CurrentViewModel = new AuthorizationViewModel(navigationStore, authenticationStore, unitOfWorkFactory);
 

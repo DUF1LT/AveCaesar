@@ -15,7 +15,6 @@ namespace AveCaesarApp.Repository
         private OrderRepository _orderRepository;
         private UserRepository _userRepository;
 
-
         public UnitOfWork()
         {
             _dbContext = new AveCaesarContext();
@@ -64,7 +63,6 @@ namespace AveCaesarApp.Repository
         {
             await _dbContext.SaveChangesAsync();
         }
-
 
         public void Dispose()
         {

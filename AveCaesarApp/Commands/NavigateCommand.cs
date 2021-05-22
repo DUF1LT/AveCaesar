@@ -16,7 +16,6 @@ namespace AveCaesarApp.Commands
         protected readonly Func<TViewModel> CreatedViewModel;
         protected readonly Func<object, bool> CanNavigateExecute;
 
-
         public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createdViewModel, Func<object,bool> canExecute = null)
         {
             NavigationStore = navigationStore;

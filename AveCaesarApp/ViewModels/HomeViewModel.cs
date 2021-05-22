@@ -42,8 +42,6 @@ namespace AveCaesarApp.ViewModels
         public ICommand NavigateToDishesCommand { get; }
         public ICommand NavigateToOrdersCommand { get; }
         public ICommand NavigateToUsersCommand { get; }
-
-
         public AuthenticationStore AuthenticationStore => _authenticationStore;
     }
 }

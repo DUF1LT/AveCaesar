@@ -47,7 +47,7 @@ namespace AveCaesarApp.Commands
                     foreach (var productToAdd in _dishViewModel.ProductsToAdd)
                     {
                         var newProductDishes = new ProductsDishes()
-                        {
+                        { 
                             Product = await unitOfWork.ProductRepository.Get(productToAdd.Product.Id),
                             Dish = newDish,
                             ProductAmount = productToAdd.Amount
@@ -56,6 +56,9 @@ namespace AveCaesarApp.Commands
                     }
 
                     unitOfWork.DishRepository.Create(newDish);
+
+
+
                     await unitOfWork.SaveAsync();
                 }
                 else
