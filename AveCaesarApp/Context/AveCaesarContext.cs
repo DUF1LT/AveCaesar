@@ -1,14 +1,15 @@
-﻿using AveCaesarApp.Models;
+﻿using System.Configuration;
+using AveCaesarApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AveCaesarApp.Context
 {
     public class AveCaesarContext : DbContext
     {
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                @"Data Source=DESKTOP-M3AOJU2;Initial Catalog=Ave_CaesarDB;Integrated Security=True;");
+            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         }
 
         public DbSet<Product> Products { get; set; }
