@@ -114,7 +114,7 @@ namespace AveCaesarApp.ViewModels
         {
             using (var context = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                DishesList = DefaultList = context.DishRepository.GetAll().ToList();
+                DishesList = DefaultList = context.DishRepository.GetAll().OrderBy(p => p.Name).ToList();
             }
 
         }
@@ -128,7 +128,7 @@ namespace AveCaesarApp.ViewModels
             }
             else
             {
-                DishesList = DefaultList.Where(el => el.DishType == (DishType)FilterViewModel.SelectedItem).ToList();
+                DishesList = DefaultList.Where(el => el.DishType == (DishType)FilterViewModel.SelectedItem).OrderBy(p => p.Name).ToList();
             }
         }
     }

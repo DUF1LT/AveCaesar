@@ -8,6 +8,17 @@ using AveCaesarApp.Annotations;
 
 namespace AveCaesarApp.Models
 {
+    public enum FullOrderStatus
+    {
+        [Display(Name = "Принят")]
+        Accepted = 1,
+        [Display(Name = "Готовится")]
+        InProgress = 2,
+        [Display(Name = "Готов")]
+        Ready = 3,
+        [Display(Name = "Завершён")]
+        Finished = 4
+    }
     public enum OrderStatus
     {
         [Display(Name = "Принят")]
@@ -19,23 +30,7 @@ namespace AveCaesarApp.Models
     }
     public class Order : Item, INotifyPropertyChanged
     {
-        private OrderStatus _status;
-
-        public Order()
-        {
-
-        }
-        public Order(int id, int tableNumber, BindingList<Dish> dishes, DateTime acceptedTime, DateTime preparedTime, OrderStatus status, string note) : base(id)
-        {
-            TableNumber = tableNumber;
-            AcceptedTime = acceptedTime;
-            PreparedTime = preparedTime;
-            Status = status;
-            TotalPrice = dishes.Sum(el => el.Price);
-            Note = note;
-        }
-
-
+        private FullOrderStatus _status;
         public string WaiterName { get; set; }
         public string ChefName { get; set; }
 
@@ -43,18 +38,18 @@ namespace AveCaesarApp.Models
         public DateTime AcceptedTime { get; set; }
         public DateTime PreparedTime { get; set; }
 
-        public OrderStatus Status
+        public FullOrderStatus Status
         {
             get => _status;
             set
             {
-                if (value != OrderStatus.Ready && _status == OrderStatus.Ready)
+                if (value != FullOrderStatus.Ready && _status == FullOrderStatus.Ready)
                 {
                     PreparedTime = default;
                     OnPropertyChanged("PreparedTime");
                 }
 
-                if (value == OrderStatus.Ready)
+                if (value == FullOrderStatus.Ready)
                 {
                     PreparedTime = DateTime.Now;
                     OnPropertyChanged("PreparedTime");

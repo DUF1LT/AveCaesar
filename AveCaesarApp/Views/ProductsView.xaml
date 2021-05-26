@@ -55,10 +55,11 @@
                     <Label Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Content="Кол-во/Вес" Margin="15,0" HorizontalAlignment="Right" Style="{StaticResource LabelStyle}"/>
 
                     <ScrollViewer x:Name="VerticalScrollBar" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" Grid.RowSpan="6" 
-                                  VerticalScrollBarVisibility="Auto" >
+                                  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
                         <ListView x:Name="ItemsList" 
                                   ItemsSource="{Binding Path=ProductsList}"  SelectedItem="{Binding SelectedItem}"
                                   BorderThickness="0" HorizontalContentAlignment="Stretch" SelectionMode="Single"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                   PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                             <ListView.Resources>
                                 <Style TargetType="ListViewItem">

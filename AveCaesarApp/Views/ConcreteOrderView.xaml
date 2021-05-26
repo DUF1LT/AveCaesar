@@ -109,6 +109,7 @@
                       VerticalScrollBarVisibility="Auto">
             <ListView x:Name="ItemsList" ItemsSource="{Binding Path=CurrentOrder.DishesOrders, Converter={StaticResource DishesOrdersConverter}}"
                       BorderThickness="0" HorizontalContentAlignment="Stretch" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus" >
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">

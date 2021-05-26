@@ -65,6 +65,7 @@
                       VerticalScrollBarVisibility="Auto" >
             <ListView x:Name="ItemsList" ItemsSource="{Binding Path=DishesList}"
                       BorderThickness="0" HorizontalContentAlignment="Stretch" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">

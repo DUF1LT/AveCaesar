@@ -78,6 +78,7 @@
                       VerticalScrollBarVisibility="Auto" >
             <ListView x:Name="ItemsList" 
                       ItemsSource="{Binding Path=FilteredList}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       BorderThickness="0" HorizontalContentAlignment="Stretch" PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" 
                       SelectionMode="Single">
                 <ListView.Resources>

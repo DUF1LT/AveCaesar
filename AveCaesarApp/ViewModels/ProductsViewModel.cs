@@ -134,7 +134,7 @@ namespace AveCaesarApp.ViewModels
         {
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
-                ProductsList = DefaultList = unitOfWork.ProductRepository.GetAll().ToList();
+                ProductsList = DefaultList = unitOfWork.ProductRepository.GetAll().OrderBy(p => p.Name).ToList();
             }
         }
     }

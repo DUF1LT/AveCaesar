@@ -75,6 +75,7 @@
             <ListView x:Name="ItemsList" 
                       ItemsSource="{Binding Path=OrdersList, UpdateSourceTrigger=PropertyChanged}"  
                       SelectedItem="{Binding SelectedItem}" SelectionMode="Single"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       BorderThickness="0" HorizontalContentAlignment="Stretch"  PreviewMouseWheel="VerticalScrollBar_OnPreviewMouseWheel" LostFocus="ItemsList_OnLostFocus">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">

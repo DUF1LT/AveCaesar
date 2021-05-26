@@ -32,10 +32,10 @@ namespace AveCaesarApp.ViewModels
 
             DeleteSelectedDish = new RelayCommand(DeleteSelectedDishExecute, DeleteSelectedDishCanExecute);
 
-            PrintBillCommand = new PrintBillCommand(this);
+            PrintBillCommand = new PrintBillCommand(this, _unitOfWorkFactory);
 
             StatusViewModel = new EnumMenuViewModel<OrderStatus>();
-            StatusViewModel.SelectedItem = CurrentOrder.Status;
+            StatusViewModel.SelectedItem = (OrderStatus)CurrentOrder.Status;
             StatusViewModel.OnSelectionChanged += StatusViewModelOnOnSelectionChanged;
 
             ProfileType = this.authenticationStore.CurrentProfile.ProfileType;
@@ -99,7 +99,7 @@ namespace AveCaesarApp.ViewModels
             using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
             {
                 var currentOrder = unitOfWork.OrderRepository.Get(CurrentOrder.Id);
-                CurrentOrder.Status = currentOrder.Status = StatusViewModel.SelectedItem;
+                CurrentOrder.Status = currentOrder.Status = (FullOrderStatus)StatusViewModel.SelectedItem;
                 if (authenticationStore.CurrentProfile.ProfileType == FullProfileType.Chef)
                     CurrentOrder.ChefName = currentOrder.ChefName = authenticationStore.CurrentProfile.FullName;
                 unitOfWork.OrderRepository.Update(currentOrder);

@@ -29,26 +29,39 @@
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat= {}#{0}, Path= Id}"  FontSize="16"/>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat={}№{0} , Path=TableNumber}" FontSize="16" />
                 <Border x:Name="StatusBorder" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="6">
-                    <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" 
+                    <TextBlock x:Name="StatusText"  VerticalAlignment="Center" HorizontalAlignment="Center" 
                                 Text="{Binding Status, Converter={StaticResource EnumConverter}}" 
-                                Padding="30,7" FontSize="16"/>
+                                Padding="30,7" FontSize="16">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static models:FullOrderStatus.Finished}">
+                                        <Setter  Property="Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                     <Border.Style>
                         <Style TargetType="Border">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:OrderStatus.Accepted}">
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:FullOrderStatus.Accepted}">
                                     <Setter Property="Background" Value="#E74500"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:OrderStatus.InProgress}">
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:FullOrderStatus.InProgress}">
                                     <Setter Property="Background" Value="#EAE000"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:OrderStatus.Ready}">
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:FullOrderStatus.Ready}">
                                     <Setter Property="Background" Value="#00E23F"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="{x:Static models:FullOrderStatus.Finished}">
+                                    <Setter Property="Background" Value="{StaticResource MainGreenColor}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
                 </Border>
-                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat=dd.MM.yyyy hh:mm, Path = AcceptedTime}"  FontSize="16"/>
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat=dd.MM.yyyy HH:mm, Path = AcceptedTime}"  FontSize="16"/>
                 <TextBlock Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding StringFormat={}{0} руб, Path=TotalPrice}" FontSize="16"/>
             </Grid>
             <Border.InputBindings>
@@ -316,7 +329,7 @@
                 <TextBlock Grid.Row="0" Grid.Column="3"  Grid.ColumnSpan="2"
                            VerticalAlignment="Center" HorizontalAlignment="Left" 
                            Text="Состав:" FontWeight="SemiBold" FontSize="15"/>
-                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
+                <ScrollViewer Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left">
                     <TextBlock
                            VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"
                            Text="{Binding Dish.ProductsDishes, Converter={StaticResource ProductsDishesConverter}}" FontSize="13"/>

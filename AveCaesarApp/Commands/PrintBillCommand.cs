@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using AveCaesarApp.Models;
+using AveCaesarApp.Repository;
 using AveCaesarApp.Services;
 using AveCaesarApp.ViewModels;
 using iTextSharp.text;
@@ -14,10 +15,12 @@ namespace AveCaesarApp.Commands
     class PrintBillCommand : Command
     {
         private readonly ConcreteOrderViewModel _orderViewModel;
+        private readonly UnitOfWorkFactory _unitOfWorkFactory;
 
-        public PrintBillCommand(ConcreteOrderViewModel orderViewModel)
+        public PrintBillCommand(ConcreteOrderViewModel orderViewModel, UnitOfWorkFactory unitOfWorkFactory)
         {
             _orderViewModel = orderViewModel;
+            _unitOfWorkFactory = unitOfWorkFactory;
         }
         public override bool CanExecute(object parameter)
         {
@@ -30,8 +33,16 @@ namespace AveCaesarApp.Commands
                                                                 && MessageBox.Show("Хотите сформировать чек?", "Уведомление", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
         }
        
-        public override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
+            using (var unitOfWork = _unitOfWorkFactory.CreateUnitOfWork())
+            {
+                _orderViewModel.CurrentOrder.Status = FullOrderStatus.Finished;
+                var currentOrder = unitOfWork.OrderRepository.Get(_orderViewModel.CurrentOrder.Id);
+                currentOrder.Status = FullOrderStatus.Finished;
+                await unitOfWork.SaveAsync();
+            }
+
             string billsPath = AppDomain.CurrentDomain.BaseDirectory + "\\Bills";
             iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4.Rotate());
             string fileName = string.Concat("N", _orderViewModel.CurrentOrder.Id, "_",
@@ -76,6 +87,8 @@ namespace AveCaesarApp.Commands
             {
                 doc.Close();
             }
+
+            _orderViewModel.NavigateToOrdersCommand.Execute(null);
         }
     }
 }

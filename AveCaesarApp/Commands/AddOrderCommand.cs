@@ -32,7 +32,7 @@ namespace AveCaesarApp.Commands
                 {
                     AcceptedTime = DateTime.Now,
                     Note = _orderViewModel.Note,
-                    Status = OrderStatus.Accepted,
+                    Status = (FullOrderStatus)OrderStatus.Accepted,
                     TableNumber = _orderViewModel.TableNumber,
                     WaiterName = _orderViewModel.AuthenticationStore.CurrentProfile.FullName,
                     TotalPrice = _orderViewModel.TotalPrice,

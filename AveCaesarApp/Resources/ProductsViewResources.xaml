@@ -65,7 +65,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} руб/{1}">
                             <Binding Path="Price" />
-                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}"/>
+                            <Binding Path="PriceWeightType" Converter="{StaticResource EnumConverter}"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -73,7 +73,7 @@
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
                             <Binding Path="Amount" />
-                            <Binding Path="PriceWeightType" Converter="{StaticResource EnumConverter}" />
+                            <Binding Path="WeightType" Converter="{StaticResource EnumConverter}" />
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
